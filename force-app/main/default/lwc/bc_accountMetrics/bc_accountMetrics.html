@@ -1,30 +1,26 @@
 <template>
     <div class="container">
-        <div class="header">
-            <span class="title">Account Metrics for {accountName}</span>
-        </div>
+        <div class="title">Account Metrics for {accountName}</div>
 
         <div class="kpis-grid">
-            <!-- Donut: Open Opportunities -->
-            <div class="kpi-section donut-section">
+
+            <!-- Donut -->
+            <div class="donut-section">
                 <div class="donut-wrap">
-                    <svg class="donut" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#E5E5E5" stroke-width="10"/>
+                    <svg class="donut" viewBox="0 0 72 72">
+                        <circle class="donut-bg" cx="36" cy="36" r="30"/>
                         <template if:true={hasOpportunities}>
-                            <circle cx="50" cy="50" r="40" fill="none"
-                                stroke="#FFD100"
-                                stroke-width="10"
+                            <circle class="donut-arc" cx="36" cy="36" r="30"
                                 stroke-dasharray={donutDash}
-                                stroke-dashoffset="0"
-                                transform="rotate(-90 50 50)"/>
+                                stroke-dashoffset="0"/>
                         </template>
-                        <text x="50" y="55" text-anchor="middle" class="donut-label">{openOpportunities}</text>
                     </svg>
+                    <div class="donut-center">{openOpportunities}</div>
                 </div>
                 <div class="donut-legend">
-                    <div class="kpi-section-title">Open Opportunities by Stage ({openOpportunities})</div>
+                    <div class="donut-title">Open Opportunities by Stage ({openOpportunities})</div>
                     <a class="opp-link" href={opportunitiesUrl} target="_blank">
-                        <lightning-icon icon-name="utility:link" size="xx-small"></lightning-icon>
+                        <lightning-icon icon-name="utility:link" size="xx-small" variant="inverse"></lightning-icon>
                         View All Opportunities
                     </a>
                 </div>
@@ -32,14 +28,14 @@
 
             <!-- Revenue -->
             <div class="kpi-section">
-                <div class="kpi-section-title border-top">Revenue</div>
+                <div class="kpi-section-title">Revenue</div>
                 <div class="kpi-row">
                     <div class="kpi-stat">
                         <div class="kpi-value">{revenueLastQuarter}</div>
                         <div class="kpi-name">Last Quarter</div>
                     </div>
                     <div class="kpi-stat">
-                        <div class="kpi-value highlight">{revenueThisQuarter}</div>
+                        <div class="kpi-value accent">{revenueThisQuarter}</div>
                         <div class="kpi-name">This Quarter</div>
                     </div>
                 </div>
@@ -47,18 +43,19 @@
 
             <!-- Win Rate -->
             <div class="kpi-section">
-                <div class="kpi-section-title border-top">Opportunity Win Rate</div>
+                <div class="kpi-section-title">Opportunity Win Rate</div>
                 <div class="kpi-row">
                     <div class="kpi-stat">
                         <div class="kpi-value">{winRateLastQuarter}</div>
                         <div class="kpi-name">Last Quarter</div>
                     </div>
                     <div class="kpi-stat">
-                        <div class="kpi-value highlight">{winRateThisQuarter}</div>
+                        <div class="kpi-value accent">{winRateThisQuarter}</div>
                         <div class="kpi-name">This Quarter</div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </template>

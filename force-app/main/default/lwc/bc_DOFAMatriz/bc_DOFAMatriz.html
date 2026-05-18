@@ -1,0 +1,176 @@
+<template>
+    <div class="dofa-container">
+
+        <!-- Header -->
+        <div class="dofa-header">
+            <div class="dofa-header-left">
+                <span class="dofa-icon">
+                    <lightning-icon icon-name="standard:strategy" size="small" variant="inverse"></lightning-icon>
+                </span>
+                <span class="dofa-title">Matriz DOFA</span>
+            </div>
+            <div class="dofa-header-right">
+                <span class="dofa-subtitle">Análisis estratégico — {accountName}</span>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <template if:true={isLoading}>
+            <div class="dofa-loading">
+                <lightning-spinner alternative-text="Cargando..." size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template if:true={hasError}>
+            <div class="dofa-error">
+                <lightning-icon icon-name="utility:error" size="small"></lightning-icon>
+                <span>Error al cargar los datos. Intente recargar la página.</span>
+            </div>
+        </template>
+
+        <!-- DOFA Grid -->
+        <template if:false={isLoading}>
+            <div class="dofa-axis-labels">
+                <div class="axis-label-left">
+                    <span class="axis-badge internal">INTERNO</span>
+                </div>
+                <div class="axis-label-right">
+                    <span class="axis-badge external">EXTERNO</span>
+                </div>
+            </div>
+
+            <div class="dofa-grid">
+
+                <!-- D — Debilidades (interno, negativo) -->
+                <div class="dofa-quadrant q-d">
+                    <div class="quadrant-header">
+                        <span class="quadrant-letter">D</span>
+                        <div class="quadrant-title-wrap">
+                            <span class="quadrant-name">Debilidades</span>
+                            <span class="quadrant-tag negative">Interno · Negativo</span>
+                        </div>
+                        <lightning-icon icon-name="utility:trending_down" size="x-small" class="quadrant-icon"></lightning-icon>
+                    </div>
+                    <div class="quadrant-body">
+                        <template if:true={hasDebilidades}>
+                            <!-- eslint-disable-next-line @lwc/lwc/no-inner-html -->
+                            <div class="rich-content" lwc:ref="debilidades"></div>
+                        </template>
+                        <template if:false={hasDebilidades}>
+                            <p class="empty-msg">Sin información registrada</p>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- O — Oportunidades (externo, positivo) -->
+                <div class="dofa-quadrant q-o">
+                    <div class="quadrant-header">
+                        <span class="quadrant-letter">O</span>
+                        <div class="quadrant-title-wrap">
+                            <span class="quadrant-name">Oportunidades</span>
+                            <span class="quadrant-tag positive">Externo · Positivo</span>
+                        </div>
+                        <lightning-icon icon-name="utility:trending_up" size="x-small" class="quadrant-icon"></lightning-icon>
+                    </div>
+                    <div class="quadrant-body">
+                        <template if:true={hasOportunidades}>
+                            <div class="rich-content" lwc:ref="oportunidades"></div>
+                        </template>
+                        <template if:false={hasOportunidades}>
+                            <p class="empty-msg">Sin información registrada</p>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- F — Fortalezas (interno, positivo) -->
+                <div class="dofa-quadrant q-f">
+                    <div class="quadrant-header">
+                        <span class="quadrant-letter">F</span>
+                        <div class="quadrant-title-wrap">
+                            <span class="quadrant-name">Fortalezas</span>
+                            <span class="quadrant-tag positive">Interno · Positivo</span>
+                        </div>
+                        <lightning-icon icon-name="utility:like" size="x-small" class="quadrant-icon"></lightning-icon>
+                    </div>
+                    <div class="quadrant-body">
+                        <template if:true={hasFortalezas}>
+                            <div class="rich-content" lwc:ref="fortalezas"></div>
+                        </template>
+                        <template if:false={hasFortalezas}>
+                            <p class="empty-msg">Sin información registrada</p>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- A — Amenazas (externo, negativo) -->
+                <div class="dofa-quadrant q-a">
+                    <div class="quadrant-header">
+                        <span class="quadrant-letter">A</span>
+                        <div class="quadrant-title-wrap">
+                            <span class="quadrant-name">Amenazas</span>
+                            <span class="quadrant-tag negative">Externo · Negativo</span>
+                        </div>
+                        <lightning-icon icon-name="utility:warning" size="x-small" class="quadrant-icon"></lightning-icon>
+                    </div>
+                    <div class="quadrant-body">
+                        <template if:true={hasAmenazas}>
+                            <div class="rich-content" lwc:ref="amenazas"></div>
+                        </template>
+                        <template if:false={hasAmenazas}>
+                            <p class="empty-msg">Sin información registrada</p>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Competitive Landscape footer -->
+            <div class="competitive-section">
+                <div class="competitive-header">
+                    <lightning-icon icon-name="utility:connected_apps" size="x-small"></lightning-icon>
+                    <span class="competitive-title">Panorama Competitivo</span>
+                </div>
+                <div class="competitive-grid">
+                    <div class="competitive-col">
+                        <div class="competitive-label">
+                            <lightning-icon icon-name="utility:add" size="xx-small"></lightning-icon>
+                            Fortalezas competitivas
+                        </div>
+                        <template if:true={hasCompStrengths}>
+                            <div class="rich-content" lwc:ref="compStrengths"></div>
+                        </template>
+                        <template if:false={hasCompStrengths}>
+                            <p class="empty-msg">—</p>
+                        </template>
+                    </div>
+                    <div class="competitive-col">
+                        <div class="competitive-label">
+                            <lightning-icon icon-name="utility:remove" size="xx-small"></lightning-icon>
+                            Debilidades competitivas
+                        </div>
+                        <template if:true={hasCompWeaknesses}>
+                            <div class="rich-content" lwc:ref="compWeaknesses"></div>
+                        </template>
+                        <template if:false={hasCompWeaknesses}>
+                            <p class="empty-msg">—</p>
+                        </template>
+                    </div>
+                    <div class="competitive-col">
+                        <div class="competitive-label">
+                            <lightning-icon icon-name="utility:groups" size="xx-small"></lightning-icon>
+                            Competidores
+                        </div>
+                        <template if:true={hasCompetitors}>
+                            <div class="rich-content" lwc:ref="competitors"></div>
+                        </template>
+                        <template if:false={hasCompetitors}>
+                            <p class="empty-msg">—</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+    </div>
+</template>

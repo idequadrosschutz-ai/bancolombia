@@ -1,12 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { getRecord } from 'lightning/uiRecordApi';
 import getAccountMetrics from '@salesforce/apex/BC_AccountMetricsController.getAccountMetrics';
-
-import ACCOUNT_NAME from '@salesforce/schema/bc_AccountPlan__c.bc_Account__r.Name';
-import ACCOUNT_ID   from '@salesforce/schema/bc_AccountPlan__c.bc_Account__c';
-
-const FIELDS = [ACCOUNT_NAME, ACCOUNT_ID];
-const CIRCUMFERENCE = 2 * Math.PI * 40; // r=40
 
 export default class Bc_accountMetrics extends LightningElement {
     @api recordId;
@@ -19,16 +13,16 @@ export default class Bc_accountMetrics extends LightningElement {
     winRateLastQuarter = '0%';
     winRateThisQuarter = '0%';
 
-    @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
-    wiredPlan({ data, error }) {
+    @wire(getRecord, { recordId: '$recordId', fields: ['AccountPlan.AccountId', 'AccountPlan.Account.Name'] })
+    wiredPlan({ data }) {
         if (data) {
-            this.accountName = getFieldValue(data, ACCOUNT_NAME) || '—';
-            this.accountId   = getFieldValue(data, ACCOUNT_ID);
+            this.accountName = data.fields?.Account?.value?.fields?.Name?.value || '—';
+            this.accountId   = data.fields?.AccountId?.value;
         }
     }
 
-    @wire(getAccountMetrics, { accountPlanId: '$recordId' })
-    wiredMetrics({ data, error }) {
+    @wire(getAccountMetrics, { accountId: '$accountId' })
+    wiredMetrics({ data }) {
         if (data) {
             this.openOpportunities  = data.openOpportunities  ?? 0;
             this.revenueLastQuarter = this._fmt(data.revenueLastQuarter);
@@ -38,15 +32,6 @@ export default class Bc_accountMetrics extends LightningElement {
         }
     }
 
-    get hasOpportunities() {
-        return this.openOpportunities > 0;
-    }
-
-    get donutDash() {
-        const pct = Math.min(this.openOpportunities / 20, 1); // 20 = max visual
-        return `${CIRCUMFERENCE * pct} ${CIRCUMFERENCE}`;
-    }
-
     get opportunitiesUrl() {
         return this.accountId
             ? `/lightning/r/Account/${this.accountId}/related/Opportunities/view`
@@ -54,9 +39,9 @@ export default class Bc_accountMetrics extends LightningElement {
     }
 
     _fmt(val) {
-        if (!val && val !== 0) return '$0';
-        if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(1)}M`;
-        if (val >= 1_000)     return `$${(val / 1_000).toFixed(0)}K`;
+        if (!val) return '$0';
+        if (val >= 1000000) return `$${(val / 1000000).toFixed(1)}M`;
+        if (val >= 1000)    return `$${(val / 1000).toFixed(0)}K`;
         return `$${val}`;
     }
 }

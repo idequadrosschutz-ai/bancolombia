@@ -1,7 +1,7 @@
 public with sharing class BC_AccountMetricsController {
 
     @AuraEnabled(cacheable=true)
-    public static Map<String, Object> getAccountMetrics(Id accountPlanId) {
+    public static Map<String, Object> getAccountMetrics(Id accountId) {
         Map<String, Object> result = new Map<String, Object>{
             'openOpportunities'  => 0,
             'revenueLastQuarter' => 0,
@@ -10,13 +10,6 @@ public with sharing class BC_AccountMetricsController {
             'winRateThisQuarter' => 0
         };
 
-        bc_AccountPlan__c plan = [
-            SELECT bc_Account__c
-            FROM bc_AccountPlan__c
-            WHERE Id = :accountPlanId
-            LIMIT 1
-        ];
-        Id accountId = plan.bc_Account__c;
         if (accountId == null) return result;
 
         // Open opportunities

@@ -1,79 +1,103 @@
-/* Bancolombia brand colors */
 :host {
-    --bc-blue: #0033A0;
-    --bc-yellow: #FFD100;
-    --bc-red: #E3001B;
-    --bc-text: #032D60;
-    --bc-gray: #706E6B;
-    --bc-border: #E5E5E5;
-    --bc-bg: #FFFFFF;
-    --bc-highlight-bg: #F0F4FF;
+    --bc-navy:    #0D1B3E;
+    --bc-blue:    #0033A0;
+    --bc-yellow:  #FFD100;
+    --bc-red:     #E3001B;
+    --bc-white:   #FFFFFF;
+    --bc-gray:    rgba(255,255,255,0.55);
+    --bc-divider: rgba(255,255,255,0.15);
 }
 
 .container {
-    background: var(--bc-bg);
+    background: var(--bc-navy);
     border-radius: 8px;
-    border: 1px solid var(--bc-border);
-    padding: 16px 20px;
+    padding: 16px 24px;
     font-family: 'Salesforce Sans', Arial, sans-serif;
-}
-
-.header {
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--bc-yellow);
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 4px;
 }
 
+/* Title */
 .title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--bc-blue);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: var(--bc-white);
+    margin-bottom: 12px;
+    letter-spacing: 0.2px;
 }
 
+/* Main KPI row */
 .kpis-grid {
     display: grid;
-    grid-template-columns: 200px 1fr 1fr;
-    gap: 0 24px;
-    align-items: start;
+    grid-template-columns: 220px 1fr 1fr;
+    gap: 0;
+    align-items: center;
 }
 
-/* Donut */
+/* ── Donut section ── */
 .donut-section {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    padding-right: 24px;
+    border-right: 1px solid var(--bc-divider);
 }
 
 .donut-wrap {
+    position: relative;
+    width: 72px;
+    height: 72px;
     flex-shrink: 0;
 }
 
 .donut {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
+    transform: rotate(-90deg);
 }
 
-.donut-label {
-    font-size: 20px;
+.donut-bg {
+    fill: none;
+    stroke: rgba(255,255,255,0.12);
+    stroke-width: 9;
+}
+
+.donut-arc {
+    fill: none;
+    stroke: var(--bc-yellow);
+    stroke-width: 9;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.4s ease;
+}
+
+.donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
     font-weight: 700;
-    fill: var(--bc-blue);
-    font-family: 'Salesforce Sans', Arial, sans-serif;
+    color: var(--bc-white);
 }
 
 .donut-legend {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
+}
+
+.donut-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bc-white);
+    margin-bottom: 2px;
 }
 
 .opp-link {
     font-size: 11px;
-    color: var(--bc-blue);
+    color: var(--bc-yellow);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -84,10 +108,14 @@
     text-decoration: underline;
 }
 
-/* KPI sections */
+/* ── KPI sections ── */
 .kpi-section {
-    padding-left: 16px;
-    border-left: 1px solid var(--bc-border);
+    padding: 0 28px;
+    border-right: 1px solid var(--bc-divider);
+}
+
+.kpi-section:last-child {
+    border-right: none;
 }
 
 .kpi-section-title {
@@ -95,46 +123,36 @@
     font-weight: 700;
     color: var(--bc-gray);
     text-transform: uppercase;
-    letter-spacing: 0.4px;
-    margin-bottom: 10px;
-}
-
-.border-top {
-    padding-top: 0;
-    border-top: 2px solid var(--bc-blue);
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
     padding-bottom: 6px;
+    border-bottom: 2px solid var(--bc-yellow);
+    display: inline-block;
 }
 
 .kpi-row {
     display: flex;
-    gap: 16px;
+    gap: 24px;
 }
 
 .kpi-stat {
-    flex: 1;
-    background: var(--bc-highlight-bg);
-    border-radius: 6px;
-    padding: 8px 10px;
-    border-left: 3px solid var(--bc-border);
-}
-
-.kpi-stat:last-child {
-    border-left-color: var(--bc-yellow);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .kpi-value {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--bc-blue);
-    line-height: 1.2;
+    color: var(--bc-white);
+    line-height: 1.1;
 }
 
-.kpi-value.highlight {
-    color: var(--bc-blue);
+.kpi-value.accent {
+    color: var(--bc-yellow);
 }
 
 .kpi-name {
     font-size: 11px;
     color: var(--bc-gray);
-    margin-top: 2px;
 }
