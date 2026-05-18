@@ -7,10 +7,24 @@
                 <span class="dofa-icon">
                     <lightning-icon icon-name="standard:strategy" size="small" variant="inverse"></lightning-icon>
                 </span>
-                <span class="dofa-title">Matriz DOFA</span>
+                <div class="dofa-header-text">
+                    <span class="dofa-title">Matriz DOFA</span>
+                    <span class="dofa-plan-name">{planName}</span>
+                </div>
             </div>
             <div class="dofa-header-right">
-                <span class="dofa-subtitle">Análisis estratégico — {accountName}</span>
+                <div class="dofa-meta-row">
+                    <lightning-icon icon-name="utility:groups" size="xx-small" class="dofa-meta-icon"></lightning-icon>
+                    <span class="dofa-meta-text">{accountName}</span>
+                </div>
+                <div class="dofa-meta-row">
+                    <lightning-icon icon-name="utility:date_time" size="xx-small" class="dofa-meta-icon"></lightning-icon>
+                    <span class="dofa-meta-text">{vigencia}</span>
+                </div>
+                <div class="dofa-meta-row">
+                    <lightning-icon icon-name="utility:user" size="xx-small" class="dofa-meta-icon"></lightning-icon>
+                    <span class="dofa-meta-text">{ownerName}</span>
+                </div>
             </div>
         </div>
 
@@ -32,17 +46,13 @@
         <!-- DOFA Grid -->
         <template if:false={isLoading}>
             <div class="dofa-axis-labels">
-                <div class="axis-label-left">
-                    <span class="axis-badge internal">INTERNO</span>
-                </div>
-                <div class="axis-label-right">
-                    <span class="axis-badge external">EXTERNO</span>
-                </div>
+                <span class="axis-badge internal">INTERNO</span>
+                <span class="axis-badge external">EXTERNO</span>
             </div>
 
             <div class="dofa-grid">
 
-                <!-- D — Debilidades (interno, negativo) -->
+                <!-- D — Debilidades -->
                 <div class="dofa-quadrant q-d">
                     <div class="quadrant-header">
                         <span class="quadrant-letter">D</span>
@@ -54,7 +64,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasDebilidades}>
-                            <lightning-formatted-rich-text value={_debilidades} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_debilidades}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasDebilidades}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -62,7 +72,7 @@
                     </div>
                 </div>
 
-                <!-- O — Oportunidades (externo, positivo) -->
+                <!-- O — Oportunidades -->
                 <div class="dofa-quadrant q-o">
                     <div class="quadrant-header">
                         <span class="quadrant-letter">O</span>
@@ -74,7 +84,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasOportunidades}>
-                            <lightning-formatted-rich-text value={_oportunidades} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_oportunidades}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasOportunidades}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -82,7 +92,7 @@
                     </div>
                 </div>
 
-                <!-- F — Fortalezas (interno, positivo) -->
+                <!-- F — Fortalezas -->
                 <div class="dofa-quadrant q-f">
                     <div class="quadrant-header">
                         <span class="quadrant-letter">F</span>
@@ -94,7 +104,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasFortalezas}>
-                            <lightning-formatted-rich-text value={_fortalezas} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_fortalezas}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasFortalezas}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -102,7 +112,7 @@
                     </div>
                 </div>
 
-                <!-- A — Amenazas (externo, negativo) -->
+                <!-- A — Amenazas -->
                 <div class="dofa-quadrant q-a">
                     <div class="quadrant-header">
                         <span class="quadrant-letter">A</span>
@@ -114,7 +124,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasAmenazas}>
-                            <lightning-formatted-rich-text value={_amenazas} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_amenazas}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasAmenazas}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -124,7 +134,7 @@
 
             </div>
 
-            <!-- Competitive Landscape footer -->
+            <!-- Competitive Landscape -->
             <div class="competitive-section">
                 <div class="competitive-header">
                     <lightning-icon icon-name="utility:connected_apps" size="x-small"></lightning-icon>
@@ -137,7 +147,7 @@
                             Fortalezas competitivas
                         </div>
                         <template if:true={hasCompStrengths}>
-                            <lightning-formatted-rich-text value={_compStrengths} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_compStrengths}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasCompStrengths}>
                             <p class="empty-msg">—</p>
@@ -149,7 +159,7 @@
                             Debilidades competitivas
                         </div>
                         <template if:true={hasCompWeaknesses}>
-                            <lightning-formatted-rich-text value={_compWeaknesses} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_compWeaknesses}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasCompWeaknesses}>
                             <p class="empty-msg">—</p>
@@ -161,7 +171,7 @@
                             Competidores
                         </div>
                         <template if:true={hasCompetitors}>
-                            <lightning-formatted-rich-text value={_competitors} class="rich-content"></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={_competitors}></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasCompetitors}>
                             <p class="empty-msg">—</p>

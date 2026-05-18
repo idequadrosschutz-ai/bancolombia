@@ -7,19 +7,15 @@
     --bc-gray:     rgba(255,255,255,0.55);
     --bc-divider:  rgba(255,255,255,0.12);
 
-    /* quadrant colors */
     --q-f-bg:     rgba(255, 209, 0, 0.08);
     --q-f-border: #FFD100;
     --q-f-letter: #FFD100;
-
     --q-d-bg:     rgba(227, 0, 27, 0.08);
     --q-d-border: #E3001B;
     --q-d-letter: #E3001B;
-
     --q-o-bg:     rgba(0, 180, 120, 0.08);
     --q-o-border: #00B478;
     --q-o-letter: #00B478;
-
     --q-a-bg:     rgba(255, 140, 0, 0.08);
     --q-a-border: #FF8C00;
     --q-a-letter: #FF8C00;
@@ -36,17 +32,19 @@
 /* ── Header ── */
 .dofa-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 14px;
     padding-bottom: 12px;
     border-bottom: 2px solid var(--bc-yellow);
+    gap: 12px;
 }
 
 .dofa-header-left {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
+    min-width: 0;
 }
 
 .dofa-icon {
@@ -57,6 +55,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
+
+.dofa-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
 }
 
 .dofa-title {
@@ -66,9 +72,39 @@
     letter-spacing: 0.3px;
 }
 
-.dofa-subtitle {
+.dofa-plan-name {
     font-size: 12px;
+    color: var(--bc-yellow);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 240px;
+}
+
+.dofa-header-right {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.dofa-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dofa-meta-icon {
+    --sds-c-icon-color-foreground-default: var(--bc-gray);
+    flex-shrink: 0;
+}
+
+.dofa-meta-text {
+    font-size: 11px;
     color: var(--bc-gray);
+    white-space: nowrap;
 }
 
 /* ── Loading / Error ── */
@@ -122,7 +158,6 @@
 .dofa-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
     gap: 10px;
     margin-bottom: 14px;
 }
@@ -140,7 +175,6 @@
 .q-o { background: var(--q-o-bg); border-color: var(--q-o-border); }
 .q-a { background: var(--q-a-bg); border-color: var(--q-a-border); }
 
-/* quadrant header */
 .quadrant-header {
     display: flex;
     align-items: center;
@@ -200,11 +234,11 @@
     --sds-c-icon-color-foreground-default: var(--bc-gray);
 }
 
-/* quadrant body */
+/* ── Quadrant body ── */
 .quadrant-body {
     padding: 10px 14px;
-    font-size: 12px;
     color: var(--bc-white);
+    font-size: 12px;
     line-height: 1.6;
 }
 
@@ -214,14 +248,24 @@
     font-size: 11px;
 }
 
-/* rich text content — lightning-formatted-rich-text */
-.rich-content {
+/* ── Force white text inside lightning-formatted-rich-text ── */
+.quadrant-body lightning-formatted-rich-text,
+.competitive-col lightning-formatted-rich-text {
     --lwc-colorTextDefault: var(--bc-white);
     --slds-c-rich-text-text-color: var(--bc-white);
     color: var(--bc-white);
-    font-size: 12px;
-    line-height: 1.6;
     display: block;
+}
+
+/* Strip inline background-color and color via cascade — belt+suspenders */
+.quadrant-body lightning-formatted-rich-text * {
+    background-color: transparent !important;
+    color: var(--bc-white) !important;
+}
+
+.competitive-col lightning-formatted-rich-text * {
+    background-color: transparent !important;
+    color: var(--bc-white) !important;
 }
 
 /* ── Competitive section ── */
@@ -252,7 +296,6 @@
 .competitive-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
 }
 
 .competitive-col {

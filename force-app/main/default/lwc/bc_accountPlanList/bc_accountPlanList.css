@@ -1,0 +1,324 @@
+:host {
+    --bc-navy:   #0D1B3E;
+    --bc-blue:   #0033A0;
+    --bc-yellow: #FFD100;
+    --bc-white:  #FFFFFF;
+    --bc-gray:   rgba(255,255,255,0.55);
+}
+
+/* ── Container ── */
+.apl-container {
+    background: var(--bc-navy);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+/* ── Header ── */
+.apl-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--bc-yellow);
+    gap: 10px;
+}
+
+.apl-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.apl-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: var(--bc-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.apl-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.apl-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bc-white);
+}
+
+.apl-subtitle {
+    font-size: 11px;
+    color: var(--bc-gray);
+}
+
+.apl-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apl-count-badge {
+    font-size: 11px;
+    color: var(--bc-gray);
+    background: rgba(255,255,255,0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* ── Loading / Error ── */
+.apl-loading {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.apl-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(227,0,27,0.12);
+    border: 1px solid #E3001B;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #ffaaaa;
+    font-size: 12px;
+}
+
+/* ── Eligibility banner ── */
+.eligibility-ok {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,180,120,0.12);
+    border: 1px solid rgba(0,180,120,0.4);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 11px;
+    color: #5de8c0;
+    margin-bottom: 12px;
+    --sds-c-icon-color-foreground-default: #5de8c0;
+}
+
+.eligibility-blocked {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,140,0,0.12);
+    border: 1px solid rgba(255,140,0,0.4);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 11px;
+    color: #ffc86e;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    --sds-c-icon-color-foreground-default: #ffc86e;
+}
+
+.apl-elig-msg {
+    font-weight: 600;
+}
+
+.apl-elig-hint {
+    width: 100%;
+    margin-top: 2px;
+    opacity: 0.8;
+    font-size: 10px;
+}
+
+/* ── Plans list ── */
+.apl-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.apl-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 10px 12px;
+    transition: background 0.15s;
+}
+
+.apl-item:hover {
+    background: rgba(255,255,255,0.09);
+}
+
+.apl-item-left {
+    flex-shrink: 0;
+    --sds-c-icon-color-foreground-default: var(--bc-yellow);
+}
+
+.apl-item-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.apl-item-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.apl-plan-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bc-white);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.apl-plan-name:hover {
+    color: var(--bc-yellow);
+    text-decoration: underline;
+}
+
+.apl-item-dates {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--bc-gray);
+    --sds-c-icon-color-foreground-default: var(--bc-gray);
+}
+
+.apl-date-icon {
+    flex-shrink: 0;
+}
+
+.apl-item-right {
+    flex-shrink: 0;
+    --sds-c-icon-color-foreground-default: var(--bc-gray);
+}
+
+/* ── Status badges ── */
+.plan-status-active {
+    background: rgba(0,180,120,0.2);
+    color: #5de8c0;
+    border: 1px solid rgba(0,180,120,0.4);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 7px;
+    white-space: nowrap;
+}
+
+.plan-status-draft {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 7px;
+    white-space: nowrap;
+}
+
+.plan-status-done {
+    background: rgba(0,51,160,0.3);
+    color: #7eb3ff;
+    border: 1px solid rgba(0,51,160,0.5);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 7px;
+    white-space: nowrap;
+}
+
+.plan-status-cancel {
+    background: rgba(227,0,27,0.15);
+    color: #ff8a99;
+    border: 1px solid rgba(227,0,27,0.3);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 7px;
+    white-space: nowrap;
+}
+
+/* ── Tipo badges ── */
+.plan-tipo-individual {
+    background: rgba(91,45,169,0.25);
+    color: #c3a5f5;
+    border: 1px solid rgba(91,45,169,0.4);
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 1px 6px;
+    white-space: nowrap;
+}
+
+.plan-tipo-local {
+    background: rgba(0,51,160,0.25);
+    color: #7eb3ff;
+    border: 1px solid rgba(0,51,160,0.4);
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 1px 6px;
+    white-space: nowrap;
+}
+
+.plan-tipo-regional {
+    background: rgba(255,140,0,0.2);
+    color: #ffc86e;
+    border: 1px solid rgba(255,140,0,0.35);
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 1px 6px;
+    white-space: nowrap;
+}
+
+/* ── Empty state ── */
+.apl-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 16px;
+    gap: 8px;
+    --sds-c-icon-color-foreground-default: var(--bc-gray);
+}
+
+.apl-empty-text {
+    font-size: 12px;
+    color: var(--bc-gray);
+    text-align: center;
+    margin: 0;
+}
+
+/* ── Modal backdrop + wrapper ── */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-wrapper {
+    width: 700px;
+    max-width: 96vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}

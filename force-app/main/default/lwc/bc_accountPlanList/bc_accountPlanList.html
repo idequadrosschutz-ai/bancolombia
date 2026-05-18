@@ -1,0 +1,114 @@
+<template>
+    <div class="apl-container">
+
+        <!-- Header -->
+        <div class="apl-header">
+            <div class="apl-header-left">
+                <span class="apl-icon">
+                    <lightning-icon icon-name="standard:account_plan" size="small" variant="inverse"></lightning-icon>
+                </span>
+                <div class="apl-header-text">
+                    <span class="apl-title">Planes de Negocio</span>
+                    <span class="apl-subtitle">{accountName}</span>
+                </div>
+            </div>
+            <div class="apl-header-right">
+                <template if:false={isLoading}>
+                    <span class="apl-count-badge">{plansCount} plan(es)</span>
+                </template>
+                <template if:true={isEligible}>
+                    <lightning-button
+                        label="Nuevo Plan"
+                        icon-name="utility:add"
+                        variant="brand"
+                        class="apl-btn-new"
+                        onclick={handleNewPlan}
+                    ></lightning-button>
+                </template>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <template if:true={isLoading}>
+            <div class="apl-loading">
+                <lightning-spinner alternative-text="Cargando..." size="small" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template if:true={hasError}>
+            <div class="apl-error">
+                <lightning-icon icon-name="utility:error" size="small"></lightning-icon>
+                <span>Error al cargar los planes.</span>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- Eligibility banner -->
+            <div class={eligibilityClass}>
+                <lightning-icon
+                    icon-name={eligibilityIcon}
+                    size="x-small"
+                ></lightning-icon>
+                <span class="apl-elig-msg">{eligibilityMsg}</span>
+                <template if:false={isEligible}>
+                    <span class="apl-elig-hint">Encierre o complete el plan vigente antes de crear uno nuevo.</span>
+                </template>
+            </div>
+
+            <!-- Plans list -->
+            <template if:true={hasPlans}>
+                <ul class="apl-list">
+                    <template for:each={plans} for:item="plan">
+                        <li key={plan.Id} class="apl-item">
+                            <div class="apl-item-left">
+                                <lightning-icon icon-name="standard:account_plan" size="x-small" alternative-text="Plan"></lightning-icon>
+                            </div>
+                            <div class="apl-item-body">
+                                <div class="apl-item-top">
+                                    <a class="apl-plan-name" href={plan.Id}>{plan.Name}</a>
+                                    <span class={plan.statusCls}>{plan.statusLabel}</span>
+                                    <span class={plan.tipoCls}>{plan.tipoLabel}</span>
+                                </div>
+                                <div class="apl-item-dates">
+                                    <lightning-icon icon-name="utility:date_time" size="xx-small" class="apl-date-icon"></lightning-icon>
+                                    <span>{plan.startFmt} → {plan.endFmt}</span>
+                                </div>
+                            </div>
+                            <div class="apl-item-right">
+                                <lightning-button-icon
+                                    icon-name="utility:open"
+                                    size="x-small"
+                                    variant="bare"
+                                    alternative-text="Ver plan"
+                                    data-id={plan.Id}
+                                    onclick={handleViewPlan}
+                                ></lightning-button-icon>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <template if:false={hasPlans}>
+                <div class="apl-empty">
+                    <lightning-icon icon-name="standard:account_plan" size="medium" alternative-text="Sin planes"></lightning-icon>
+                    <p class="apl-empty-text">No hay planes de negocio para esta cuenta.</p>
+                </div>
+            </template>
+
+        </template>
+
+    </div>
+
+    <!-- Wizard modal overlay -->
+    <template if:true={showWizard}>
+        <div class="modal-backdrop" onclick={handleBackdropClick}>
+            <div class="modal-wrapper" onclick={stopProp}>
+                <c-bc_create-account-plan record-id={recordId} onwizardclose={handleWizardClose}></c-bc_create-account-plan>
+            </div>
+        </div>
+    </template>
+
+</template>

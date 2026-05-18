@@ -289,6 +289,7 @@ export default class Bc_createAccountPlan extends NavigationMixin(LightningEleme
     }
 
     handleViewRecord() {
+        this.dispatchEvent(new CustomEvent('wizardclose', { bubbles: true, composed: true }));
         if (!this.createdPlanId) return;
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
@@ -297,10 +298,14 @@ export default class Bc_createAccountPlan extends NavigationMixin(LightningEleme
     }
 
     handleCancel() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__recordPage',
-            attributes: { recordId: this.recordId, actionName: 'view' },
-        });
+        // If embedded in bc_accountPlanList, close via event; otherwise navigate away
+        const hasParent = this.dispatchEvent(new CustomEvent('wizardclose', { bubbles: true, composed: true }));
+        if (!hasParent) {
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: { recordId: this.recordId, actionName: 'view' },
+            });
+        }
     }
 
     showToast(title, message, variant) {
