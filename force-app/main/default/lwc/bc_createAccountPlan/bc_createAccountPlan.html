@@ -1,0 +1,280 @@
+<template>
+  <div class="slds-modal__container flow-modal">
+
+    <!-- HEADER -->
+    <header class="slds-modal__header flow-header">
+      <div class="flow-header-left">
+        <lightning-icon icon-name="standard:file" size="small" alternative-text="Plan"></lightning-icon>
+        <div class="flow-header-text">
+          <h2 class="slds-text-heading_small">Nuevo Plan de Negocio</h2>
+          <span class="slds-badge flow-badge">F001 · Paso {currentStep} de 4</span>
+        </div>
+      </div>
+      <lightning-button-icon
+        icon-name="utility:close"
+        alternative-text="Cancelar"
+        variant="bare-inverse"
+        onclick={handleCancel}
+      ></lightning-button-icon>
+    </header>
+
+    <!-- PROGRESS BAR -->
+    <div class="flow-progress-bar">
+      <div class="flow-progress-fill" style={progressStyle}></div>
+    </div>
+
+    <!-- WIZARD STEPS -->
+    <div class="flow-wizard slds-p-around_small slds-border_bottom">
+      <template for:each={wizardSteps} for:item="ws">
+        <div key={ws.id} class="flow-wizard-step">
+          <div class={ws.dotClass}>{ws.label}</div>
+          <div class={ws.textClass}>{ws.name}</div>
+        </div>
+        <template if:false={ws.isLast}>
+          <div key={ws.connKey} class={ws.connClass}></div>
+        </template>
+      </template>
+    </div>
+
+    <!-- BODY -->
+    <div class="slds-modal__content flow-body">
+
+      <!-- ── TELA 1: Datos del plan ── -->
+      <template if:true={isStep1}>
+        <!-- Account header -->
+        <div class="flow-record-header slds-m-bottom_medium">
+          <div class="flow-record-icon">
+            <lightning-icon icon-name="standard:account" size="small" alternative-text="Cuenta"></lightning-icon>
+          </div>
+          <div class="flow-record-info">
+            <div class="slds-text-title_bold slds-text-color_default">{accountName}</div>
+            <div class="flow-record-meta">
+              <span>ID: {recordId}</span>
+              <span class={tipoPlanPillClass}>{tipoPlanLabel}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Previous plan notice -->
+        <template if:true={hasPreviousPlan}>
+          <div class="slds-notify slds-notify_alert slds-theme_info slds-m-bottom_small flow-alert" role="alert">
+            <lightning-icon icon-name="utility:info" size="x-small" alternative-text="Info"></lightning-icon>
+            <span class="slds-m-left_x-small">
+              Plan anterior detectado. Datos precargados desde <strong>{previousPlanName}</strong>.
+            </span>
+          </div>
+        </template>
+
+        <!-- Section: Basic info -->
+        <div class="flow-section-title slds-m-bottom_small">
+          <lightning-icon icon-name="utility:info" size="x-small" alternative-text="Info"></lightning-icon>
+          <span class="slds-m-left_xx-small">Información básica</span>
+        </div>
+
+        <div class="slds-form slds-form_stacked">
+          <!-- Plan name -->
+          <div class="slds-form-element slds-m-bottom_small">
+            <label class="slds-form-element__label">
+              <abbr class="slds-required" title="requerido">*</abbr>
+              Nombre del plan
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                name="planName"
+                value={planName}
+                placeholder="Ej: Plan Comercial 2025 — Grupo Andino"
+                required
+                onchange={handleFieldChange}
+              ></lightning-input>
+            </div>
+          </div>
+
+          <!-- Dates row -->
+          <div class="slds-grid slds-gutters_small">
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label">
+                  <abbr class="slds-required" title="requerido">*</abbr>
+                  Fecha inicio
+                </label>
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="date"
+                    name="startDate"
+                    value={startDate}
+                    required
+                    onchange={handleFieldChange}
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label">
+                  <abbr class="slds-required" title="requerido">*</abbr>
+                  Fecha fin
+                </label>
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="date"
+                    name="endDate"
+                    value={endDate}
+                    required
+                    onchange={handleFieldChange}
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Auto-filled row -->
+          <div class="slds-grid slds-gutters_small slds-m-top_small">
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label">Estado</label>
+                <div class="slds-form-element__control">
+                  <input type="text" class="slds-input flow-readonly" readonly value="Borrador" />
+                  <span class="flow-auto-badge">
+                    <lightning-icon icon-name="utility:apex" size="xx-small" alternative-text="Auto"></lightning-icon>
+                    Auto: Status__c
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label">Tipo de plan</label>
+                <div class="slds-form-element__control">
+                  <input type="text" class="slds-input flow-readonly" readonly value={tipoPlanLabel} />
+                  <span class="flow-auto-badge">
+                    <lightning-icon icon-name="utility:apex" size="xx-small" alternative-text="Auto"></lightning-icon>
+                    Auto: bc_TipoPlano__c
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="slds-form-element slds-m-top_small">
+            <label class="slds-form-element__label">Observaciones</label>
+            <div class="slds-form-element__control">
+              <lightning-textarea
+                name="notes"
+                value={notes}
+                placeholder="Opcional..."
+                onchange={handleFieldChange}
+              ></lightning-textarea>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- ── TELA 2: Participantes ── (próxima iteração) -->
+      <template if:true={isStep2}>
+        <div class="flow-placeholder">
+          <lightning-icon icon-name="standard:contact_list" size="large" alternative-text="Participantes"></lightning-icon>
+          <p class="slds-text-heading_small slds-m-top_small">Tela 2 — Cuentas participantes</p>
+          <p class="slds-text-color_weak slds-m-top_x-small">Em implementação</p>
+        </div>
+      </template>
+
+      <!-- ── TELA 3: Objetivos ── (próxima iteração) -->
+      <template if:true={isStep3}>
+        <div class="flow-placeholder">
+          <lightning-icon icon-name="standard:goals" size="large" alternative-text="Objetivos"></lightning-icon>
+          <p class="slds-text-heading_small slds-m-top_small">Tela 3 — Objetivos</p>
+          <p class="slds-text-color_weak slds-m-top_x-small">Em implementação</p>
+        </div>
+      </template>
+
+      <!-- ── TELA 4: Confirmação ── (próxima iteração) -->
+      <template if:true={isStep4}>
+        <div class="flow-ok-screen">
+          <div class="flow-ok-icon">
+            <lightning-icon icon-name="utility:check" size="large" alternative-text="Sucesso"></lightning-icon>
+          </div>
+          <h3 class="slds-text-heading_medium slds-m-top_small">Plan de negocio creado exitosamente</h3>
+          <p class="slds-text-color_weak slds-m-top_x-small slds-m-bottom_medium">
+            Los registros fueron guardados en Salesforce.
+          </p>
+          <div class="flow-metrics slds-m-bottom_medium">
+            <div class="flow-metric">
+              <div class="flow-metric-val">1</div>
+              <div class="flow-metric-lbl">Account Plan</div>
+            </div>
+            <div class="flow-metric">
+              <div class="flow-metric-val">{selectedAccountsCount}</div>
+              <div class="flow-metric-lbl">Stakeholders</div>
+            </div>
+            <div class="flow-metric">
+              <div class="flow-metric-val">{objectivesCount}</div>
+              <div class="flow-metric-lbl">Objetivo(s)</div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="slds-modal__footer flow-footer">
+      <template if:true={isStep1}>
+        <lightning-button label="Cancelar" onclick={handleCancel}></lightning-button>
+        <lightning-button
+          label="Siguiente"
+          icon-name="utility:forward"
+          icon-position="right"
+          variant="brand"
+          onclick={handleNext}
+        ></lightning-button>
+      </template>
+
+      <template if:true={isStep2}>
+        <lightning-button
+          label="Anterior"
+          icon-name="utility:back"
+          onclick={handleBack}
+        ></lightning-button>
+        <lightning-button
+          label="Validar y continuar"
+          icon-name="utility:forward"
+          icon-position="right"
+          variant="brand"
+          onclick={handleNext}
+        ></lightning-button>
+      </template>
+
+      <template if:true={isStep3}>
+        <lightning-button
+          label="Anterior"
+          icon-name="utility:back"
+          onclick={handleBack}
+        ></lightning-button>
+        <lightning-button
+          label="Guardar plan"
+          icon-name="utility:save"
+          variant="brand"
+          onclick={handleSave}
+        ></lightning-button>
+      </template>
+
+      <template if:true={isStep4}>
+        <lightning-button
+          label="Crear otro plan"
+          icon-name="utility:add"
+          variant="brand"
+          onclick={handleReset}
+        ></lightning-button>
+        <lightning-button
+          label="Ver registro"
+          icon-name="utility:new_window"
+          icon-position="right"
+          onclick={handleViewRecord}
+        ></lightning-button>
+      </template>
+    </footer>
+
+  </div>
+</template>
