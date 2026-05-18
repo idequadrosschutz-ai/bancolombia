@@ -262,13 +262,51 @@
           <div class="flow-record-info">
             <div class="slds-text-title_bold">Cuentas participantes del plan</div>
             <div class="flow-record-meta">
-              <span>{selectedAccountsCount} cuenta(s) seleccionada(s)</span>
+              <span>{totalParticipantsCount} cuenta(s) participante(s)</span>
               <template if:true={isGroupPlan}>
-                <span class="flow-pill-blue slds-badge">Plan de Grupo</span>
+                <span class="flow-pill-blue slds-badge">Plan de Grupo — miembros cargados automáticamente</span>
               </template>
             </div>
           </div>
         </div>
+
+        <!-- Group members auto-loaded -->
+        <template if:true={isGroupPlan}>
+          <div class="flow-section-title slds-m-bottom_small">
+            <lightning-icon icon-name="utility:groups" size="x-small" alternative-text="Grupo"></lightning-icon>
+            <span class="slds-m-left_xx-small">Miembros del grupo económico (automático)</span>
+          </div>
+
+          <template if:true={isLoadingMembers}>
+            <div class="slds-m-bottom_small">
+              <lightning-spinner alternative-text="Cargando miembros..." size="small" variant="brand"></lightning-spinner>
+            </div>
+          </template>
+
+          <template if:true={hasGroupMembers}>
+            <ul class="group-members-list slds-m-bottom_medium">
+              <template for:each={groupMembers} for:item="m">
+                <li key={m.id} class="group-member-item">
+                  <lightning-icon icon-name="standard:account" size="x-small" alternative-text="Cuenta"></lightning-icon>
+                  <span class="slds-m-left_x-small">{m.Name}</span>
+                  <span class="member-auto-badge">Auto</span>
+                  <span class="search-result-tipo">{m.tipo}</span>
+                </li>
+              </template>
+            </ul>
+          </template>
+
+          <template if:false={hasGroupMembers}>
+            <template if:false={isLoadingMembers}>
+              <div class="flow-placeholder-small slds-m-bottom_medium">
+                <p class="slds-text-color_weak slds-text-body_small">
+                  No se encontraron cuentas miembro en el grupo económico.<br/>
+                  Asegúrate de que las cuentas tengan el campo "Grupo Económico" configurado.
+                </p>
+              </div>
+            </template>
+          </template>
+        </template>
 
         <!-- Search box -->
         <div class="flow-section-title slds-m-bottom_small">

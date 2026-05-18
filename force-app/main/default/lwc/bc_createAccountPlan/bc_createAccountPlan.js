@@ -4,6 +4,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import createAccountPlan from '@salesforce/apex/BC_CreateAccountPlanController.createAccountPlan';
 import searchAccounts from '@salesforce/apex/BC_CreateAccountPlanController.searchAccounts';
+import getGroupMembers from '@salesforce/apex/BC_CreateAccountPlanController.getGroupMembers';
 
 import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
 import ACCOUNT_TYPE_FIELD from '@salesforce/schema/Account.bc_TipoGrupo__c';
@@ -40,7 +41,9 @@ export default class Bc_createAccountPlan extends NavigationMixin(LightningEleme
     @track searchTerm = '';
     @track searchResults = [];
     @track selectedAccounts = [];
+    @track groupMembers = [];       // auto-loaded from bc_GrupoEconomico__c
     @track isSearching = false;
+    @track isLoadingMembers = false;
 
     // Tela 3 — Objetivos
     @track showObjForm = false;
@@ -109,10 +112,12 @@ export default class Bc_createAccountPlan extends NavigationMixin(LightningEleme
     get isStep3() { return this.currentStep === 3; }
     get isStep4() { return this.currentStep === 4; }
 
-    get selectedAccountsCount() { return this.selectedAccounts.length; }
+    get selectedAccountsCount() { return this.selectedAccounts.length + this.groupMembers.length; }
     get objectivesCount() { return this.objectives.length; }
     get hasObjectives() { return this.objectives.length > 0; }
     get hasSelectedAccounts() { return this.selectedAccounts.length > 0; }
+    get hasGroupMembers() { return this.groupMembers.length > 0; }
+    get totalParticipantsCount() { return this.selectedAccounts.length + this.groupMembers.length; }
     get hasSearchResults() { return this.searchResults.length > 0; }
     get noSearchResults() {
         return !this.isSearching && this.searchTerm.length >= 2 && this.searchResults.length === 0;
@@ -145,6 +150,25 @@ export default class Bc_createAccountPlan extends NavigationMixin(LightningEleme
     handleNext() {
         if (this.currentStep === 1 && !this.validateStep1()) return;
         this.currentStep += 1;
+        // Auto-load group members when entering Tela 2 for a group plan
+        if (this.currentStep === 2 && this.isGroupPlan && this.groupMembers.length === 0) {
+            this._loadGroupMembers();
+        }
+    }
+
+    _loadGroupMembers() {
+        this.isLoadingMembers = true;
+        getGroupMembers({ accountId: this.recordId })
+            .then(members => {
+                this.groupMembers = members.map(m => ({
+                    id: m.Id,
+                    Name: m.Name,
+                    tipo: m.bc_TipoGrupo__c || 'Individual',
+                    auto: true,
+                }));
+            })
+            .catch(() => {})
+            .finally(() => { this.isLoadingMembers = false; });
     }
 
     handleBack() {

@@ -51,9 +51,22 @@ public with sharing class BC_CreateAccountPlanController {
         );
         insert plan;
 
-        if (selectedAccountIds != null && !selectedAccountIds.isEmpty()) {
+        // For group plans: auto-load group members from bc_GrupoEconomico__c
+        Set<Id> allParticipantIds = new Set<Id>();
+        if (selectedAccountIds != null) {
+            allParticipantIds.addAll(selectedAccountIds);
+        }
+
+        if (tipoPlan == 'Grupo_Local' || tipoPlan == 'Grupo_Regional') {
+            List<Account> groupMembers = getGroupMembers(accountId);
+            for (Account member : groupMembers) {
+                allParticipantIds.add(member.Id);
+            }
+        }
+
+        if (!allParticipantIds.isEmpty()) {
             List<bc_AccountPlanRelationship__c> rels = new List<bc_AccountPlanRelationship__c>();
-            for (Id accId : selectedAccountIds) {
+            for (Id accId : allParticipantIds) {
                 rels.add(new bc_AccountPlanRelationship__c(
                     bc_AccountPlanId__c = plan.Id,
                     bc_AccountId__c     = accId,
@@ -64,12 +77,13 @@ public with sharing class BC_CreateAccountPlanController {
             insert rels;
 
             List<Account> toUpdate = new List<Account>();
-            for (Id accId : selectedAccountIds) {
+            for (Id accId : allParticipantIds) {
                 toUpdate.add(new Account(Id = accId, bc_HasAccountPlan__c = true));
             }
             update toUpdate;
         }
 
+        // Create AccountPlanObjective records
         if (String.isNotBlank(objectives)) {
             List<Object> objList = (List<Object>) JSON.deserializeUntyped(objectives);
             List<AccountPlanObjective> objRecords = new List<AccountPlanObjective>();
@@ -84,6 +98,35 @@ public with sharing class BC_CreateAccountPlanController {
         }
 
         return plan.Id;
+    }
+
+    /**
+     * Returns accounts that belong to the same economic group as the given account.
+     * Uses bc_GrupoEconomico__c lookup on Account.
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getGroupMembers(Id accountId) {
+        // Find the group this account belongs to
+        List<Account> mainAccount = [
+            SELECT Id, bc_GrupoEconomico__c, bc_TipoGrupo__c
+            FROM Account
+            WHERE Id = :accountId
+            LIMIT 1
+        ];
+
+        if (mainAccount.isEmpty() || mainAccount[0].bc_GrupoEconomico__c == null) {
+            return new List<Account>();
+        }
+
+        Id grupoId = mainAccount[0].bc_GrupoEconomico__c;
+
+        return [
+            SELECT Id, Name, bc_TipoGrupo__c
+            FROM Account
+            WHERE bc_GrupoEconomico__c = :grupoId
+              AND Id != :accountId
+            ORDER BY Name
+        ];
     }
 
     @AuraEnabled(cacheable=true)

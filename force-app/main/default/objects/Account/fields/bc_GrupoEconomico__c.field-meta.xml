@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>bc_GrupoEconomico__c</fullName>
+    <label>Grupo Económico</label>
+    <type>Lookup</type>
+    <referenceTo>bc_Group__c</referenceTo>
+    <relationshipLabel>Cuentas Miembro</relationshipLabel>
+    <relationshipName>CuentasMiembro</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <externalId>false</externalId>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+</CustomField>
