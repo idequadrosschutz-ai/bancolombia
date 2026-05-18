@@ -1,7 +1,6 @@
 /**
  * BC_CreateAccountPlanController
  * AuraEnabled controller for bc_createAccountPlan LWC — Screen Flow F001.
- * Uses FSC standard objects: AccountPlan, AccountPlanObjective, bc_AccountPlanRelationship__c.
  */
 public with sharing class BC_CreateAccountPlanController {
 
@@ -12,43 +11,58 @@ public with sharing class BC_CreateAccountPlanController {
         Date startDate,
         Date endDate,
         String notes,
+        String accountVision,
+        String callingStrategy,
+        String relStrengths,
+        String relWeaknesses,
+        String relOpportunities,
+        String relThreats,
+        String compStrengths,
+        String compWeaknesses,
+        String competitors,
         String tipoPlan,
         List<Id> selectedAccountIds,
         String objectives
     ) {
-        // Validate custom permission for Grupo Regional
         if (tipoPlan == 'Grupo_Regional' &&
             !FeatureManagement.checkPermission('Puede_Estructurar_Estrategia_Regional')) {
             throw new AuraHandledException(
-                'Você não tem permissão para criar planos de Grupo Regional.'
+                'No tienes permiso para crear planes de Grupo Regional.'
             );
         }
 
-        // Create Account Plan (FSC standard object)
         AccountPlan plan = new AccountPlan(
-            Name          = planName,
-            AccountId     = accountId,
-            StartDate     = startDate,
-            EndDate       = endDate,
-            Status        = 'Draft',
-            bc_TipoPlano__c = tipoPlan
+            Name                          = planName,
+            AccountId                     = accountId,
+            StartDate                     = startDate,
+            EndDate                       = endDate,
+            Status                        = 'Draft',
+            bc_TipoPlano__c               = tipoPlan,
+            Notes                         = notes,
+            AccountVision                 = accountVision,
+            CallingStrategy               = callingStrategy,
+            RelationshipStrengths         = relStrengths,
+            RelationshipWeaknesses        = relWeaknesses,
+            RelationshipOpportunities     = relOpportunities,
+            RelationshipThreats           = relThreats,
+            AccountCompetitiveStrengths   = compStrengths,
+            AccountCmptvWeaknesses        = compWeaknesses,
+            AccountCompetitors            = competitors
         );
         insert plan;
 
-        // Create bc_AccountPlanRelationship__c records for participating accounts
         if (selectedAccountIds != null && !selectedAccountIds.isEmpty()) {
-            List<bc_AccountPlanRelationship__c> relationships = new List<bc_AccountPlanRelationship__c>();
+            List<bc_AccountPlanRelationship__c> rels = new List<bc_AccountPlanRelationship__c>();
             for (Id accId : selectedAccountIds) {
-                relationships.add(new bc_AccountPlanRelationship__c(
+                rels.add(new bc_AccountPlanRelationship__c(
                     bc_AccountPlanId__c = plan.Id,
                     bc_AccountId__c     = accId,
                     bc_Role__c          = 'Participante',
                     bc_IsActive__c      = true
                 ));
             }
-            insert relationships;
+            insert rels;
 
-            // Enable Account Plan tab on participant accounts
             List<Account> toUpdate = new List<Account>();
             for (Id accId : selectedAccountIds) {
                 toUpdate.add(new Account(Id = accId, bc_HasAccountPlan__c = true));
@@ -56,24 +70,33 @@ public with sharing class BC_CreateAccountPlanController {
             update toUpdate;
         }
 
-        // Create AccountPlanObjective records (FSC standard object)
         if (String.isNotBlank(objectives)) {
             List<Object> objList = (List<Object>) JSON.deserializeUntyped(objectives);
             List<AccountPlanObjective> objRecords = new List<AccountPlanObjective>();
             for (Object o : objList) {
                 Map<String, Object> obj = (Map<String, Object>) o;
-                AccountPlanObjective apo = new AccountPlanObjective(
+                objRecords.add(new AccountPlanObjective(
                     AccountPlanId = plan.Id,
                     Name          = (String) obj.get('name')
-                );
-                objRecords.add(apo);
+                ));
             }
-            if (!objRecords.isEmpty()) {
-                insert objRecords;
-            }
+            if (!objRecords.isEmpty()) insert objRecords;
         }
 
         return plan.Id;
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Account> searchAccounts(String searchTerm, Id excludeId) {
+        String q = '%' + String.escapeSingleQuotes(searchTerm) + '%';
+        return [
+            SELECT Id, Name, bc_TipoGrupo__c
+            FROM Account
+            WHERE Name LIKE :q
+              AND Id != :excludeId
+            ORDER BY Name
+            LIMIT 10
+        ];
     }
 
     @AuraEnabled(cacheable=true)

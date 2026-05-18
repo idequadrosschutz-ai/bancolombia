@@ -36,12 +36,17 @@
       </template>
     </div>
 
-    <!-- BODY -->
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- BODY                                           -->
+    <!-- ══════════════════════════════════════════════ -->
     <div class="slds-modal__content flow-body">
 
-      <!-- ── TELA 1: Datos del plan ── -->
+      <!-- ────────────────────────────────────────────── -->
+      <!-- TELA 1: Datos del plan                         -->
+      <!-- ────────────────────────────────────────────── -->
       <template if:true={isStep1}>
-        <!-- Account header -->
+
+        <!-- Account header chip -->
         <div class="flow-record-header slds-m-bottom_medium">
           <div class="flow-record-icon">
             <lightning-icon icon-name="standard:account" size="small" alternative-text="Cuenta"></lightning-icon>
@@ -65,64 +70,44 @@
           </div>
         </template>
 
-        <!-- Section: Basic info -->
+        <!-- ── Section: Información básica ── -->
         <div class="flow-section-title slds-m-bottom_small">
           <lightning-icon icon-name="utility:info" size="x-small" alternative-text="Info"></lightning-icon>
           <span class="slds-m-left_xx-small">Información básica</span>
         </div>
 
         <div class="slds-form slds-form_stacked">
-          <!-- Plan name -->
           <div class="slds-form-element slds-m-bottom_small">
             <label class="slds-form-element__label">
-              <abbr class="slds-required" title="requerido">*</abbr>
-              Nombre del plan
+              <abbr class="slds-required" title="requerido">*</abbr>Nombre del plan
             </label>
             <div class="slds-form-element__control">
               <lightning-input
-                type="text"
-                name="planName"
-                value={planName}
+                type="text" name="planName" value={planName}
                 placeholder="Ej: Plan Comercial 2025 — Grupo Andino"
-                required
-                onchange={handleFieldChange}
+                required onchange={handleFieldChange}
               ></lightning-input>
             </div>
           </div>
 
-          <!-- Dates row -->
           <div class="slds-grid slds-gutters_small">
             <div class="slds-col slds-size_1-of-2">
               <div class="slds-form-element">
                 <label class="slds-form-element__label">
-                  <abbr class="slds-required" title="requerido">*</abbr>
-                  Fecha inicio
+                  <abbr class="slds-required" title="requerido">*</abbr>Fecha inicio
                 </label>
                 <div class="slds-form-element__control">
-                  <lightning-input
-                    type="date"
-                    name="startDate"
-                    value={startDate}
-                    required
-                    onchange={handleFieldChange}
-                  ></lightning-input>
+                  <lightning-input type="date" name="startDate" value={startDate} required onchange={handleFieldChange}></lightning-input>
                 </div>
               </div>
             </div>
             <div class="slds-col slds-size_1-of-2">
               <div class="slds-form-element">
                 <label class="slds-form-element__label">
-                  <abbr class="slds-required" title="requerido">*</abbr>
-                  Fecha fin
+                  <abbr class="slds-required" title="requerido">*</abbr>Fecha fin
                 </label>
                 <div class="slds-form-element__control">
-                  <lightning-input
-                    type="date"
-                    name="endDate"
-                    value={endDate}
-                    required
-                    onchange={handleFieldChange}
-                  ></lightning-input>
+                  <lightning-input type="date" name="endDate" value={endDate} required onchange={handleFieldChange}></lightning-input>
                 </div>
               </div>
             </div>
@@ -137,7 +122,7 @@
                   <input type="text" class="slds-input flow-readonly" readonly value="Borrador" />
                   <span class="flow-auto-badge">
                     <lightning-icon icon-name="utility:apex" size="xx-small" alternative-text="Auto"></lightning-icon>
-                    Auto: Status__c
+                    Auto: Status
                   </span>
                 </div>
               </div>
@@ -156,44 +141,332 @@
             </div>
           </div>
 
+          <!-- Account Vision + Calling Strategy -->
+          <div class="slds-grid slds-gutters_small slds-m-top_small">
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label">Visión de la cuenta</label>
+                <div class="slds-form-element__control">
+                  <lightning-textarea name="accountVision" value={accountVision} placeholder="Visión estratégica..." onchange={handleFieldChange}></lightning-textarea>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label">Estrategia de visita</label>
+                <div class="slds-form-element__control">
+                  <lightning-textarea name="callingStrategy" value={callingStrategy} placeholder="Cómo se aborda al cliente..." onchange={handleFieldChange}></lightning-textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Notes -->
           <div class="slds-form-element slds-m-top_small">
             <label class="slds-form-element__label">Observaciones</label>
             <div class="slds-form-element__control">
-              <lightning-textarea
-                name="notes"
-                value={notes}
-                placeholder="Opcional..."
-                onchange={handleFieldChange}
-              ></lightning-textarea>
+              <lightning-textarea name="notes" value={notes} placeholder="Opcional..." onchange={handleFieldChange}></lightning-textarea>
             </div>
           </div>
         </div>
+
+        <!-- ── Section: Análisis DOFA ── -->
+        <div class="flow-section-title slds-m-top_medium slds-m-bottom_small">
+          <lightning-icon icon-name="utility:strategy" size="x-small" alternative-text="DOFA"></lightning-icon>
+          <span class="slds-m-left_xx-small">Análisis DOFA</span>
+        </div>
+
+        <div class="dofa-form-grid">
+          <!-- D -->
+          <div class="dofa-form-quadrant dofa-q-d">
+            <div class="dofa-q-header">
+              <span class="dofa-q-letter" style="color:#E3001B">D</span>
+              <span class="dofa-q-name">Debilidades</span>
+              <span class="dofa-q-tag dofa-tag-neg">Interno · Negativo</span>
+            </div>
+            <lightning-textarea name="swotD" value={swotD} placeholder="Debilidades internas..." onchange={handleFieldChange} class="dofa-textarea"></lightning-textarea>
+          </div>
+          <!-- O -->
+          <div class="dofa-form-quadrant dofa-q-o">
+            <div class="dofa-q-header">
+              <span class="dofa-q-letter" style="color:#00B478">O</span>
+              <span class="dofa-q-name">Oportunidades</span>
+              <span class="dofa-q-tag dofa-tag-pos">Externo · Positivo</span>
+            </div>
+            <lightning-textarea name="swotO" value={swotO} placeholder="Oportunidades del mercado..." onchange={handleFieldChange} class="dofa-textarea"></lightning-textarea>
+          </div>
+          <!-- F -->
+          <div class="dofa-form-quadrant dofa-q-f">
+            <div class="dofa-q-header">
+              <span class="dofa-q-letter" style="color:#FFD100">F</span>
+              <span class="dofa-q-name">Fortalezas</span>
+              <span class="dofa-q-tag dofa-tag-pos">Interno · Positivo</span>
+            </div>
+            <lightning-textarea name="swotF" value={swotF} placeholder="Fortalezas internas..." onchange={handleFieldChange} class="dofa-textarea"></lightning-textarea>
+          </div>
+          <!-- A -->
+          <div class="dofa-form-quadrant dofa-q-a">
+            <div class="dofa-q-header">
+              <span class="dofa-q-letter" style="color:#FF8C00">A</span>
+              <span class="dofa-q-name">Amenazas</span>
+              <span class="dofa-q-tag dofa-tag-neg">Externo · Negativo</span>
+            </div>
+            <lightning-textarea name="swotA" value={swotA} placeholder="Amenazas externas..." onchange={handleFieldChange} class="dofa-textarea"></lightning-textarea>
+          </div>
+        </div>
+
+        <!-- ── Section: Panorama Competitivo ── -->
+        <div class="flow-section-title slds-m-top_medium slds-m-bottom_small">
+          <lightning-icon icon-name="utility:connected_apps" size="x-small" alternative-text="Competitivo"></lightning-icon>
+          <span class="slds-m-left_xx-small">Panorama Competitivo</span>
+        </div>
+
+        <div class="slds-grid slds-gutters_small">
+          <div class="slds-col slds-size_1-of-3">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label">Fortalezas competitivas</label>
+              <div class="slds-form-element__control">
+                <lightning-textarea name="compStrengths" value={compStrengths} placeholder="Ventajas competitivas..." onchange={handleFieldChange}></lightning-textarea>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-3">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label">Debilidades competitivas</label>
+              <div class="slds-form-element__control">
+                <lightning-textarea name="compWeaknesses" value={compWeaknesses} placeholder="Puntos débiles vs competencia..." onchange={handleFieldChange}></lightning-textarea>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-3">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label">Competidores</label>
+              <div class="slds-form-element__control">
+                <lightning-textarea name="competitors" value={competitors} placeholder="Principales competidores..." onchange={handleFieldChange}></lightning-textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </template>
 
-      <!-- ── TELA 2: Participantes ── (próxima iteração) -->
+      <!-- ────────────────────────────────────────────── -->
+      <!-- TELA 2: Participantes                          -->
+      <!-- ────────────────────────────────────────────── -->
       <template if:true={isStep2}>
-        <div class="flow-placeholder">
-          <lightning-icon icon-name="standard:contact_list" size="large" alternative-text="Participantes"></lightning-icon>
-          <p class="slds-text-heading_small slds-m-top_small">Tela 2 — Cuentas participantes</p>
-          <p class="slds-text-color_weak slds-m-top_x-small">Em implementação</p>
+
+        <div class="flow-record-header slds-m-bottom_medium">
+          <div class="flow-record-icon">
+            <lightning-icon icon-name="standard:contact_list" size="small" alternative-text="Participantes"></lightning-icon>
+          </div>
+          <div class="flow-record-info">
+            <div class="slds-text-title_bold">Cuentas participantes del plan</div>
+            <div class="flow-record-meta">
+              <span>{selectedAccountsCount} cuenta(s) seleccionada(s)</span>
+              <template if:true={isGroupPlan}>
+                <span class="flow-pill-blue slds-badge">Plan de Grupo</span>
+              </template>
+            </div>
+          </div>
         </div>
+
+        <!-- Search box -->
+        <div class="flow-section-title slds-m-bottom_small">
+          <lightning-icon icon-name="utility:search" size="x-small" alternative-text="Buscar"></lightning-icon>
+          <span class="slds-m-left_xx-small">Agregar cuenta participante</span>
+        </div>
+
+        <div class="slds-form-element slds-m-bottom_small">
+          <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+            <lightning-icon icon-name="utility:search" size="x-small" class="slds-icon slds-input__icon slds-input__icon_left" alternative-text="Buscar"></lightning-icon>
+            <input
+              type="text"
+              class="slds-input"
+              placeholder="Buscar por nombre de cuenta..."
+              value={searchTerm}
+              onkeyup={handleSearchChange}
+            />
+          </div>
+        </div>
+
+        <!-- Search results dropdown -->
+        <template if:true={hasSearchResults}>
+          <ul class="search-results-list slds-m-bottom_small">
+            <template for:each={searchResults} for:item="res">
+              <li key={res.id}
+                  class="search-result-item"
+                  data-id={res.id}
+                  data-name={res.Name}
+                  data-tipo={res.tipo}
+                  onclick={handleAddAccount}>
+                <lightning-icon icon-name="standard:account" size="x-small" alternative-text="Cuenta"></lightning-icon>
+                <span class="slds-m-left_x-small">{res.Name}</span>
+                <span class="search-result-tipo">{res.tipo}</span>
+              </li>
+            </template>
+          </ul>
+        </template>
+
+        <template if:true={noSearchResults}>
+          <p class="slds-text-color_weak slds-text-body_small slds-m-bottom_small">No se encontraron cuentas con ese nombre.</p>
+        </template>
+
+        <!-- Selected accounts table -->
+        <div class="flow-section-title slds-m-bottom_small">
+          <lightning-icon icon-name="standard:account" size="x-small" alternative-text="Seleccionadas"></lightning-icon>
+          <span class="slds-m-left_xx-small">Participantes seleccionados</span>
+        </div>
+
+        <template if:true={hasSelectedAccounts}>
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped flow-table">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th scope="col"><div class="slds-truncate">Cuenta</div></th>
+                <th scope="col"><div class="slds-truncate">Tipo</div></th>
+                <th scope="col" style="width:60px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={selectedAccounts} for:item="acc">
+                <tr key={acc.id}>
+                  <td>
+                    <div class="slds-truncate">
+                      <lightning-icon icon-name="standard:account" size="x-small" alternative-text="Cuenta"></lightning-icon>
+                      <span class="slds-m-left_x-small">{acc.Name}</span>
+                    </div>
+                  </td>
+                  <td><div class="slds-truncate">{acc.tipo}</div></td>
+                  <td>
+                    <lightning-button-icon
+                      icon-name="utility:delete"
+                      size="x-small"
+                      variant="bare"
+                      alternative-text="Eliminar"
+                      data-id={acc.id}
+                      onclick={handleRemoveAccount}
+                    ></lightning-button-icon>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </template>
+
+        <template if:false={hasSelectedAccounts}>
+          <div class="flow-placeholder-small">
+            <lightning-icon icon-name="standard:contact_list" size="medium" alternative-text="Vacío"></lightning-icon>
+            <p class="slds-text-color_weak slds-text-body_small slds-m-top_x-small">
+              Ninguna cuenta adicional seleccionada.<br/>
+              Puedes avanzar sin agregar participantes.
+            </p>
+          </div>
+        </template>
+
       </template>
 
-      <!-- ── TELA 3: Objetivos ── (próxima iteração) -->
+      <!-- ────────────────────────────────────────────── -->
+      <!-- TELA 3: Objetivos                              -->
+      <!-- ────────────────────────────────────────────── -->
       <template if:true={isStep3}>
-        <div class="flow-placeholder">
-          <lightning-icon icon-name="standard:goals" size="large" alternative-text="Objetivos"></lightning-icon>
-          <p class="slds-text-heading_small slds-m-top_small">Tela 3 — Objetivos</p>
-          <p class="slds-text-color_weak slds-m-top_x-small">Em implementação</p>
+
+        <div class="flow-record-header slds-m-bottom_medium">
+          <div class="flow-record-icon">
+            <lightning-icon icon-name="standard:goals" size="small" alternative-text="Objetivos"></lightning-icon>
+          </div>
+          <div class="flow-record-info">
+            <div class="slds-text-title_bold">Objetivos del plan</div>
+            <div class="flow-record-meta">
+              <span>{objectivesCount} objetivo(s) definido(s)</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Add objective form -->
+        <template if:true={showObjForm}>
+          <div class="obj-form-card slds-m-bottom_medium">
+            <div class="obj-form-header">
+              <lightning-icon icon-name="utility:add" size="x-small" alternative-text="Nuevo objetivo"></lightning-icon>
+              <span class="slds-m-left_x-small">Nuevo objetivo</span>
+            </div>
+            <div class="slds-form slds-form_stacked slds-p-around_small">
+              <div class="slds-form-element slds-m-bottom_small">
+                <label class="slds-form-element__label">
+                  <abbr class="slds-required" title="requerido">*</abbr>Nombre del objetivo
+                </label>
+                <div class="slds-form-element__control">
+                  <lightning-input type="text" name="objName" value={objName} placeholder="Ej: Aumentar cartera en 20%" onchange={handleObjFieldChange}></lightning-input>
+                </div>
+              </div>
+              <div class="slds-form-element slds-m-bottom_small">
+                <label class="slds-form-element__label">Descripción</label>
+                <div class="slds-form-element__control">
+                  <lightning-textarea name="objDescription" value={objDescription} placeholder="Detalle del objetivo..." onchange={handleObjFieldChange}></lightning-textarea>
+                </div>
+              </div>
+              <div class="obj-form-actions">
+                <lightning-button label="Cancelar" onclick={handleToggleObjForm}></lightning-button>
+                <lightning-button label="Agregar objetivo" variant="brand" icon-name="utility:check" onclick={handleAddObjective}></lightning-button>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- Objectives list -->
+        <template if:true={hasObjectives}>
+          <ul class="obj-list slds-m-bottom_medium">
+            <template for:each={objectives} for:item="obj">
+              <li key={obj.id} class="obj-list-item">
+                <div class="obj-list-icon">
+                  <lightning-icon icon-name="utility:goal" size="x-small" alternative-text="Objetivo"></lightning-icon>
+                </div>
+                <div class="obj-list-content">
+                  <div class="obj-list-name">{obj.name}</div>
+                  <template if:true={obj.description}>
+                    <div class="obj-list-desc">{obj.description}</div>
+                  </template>
+                </div>
+                <lightning-button-icon
+                  icon-name="utility:delete"
+                  size="x-small"
+                  variant="bare"
+                  alternative-text="Eliminar"
+                  data-id={obj.id}
+                  onclick={handleRemoveObjective}
+                ></lightning-button-icon>
+              </li>
+            </template>
+          </ul>
+        </template>
+
+        <template if:false={showObjForm}>
+          <div class="slds-m-bottom_medium">
+            <lightning-button
+              label="+ Agregar objetivo"
+              variant="neutral"
+              icon-name="utility:add"
+              onclick={handleToggleObjForm}
+            ></lightning-button>
+          </div>
+        </template>
+
+        <template if:false={hasObjectives}>
+          <div class="flow-placeholder-small slds-m-bottom_medium">
+            <lightning-icon icon-name="standard:goals" size="medium" alternative-text="Sin objetivos"></lightning-icon>
+            <p class="slds-text-color_weak slds-text-body_small slds-m-top_x-small">
+              No hay objetivos definidos aún. Puedes guardar el plan sin objetivos o agregar uno arriba.
+            </p>
+          </div>
+        </template>
+
       </template>
 
-      <!-- ── TELA 4: Confirmação ── (próxima iteração) -->
+      <!-- ────────────────────────────────────────────── -->
+      <!-- TELA 4: Confirmación                           -->
+      <!-- ────────────────────────────────────────────── -->
       <template if:true={isStep4}>
         <div class="flow-ok-screen">
           <div class="flow-ok-icon">
-            <lightning-icon icon-name="utility:check" size="large" alternative-text="Sucesso"></lightning-icon>
+            <lightning-icon icon-name="utility:check" size="large" alternative-text="Éxito"></lightning-icon>
           </div>
           <h3 class="slds-text-heading_medium slds-m-top_small">Plan de negocio creado exitosamente</h3>
           <p class="slds-text-color_weak slds-m-top_x-small slds-m-bottom_medium">
@@ -206,7 +479,7 @@
             </div>
             <div class="flow-metric">
               <div class="flow-metric-val">{selectedAccountsCount}</div>
-              <div class="flow-metric-lbl">Stakeholders</div>
+              <div class="flow-metric-lbl">Participantes</div>
             </div>
             <div class="flow-metric">
               <div class="flow-metric-val">{objectivesCount}</div>
@@ -217,62 +490,34 @@
       </template>
 
     </div>
+    <!-- end body -->
 
     <!-- FOOTER -->
     <footer class="slds-modal__footer flow-footer">
       <template if:true={isStep1}>
         <lightning-button label="Cancelar" onclick={handleCancel}></lightning-button>
-        <lightning-button
-          label="Siguiente"
-          icon-name="utility:forward"
-          icon-position="right"
-          variant="brand"
-          onclick={handleNext}
-        ></lightning-button>
+        <lightning-button label="Siguiente" icon-name="utility:forward" icon-position="right" variant="brand" onclick={handleNext}></lightning-button>
       </template>
 
       <template if:true={isStep2}>
-        <lightning-button
-          label="Anterior"
-          icon-name="utility:back"
-          onclick={handleBack}
-        ></lightning-button>
-        <lightning-button
-          label="Validar y continuar"
-          icon-name="utility:forward"
-          icon-position="right"
-          variant="brand"
-          onclick={handleNext}
-        ></lightning-button>
+        <lightning-button label="Anterior" icon-name="utility:back" onclick={handleBack}></lightning-button>
+        <lightning-button label="Siguiente" icon-name="utility:forward" icon-position="right" variant="brand" onclick={handleNext}></lightning-button>
       </template>
 
       <template if:true={isStep3}>
+        <lightning-button label="Anterior" icon-name="utility:back" onclick={handleBack}></lightning-button>
         <lightning-button
-          label="Anterior"
-          icon-name="utility:back"
-          onclick={handleBack}
-        ></lightning-button>
-        <lightning-button
-          label="Guardar plan"
+          label={saveBtnLabel}
           icon-name="utility:save"
           variant="brand"
+          disabled={isSaving}
           onclick={handleSave}
         ></lightning-button>
       </template>
 
       <template if:true={isStep4}>
-        <lightning-button
-          label="Crear otro plan"
-          icon-name="utility:add"
-          variant="brand"
-          onclick={handleReset}
-        ></lightning-button>
-        <lightning-button
-          label="Ver registro"
-          icon-name="utility:new_window"
-          icon-position="right"
-          onclick={handleViewRecord}
-        ></lightning-button>
+        <lightning-button label="Crear otro plan" icon-name="utility:add" variant="brand" onclick={handleReset}></lightning-button>
+        <lightning-button label="Ver registro" icon-name="utility:new_window" icon-position="right" onclick={handleViewRecord}></lightning-button>
       </template>
     </footer>
 
