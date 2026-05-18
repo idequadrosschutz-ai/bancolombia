@@ -15,11 +15,13 @@
   --sf-err:#ba0517;--sf-err-bg:#fff1ef;--sf-err-b:#f5b5b5;
   --sf-inf-bg:#e8f4fd;--sf-inf-b:#9fd6ff;
   --sf-bdr:#e5e5e5;--sf-r:4px;--sf-rl:6px;
+  --bc-yellow:#FFD100;--bc-dark:#1A1A2E;
 }
 body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--sf-t);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:0}
-.sf-shell{width:100%;max-width:780px;margin:0 auto;border-left:1px solid var(--sf-bdr);border-right:1px solid var(--sf-bdr);min-height:100vh;background:#f3f3f3}
+.sf-shell{width:100%;max-width:900px;margin:0 auto;border-left:1px solid var(--sf-bdr);border-right:1px solid var(--sf-bdr);min-height:100vh;background:#f3f3f3}
 .sf-nav{background:var(--sf-brand);height:50px;display:flex;align-items:center;padding:0 16px;gap:12px}
-.sf-nav-logo{color:#fff;font-weight:700;font-size:13px;padding-right:12px;border-right:1px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:8px}
+.bc-logo{display:flex;align-items:center;gap:8px;padding-right:12px;border-right:1px solid rgba(255,255,255,.2)}
+.bc-logo svg{height:28px;width:auto}
 .sf-nav-app{color:rgba(255,255,255,.65);font-size:12px}
 .sf-nav-av{width:26px;height:26px;border-radius:50%;background:#0176d3;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:auto}
 .sf-tabs{background:#fff;border-bottom:1px solid var(--sf-bdr);display:flex;padding:0 16px;gap:2px;overflow-x:auto}
@@ -27,8 +29,10 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .sf-tab.on{color:var(--sf-blue);border-bottom-color:var(--sf-blue)}
 .sf-crumb{padding:7px 16px;font-size:11px;color:var(--sf-t3);display:flex;align-items:center;gap:4px;background:#f3f3f3;flex-wrap:wrap}
 .sf-crumb a{color:var(--sf-blue);cursor:pointer}
+/* Modal view */
 .sf-bd{background:rgba(0,0,0,.38);min-height:calc(100vh - 120px);display:flex;align-items:flex-start;justify-content:center;padding:20px 10px}
-.sf-m{background:#fff;border-radius:var(--sf-rl);width:100%;max-width:660px;border:1px solid #c9c7c5;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.sf-m{background:#fff;border-radius:var(--sf-rl);width:100%;max-width:660px;border:1px solid #c9c7c5;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:max-width .2s}
+.sf-m.wide{max-width:880px}
 .sf-mh{background:var(--sf-brand);border-radius:var(--sf-rl) var(--sf-rl) 0 0;padding:13px 18px;display:flex;align-items:center;justify-content:space-between}
 .sf-mh h2{color:#fff;font-size:15px;font-weight:600}
 .sf-mh .b{background:rgba(255,255,255,.18);color:#fff;font-size:10px;padding:2px 7px;border-radius:12px;margin-left:8px;font-weight:400}
@@ -45,8 +49,9 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .sf-wd.act{border-color:var(--sf-blue);color:var(--sf-blue)}
 .sf-wl{font-size:10px;color:var(--sf-t3);white-space:nowrap}
 .sf-wl.act{color:var(--sf-blue);font-weight:600}
-.sf-body{padding:16px 18px;max-height:520px;overflow-y:auto}
+.sf-body{padding:16px 18px;max-height:540px;overflow-y:auto}
 .sf-ft{padding:11px 18px;border-top:1px solid var(--sf-bdr);background:#fafafa;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 var(--sf-rl) var(--sf-rl)}
+/* Buttons */
 .sf-btn{height:32px;border-radius:var(--sf-r);font-size:12px;font-weight:600;cursor:pointer;padding:0 14px;display:inline-flex;align-items:center;gap:5px;border:1px solid;white-space:nowrap;font-family:inherit}
 .sf-btn:active{transform:scale(.98)}
 .sf-bb{background:var(--sf-blue);color:#fff;border-color:var(--sf-blue)}
@@ -57,6 +62,7 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .sf-bd2:hover{background:#f4f4f4}
 .sf-bx{background:#c23934;color:#fff;border-color:#c23934}
 .sf-btn:disabled{opacity:.45;cursor:not-allowed}
+/* Misc UI */
 .sf-sec{font-size:11px;font-weight:700;color:var(--sf-t3);text-transform:uppercase;letter-spacing:.6px;padding:0 0 5px;border-bottom:1px solid var(--sf-bdr);margin-bottom:12px;display:flex;align-items:center;gap:5px}
 .sf-al{border-radius:var(--sf-r);padding:9px 12px;font-size:12px;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px;border-left:3px solid}
 .sf-al-ok{background:var(--sf-ok-bg);color:var(--sf-ok);border-left-color:var(--sf-ok)}
@@ -81,6 +87,7 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .sf-auto{display:inline-flex;align-items:center;gap:3px;background:#e8f4fd;color:#014486;border:1px solid var(--sf-inf-b);border-radius:12px;padding:1px 7px;font-size:10px;font-weight:600;margin-top:2px}
 .sf-gr{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-bottom:12px}
 .sf-gr.f{grid-template-columns:1fr}
+.sf-gr.t3{grid-template-columns:1fr 1fr 1fr}
 .sf-fe{display:flex;flex-direction:column}
 .sf-tbl{width:100%;border-collapse:collapse;font-size:12px}
 .sf-tbl th{background:#f4f6f9;padding:6px 9px;text-align:left;font-weight:700;font-size:10px;color:var(--sf-t3);border-bottom:1px solid var(--sf-bdr);text-transform:uppercase;letter-spacing:.4px}
@@ -97,19 +104,6 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .sf-obj-ht{font-size:12px;font-weight:700;color:var(--sf-blue);display:flex;align-items:center;gap:5px}
 .sf-obj-body{padding:10px 12px}
 .sf-dashed{border:1px dashed var(--sf-n3);border-radius:var(--sf-r);padding:12px;background:#fafafa}
-.sf-dec{text-align:center;padding:18px 8px}
-.sf-dec-ic{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:27px;border:2px solid}
-.sf-dec h3{font-size:16px;font-weight:600;color:var(--sf-t);margin-bottom:5px}
-.sf-dec p{font-size:12px;color:var(--sf-t3);margin-bottom:16px;line-height:1.5}
-.sf-dec-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.sf-ok-sc{text-align:center;padding:18px 10px}
-.sf-ok-ic{width:60px;height:60px;border-radius:50%;background:var(--sf-ok-bg);border:2px solid var(--sf-ok-b);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--sf-ok)}
-.sf-ok-ti{font-size:17px;font-weight:700;color:var(--sf-t);margin-bottom:5px}
-.sf-ok-su{font-size:12px;color:var(--sf-t3);margin-bottom:14px;line-height:1.5}
-.sf-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
-.sf-mt{background:#f4f6f9;border-radius:var(--sf-r);padding:10px 6px;text-align:center}
-.sf-mv{font-size:22px;font-weight:700;color:var(--sf-blue)}
-.sf-ml{font-size:10px;color:var(--sf-t3);margin-top:1px;text-transform:uppercase;letter-spacing:.4px}
 .opp-sel-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--sf-bdr);cursor:pointer}
 .opp-sel-row:last-child{border-bottom:none}
 .opp-sel-row:hover{background:#f0f7ff}
@@ -117,48 +111,333 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .opp-ic{width:28px;height:28px;border-radius:4px;background:#0176d3;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 .opp-linked{background:#e8f4fd;border:1px solid var(--sf-inf-b);border-radius:var(--sf-r);padding:6px 10px;display:flex;align-items:center;gap:7px;margin-top:6px}
 .opp-linked-ic{width:22px;height:22px;border-radius:3px;background:#0176d3;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+/* Decision screen */
+.sf-dec{text-align:center;padding:28px 24px}
+.sf-dec-ic{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.sf-dec h3{font-size:17px;font-weight:700;color:var(--sf-t);margin-bottom:8px}
+.sf-dec p{font-size:13px;color:var(--sf-t3);margin-bottom:22px;line-height:1.6;max-width:380px;margin-left:auto;margin-right:auto}
+.sf-dec-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.sf-dec-opt{border:1px solid var(--sf-bdr);border-radius:8px;padding:16px 20px;cursor:pointer;flex:1;min-width:160px;max-width:220px;text-align:center;transition:border-color .15s,background .15s}
+.sf-dec-opt:hover{border-color:var(--sf-blue);background:var(--sf-blue-light)}
+.sf-dec-opt i{font-size:28px;color:var(--sf-blue);margin-bottom:8px;display:block}
+.sf-dec-opt strong{font-size:13px;color:var(--sf-t);display:block;margin-bottom:4px}
+.sf-dec-opt span{font-size:11px;color:var(--sf-t3)}
+/* Objective form 2-col */
+.obj-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:480px}
+.obj-form-left{padding:16px 18px;border-right:1px solid var(--sf-bdr);overflow-y:auto;max-height:540px}
+.obj-form-right{padding:16px 14px;overflow-y:auto;max-height:540px;background:#fafafa}
+.obj-records-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.obj-records-title{font-size:14px;font-weight:700;color:var(--sf-t)}
+.obj-toggle{width:40px;height:22px;border-radius:11px;background:var(--sf-blue);border:none;cursor:pointer;position:relative;flex-shrink:0}
+.obj-toggle::after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#fff}
+.obj-chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--sf-n3);border-radius:16px;padding:3px 10px;font-size:12px;color:var(--sf-t2)}
+.obj-chip i{font-size:13px;color:var(--sf-blue)}
+.obj-chip .x{color:var(--sf-n4);cursor:pointer;font-size:11px}
+.obj-srch{border:1px solid var(--sf-n3);border-radius:var(--sf-r);padding:0 9px;font-size:12px;height:30px;flex:1;outline:none;font-family:inherit}
+.obj-srch:focus{border-color:var(--sf-blue)}
+.obj-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.obj-tbl th{background:#f4f6f9;padding:5px 7px;text-align:left;font-weight:700;font-size:10px;color:var(--sf-t3);border-bottom:1px solid var(--sf-bdr)}
+.obj-tbl td{padding:6px 7px;border-bottom:1px solid var(--sf-bdr);vertical-align:middle}
+.obj-tbl tbody tr:hover td{background:#f0f7ff;cursor:pointer}
+.obj-tbl tbody tr.sel td{background:#e8f4fd}
+.obj-tbl a{color:var(--sf-blue);font-weight:600;text-decoration:none}
+.measures-sec{background:#f4f6f9;border:1px solid var(--sf-bdr);border-radius:var(--sf-r);padding:12px;margin-top:4px}
+.measures-title{font-size:12px;font-weight:700;color:var(--sf-t);margin-bottom:4px}
+.measures-sub{font-size:11px;color:var(--sf-t3);margin-bottom:10px;line-height:1.4}
+.radio-group{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.radio-opt{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sf-t2);cursor:pointer}
+.radio-opt input{accent-color:var(--sf-blue);width:14px;height:14px}
+/* Record page */
+#record-view{display:none;background:#f3f3f3;min-height:calc(100vh - 100px)}
+.rec-hdr{background:#fff;border-bottom:1px solid var(--sf-bdr);padding:12px 20px}
+.rec-hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.rec-icon{width:40px;height:40px;border-radius:6px;background:var(--sf-blue);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
+.rec-title-area{margin-left:12px;flex:1}
+.rec-obj-label{font-size:11px;color:var(--sf-t3);font-weight:400}
+.rec-title{font-size:22px;font-weight:700;color:var(--sf-t);line-height:1.2}
+.rec-btns{display:flex;gap:8px;flex-shrink:0}
+.rec-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:4px}
+.rec-meta-item{font-size:12px;color:var(--sf-t3)}
+.rec-meta-item a{color:var(--sf-blue);font-weight:600;text-decoration:none}
+.rec-meta-item strong{color:var(--sf-t2)}
+.rec-highlight{background:#fff;border-bottom:1px solid var(--sf-bdr);padding:14px 20px}
+.rec-highlight-title{font-size:13px;font-weight:700;color:var(--sf-t);margin-bottom:12px}
+.rec-metrics{display:flex;gap:0;align-items:stretch}
+.rec-metrics-donut{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px 0 0;border-right:1px solid var(--sf-bdr);margin-right:20px;flex-shrink:0}
+.donut-ring{width:62px;height:62px;border-radius:50%;border:5px solid var(--sf-n3);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--sf-t)}
+.rec-metric-group{flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center}
+.rec-metric-row{display:flex;gap:20px}
+.rec-metric-col{flex:1}
+.rec-metric-label{font-size:10px;color:var(--sf-t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.rec-metric-val{font-size:18px;font-weight:700;color:var(--sf-t)}
+.rec-metric-sub{font-size:10px;color:var(--sf-t3)}
+.rec-metric-rate{font-size:18px;font-weight:700;color:var(--sf-t)}
+.rec-body{display:flex;gap:0;padding:0}
+.rec-main{flex:1;padding:14px 16px;min-width:0}
+.rec-sidebar{width:300px;flex-shrink:0;padding:14px 14px;border-left:1px solid var(--sf-bdr)}
+.rec-tabs{display:flex;gap:0;border-bottom:1px solid var(--sf-bdr);background:#fff;padding:0 16px;margin:-14px -16px 14px}
+.rec-tab{padding:10px 14px;font-size:12px;font-weight:600;color:var(--sf-t3);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+.rec-tab.on{color:var(--sf-blue);border-bottom-color:var(--sf-blue)}
+.rec-section{background:#fff;border:1px solid var(--sf-bdr);border-radius:var(--sf-r);margin-bottom:12px;overflow:hidden}
+.rec-section-hdr{padding:10px 14px;display:flex;align-items:center;gap:6px;cursor:pointer;background:#f4f6f9;border-bottom:1px solid var(--sf-bdr)}
+.rec-section-hdr h4{font-size:13px;font-weight:700;color:var(--sf-t);flex:1}
+.rec-section-body{padding:12px 14px}
+.rec-fields{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.rec-field{padding:8px 10px 8px 0;border-bottom:1px solid var(--sf-bdr)}
+.rec-field:nth-child(odd){border-right:1px solid var(--sf-bdr);padding-right:14px}
+.rec-field:nth-child(even){padding-left:14px}
+.rec-field-label{font-size:11px;color:var(--sf-t3);margin-bottom:2px}
+.rec-field-val{font-size:12px;color:var(--sf-t);font-weight:500}
+.rec-field-val a{color:var(--sf-blue)}
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.swot-box{border-radius:var(--sf-r);padding:10px;font-size:12px}
+.swot-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+.swot-s{background:#eaf5ea;border:1px solid #b3ddb3}.swot-s .swot-label{color:#2e7a2e}
+.swot-w{background:#fffbea;border:1px solid #f5e5a0}.swot-w .swot-label{color:#7a6000}
+.swot-o{background:#e8f4fd;border:1px solid #9fd6ff}.swot-o .swot-label{color:#014486}
+.swot-t{background:#fff1ef;border:1px solid #f5b5b5}.swot-t .swot-label{color:#ba0517}
+/* Sidebar objectives */
+.obj-sidebar-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.obj-sidebar-title{font-size:14px;font-weight:700;color:var(--sf-t)}
+.obj-sidebar-card{border:1px solid var(--sf-bdr);border-radius:var(--sf-r);margin-bottom:10px;overflow:hidden}
+.obj-sidebar-card-hdr{padding:8px 12px;background:#f4f6f9;border-bottom:1px solid var(--sf-bdr);display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.obj-sidebar-card-title{font-size:12px;font-weight:700;color:var(--sf-t);display:flex;align-items:center;gap:5px}
+.obj-sidebar-card-body{padding:10px 12px}
+.obj-sidebar-meta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.obj-sidebar-meta-item{font-size:10px;color:var(--sf-t3)}
+.obj-sidebar-meta-item strong{display:block;color:var(--sf-t2);font-size:11px}
+.obj-progress{background:#f0f0f0;border-radius:3px;height:6px;margin-top:6px;overflow:hidden}
+.obj-progress-bar{height:6px;background:var(--sf-blue);border-radius:3px}
+.obj-curr-tgt{display:flex;justify-content:space-between;font-size:11px;margin-top:4px}
+.obj-curr{color:var(--sf-t3)}
+.obj-tgt{font-weight:700;color:var(--sf-t)}
+.files-drop{border:1px dashed var(--sf-n3);border-radius:var(--sf-r);padding:20px;text-align:center;background:#fafafa;font-size:12px;color:var(--sf-t3);margin-top:8px}
+.files-drop i{font-size:22px;display:block;margin-bottom:6px;color:var(--sf-n4)}
+.rel-map{border:1px solid var(--sf-bdr);border-radius:var(--sf-r);overflow:hidden;background:#fafafa;position:relative;height:140px}
+.rel-dot-bg{position:absolute;inset:0;background-image:radial-gradient(circle,#ccc 1px,transparent 1px);background-size:18px 18px;opacity:.4}
+.rel-card-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:1px solid var(--sf-bdr);border-radius:6px;padding:8px 14px;min-width:140px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.rel-card-name{font-size:11px;font-weight:700;color:var(--sf-t);text-align:center}
+.rel-card-tag{background:var(--sf-blue-light);color:var(--sf-blue);font-size:10px;font-weight:600;border-radius:10px;padding:1px 7px;text-align:center;margin-top:4px;display:block}
+.add-obj-btn{width:100%;justify-content:center;margin-top:8px}
 </style>
 </head>
 <body>
 <div class="sf-shell">
+  <!-- NAV -->
   <div class="sf-nav">
-    <div class="sf-nav-logo">
-      <svg width="20" height="15" viewBox="0 0 24 18" fill="none" aria-hidden="true"><path d="M10 0C7.8 0 5.9 1.1 4.8 2.8 4.2 2.5 3.6 2.3 3 2.3 1.3 2.3 0 3.6 0 5.3c0 .4.1.8.2 1.1C.1 6.8 0 7.2 0 7.7 0 9.5 1.5 11 3.3 11H10V0z" fill="white" opacity=".9"/><path d="M14 0c2.2 0 4.1 1.1 5.2 2.8.6-.3 1.2-.5 1.8-.5C22.7 2.3 24 3.6 24 5.3c0 .4-.1.8-.2 1.1.1.4.2.8.2 1.3C24 9.5 22.5 11 20.7 11H14V0z" fill="white" opacity=".9"/><path d="M7 11v7h10v-7H7z" fill="#00A1E0"/></svg>
-      Salesforce
+    <div class="bc-logo">
+      <!-- Bancolombia logo SVG -->
+      <svg viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bancolombia">
+        <rect width="140" height="36" fill="none"/>
+        <!-- Yellow icon mark -->
+        <circle cx="18" cy="18" r="14" fill="#FFD100"/>
+        <path d="M13 12h6c2.2 0 3.8 1.4 3.8 3.3 0 1.1-.5 2-1.4 2.5 1.2.5 2 1.6 2 2.9C23.4 22.9 21.6 24 19 24h-6V12zm2.2 5h3.5c1 0 1.8-.6 1.8-1.6s-.8-1.5-1.8-1.5h-3.5v3.1zm0 5.1h3.8c1.2 0 2-.7 2-1.8s-.8-1.7-2-1.7h-3.8v3.5z" fill="#1A1A2E"/>
+        <!-- Wordmark -->
+        <text x="38" y="23" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#FFD100" letter-spacing="0.3">bancolombia</text>
+      </svg>
     </div>
-    <span class="sf-nav-app">CRM · Bancolombia</span>
+    <span class="sf-nav-app">CRM · Financial Services</span>
     <div class="sf-nav-av">JR</div>
   </div>
+
+  <!-- TABS -->
   <div class="sf-tabs">
-    <div class="sf-tab"><i class="ti ti-home" aria-hidden="true" style="font-size:12px"></i>Início</div>
-    <div class="sf-tab"><i class="ti ti-users" aria-hidden="true" style="font-size:12px"></i>Contas</div>
-    <div class="sf-tab on"><i class="ti ti-building" aria-hidden="true" style="font-size:12px"></i>Grupo Andino</div>
+    <div class="sf-tab"><i class="ti ti-home" style="font-size:12px"></i>Início</div>
+    <div class="sf-tab"><i class="ti ti-users" style="font-size:12px"></i>Clientes</div>
+    <div class="sf-tab on"><i class="ti ti-building" style="font-size:12px"></i>Grupo Andino</div>
   </div>
-  <div class="sf-crumb">
-    <a>Contas</a><span style="color:#ccc">/</span>
+  <div class="sf-crumb" id="crumb">
+    <a>Clientes</a><span style="color:#ccc">/</span>
     <a>Grupo Empresarial Andino</a><span style="color:#ccc">/</span>
     <span style="color:var(--sf-t2);font-weight:600">Nuevo Plan de Negocio</span>
   </div>
-  <div class="sf-bd">
-    <div class="sf-m">
-      <div class="sf-mh">
-        <div style="display:flex;align-items:center;gap:9px">
-          <i class="ti ti-file-text" aria-hidden="true" style="font-size:17px;color:rgba(255,255,255,.85)"></i>
-          <h2>Nuevo Plan de Negocio</h2>
-          <span class="b" id="mbadge">F001 · Paso 1 de 4</span>
+
+  <!-- MODAL VIEW (steps 1–3) -->
+  <div id="modal-view">
+    <div class="sf-bd">
+      <div class="sf-m" id="sfm">
+        <div class="sf-mh">
+          <div style="display:flex;align-items:center;gap:9px">
+            <i class="ti ti-file-text" style="font-size:17px;color:rgba(255,255,255,.85)"></i>
+            <h2>Nuevo Plan de Negocio</h2>
+            <span class="b" id="mbadge">F001 · Paso 1 de 4</span>
+          </div>
+          <button class="sf-mc" onclick="resetAll()" aria-label="Cerrar">×</button>
         </div>
-        <button class="sf-mc" onclick="resetAll()" aria-label="Cerrar">×</button>
+        <div class="sf-pb"><div class="sf-pf" id="prog" style="width:25%"></div></div>
+        <div class="sf-wiz" id="wiz"></div>
+        <div id="body"></div>
+        <div class="sf-ft" id="foot"></div>
       </div>
-      <div class="sf-pb"><div class="sf-pf" id="prog" style="width:25%"></div></div>
-      <div class="sf-wiz" id="wiz"></div>
-      <div class="sf-body" id="body"></div>
-      <div class="sf-ft" id="foot"></div>
     </div>
   </div>
-</div>
+
+  <!-- RECORD VIEW (step 4) -->
+  <div id="record-view">
+    <div class="rec-hdr">
+      <div class="rec-hdr-top">
+        <div style="display:flex;align-items:flex-start;gap:0">
+          <div class="rec-icon"><i class="ti ti-file-text"></i></div>
+          <div class="rec-title-area">
+            <div class="rec-obj-label">Account Plan</div>
+            <div class="rec-title" id="rec-plan-name">Plan Comercial 2025 — Grupo Andino</div>
+          </div>
+        </div>
+        <div class="rec-btns">
+          <button class="sf-btn sf-bd2"><i class="ti ti-plus" style="font-size:12px"></i>New Task</button>
+          <button class="sf-btn sf-bd2"><i class="ti ti-pencil" style="font-size:12px"></i>Editar</button>
+          <button class="sf-btn sf-bd2" style="color:var(--sf-err)"><i class="ti ti-trash" style="font-size:12px"></i>Eliminar</button>
+        </div>
+      </div>
+      <div class="rec-meta">
+        <div class="rec-meta-item">Cuenta: <a id="rec-account">Grupo Empresarial Andino</a></div>
+        <div class="rec-meta-item">Estado: <strong id="rec-status">Borrador</strong></div>
+        <div class="rec-meta-item">Inicio: <strong id="rec-start"></strong></div>
+        <div class="rec-meta-item">Fin: <strong id="rec-end"></strong></div>
+        <div class="rec-meta-item">Responsable: <a>Juan Ramírez</a></div>
+      </div>
+    </div>
+
+    <div class="rec-highlight">
+      <div class="rec-highlight-title">Métricas de Cuenta — Grupo Empresarial Andino</div>
+      <div class="rec-metrics">
+        <div class="rec-metrics-donut">
+          <div class="donut-ring">4</div>
+          <div style="font-size:10px;color:var(--sf-t3);margin-top:5px;text-align:center">Oportunidades<br/>abiertas</div>
+        </div>
+        <div class="rec-metric-group">
+          <div class="rec-metric-row">
+            <div class="rec-metric-col">
+              <div class="rec-metric-label">Ingresos — Últ. trimestre</div>
+              <div class="rec-metric-val">$0</div>
+            </div>
+            <div class="rec-metric-col">
+              <div class="rec-metric-label">Ingresos — Este trimestre</div>
+              <div class="rec-metric-val">$2.870M</div>
+            </div>
+            <div class="rec-metric-col">
+              <div class="rec-metric-label">Tasa de cierre — Últ. trim.</div>
+              <div class="rec-metric-rate">60%</div>
+            </div>
+            <div class="rec-metric-col">
+              <div class="rec-metric-label">Tasa de cierre — Este trim.</div>
+              <div class="rec-metric-rate">75%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-body">
+      <div class="rec-main">
+        <div class="rec-tabs">
+          <div class="rec-tab on">Detalles</div>
+          <div class="rec-tab">Visión general</div>
+          <div class="rec-tab">Resumen de relación</div>
+        </div>
+
+        <!-- Account Plan Information -->
+        <div class="rec-section">
+          <div class="rec-section-hdr">
+            <i class="ti ti-chevron-down" style="font-size:13px;color:var(--sf-t3)"></i>
+            <h4>Información del Account Plan</h4>
+          </div>
+          <div class="rec-section-body">
+            <div class="rec-fields">
+              <div class="rec-field"><div class="rec-field-label">Nombre del plan</div><div class="rec-field-val" id="rf-name">—</div></div>
+              <div class="rec-field"><div class="rec-field-label">Cuenta</div><div class="rec-field-val"><a>Grupo Empresarial Andino</a></div></div>
+              <div class="rec-field"><div class="rec-field-label">Fecha inicio</div><div class="rec-field-val" id="rf-start">—</div></div>
+              <div class="rec-field"><div class="rec-field-label">Fecha fin</div><div class="rec-field-val" id="rf-end">—</div></div>
+              <div class="rec-field"><div class="rec-field-label">Estado</div><div class="rec-field-val">Borrador</div></div>
+              <div class="rec-field"><div class="rec-field-label">Tipo de plan</div><div class="rec-field-val" id="rf-tipo">—</div></div>
+              <div class="rec-field" style="grid-column:1/-1"><div class="rec-field-label">Observaciones</div><div class="rec-field-val" id="rf-notes">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SWOT -->
+        <div class="rec-section">
+          <div class="rec-section-hdr">
+            <i class="ti ti-chevron-down" style="font-size:13px;color:var(--sf-t3)"></i>
+            <h4>Análisis SWOT</h4>
+          </div>
+          <div class="rec-section-body">
+            <div class="swot-grid">
+              <div class="swot-box swot-s"><div class="swot-label">Fortalezas</div>Posición dominante en banca corporativa en la región andina</div>
+              <div class="swot-box swot-w"><div class="swot-label">Debilidades</div>Dependencia de financiamiento externo para grandes proyectos</div>
+              <div class="swot-box swot-o"><div class="swot-label">Oportunidades</div>Expansión a nuevos mercados y digitalización de servicios financieros</div>
+              <div class="swot-box swot-t"><div class="swot-label">Amenazas</div>Volatilidad cambiaria y presión regulatoria regional</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Competitive Landscape -->
+        <div class="rec-section">
+          <div class="rec-section-hdr">
+            <i class="ti ti-chevron-down" style="font-size:13px;color:var(--sf-t3)"></i>
+            <h4>Panorama Competitivo</h4>
+          </div>
+          <div class="rec-section-body">
+            <div class="rec-fields">
+              <div class="rec-field"><div class="rec-field-label">Fortalezas competitivas</div><div class="rec-field-val">Marca reconocida, red amplia, productos diversificados</div></div>
+              <div class="rec-field"><div class="rec-field-label">Debilidades competitivas</div><div class="rec-field-val">Tiempo de respuesta en crédito empresarial</div></div>
+              <div class="rec-field" style="grid-column:1/-1"><div class="rec-field-label">Competidores</div><div class="rec-field-val">Davivienda · BBVA Colombia · Banco de Bogotá</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Relationship Map -->
+        <div class="rec-section">
+          <div class="rec-section-hdr">
+            <i class="ti ti-chevron-down" style="font-size:13px;color:var(--sf-t3)"></i>
+            <h4>Mapa de Relaciones</h4>
+          </div>
+          <div class="rec-section-body">
+            <div class="rel-map">
+              <div class="rel-dot-bg"></div>
+              <div class="rel-card-inner">
+                <div class="rel-card-name">Grupo Empresarial Andino</div>
+                <span class="rel-card-tag"><i class="ti ti-target" style="font-size:10px"></i> Plan Activo</span>
+              </div>
+            </div>
+            <div style="font-size:11px;color:var(--sf-t3);margin-top:8px">Stakeholders vinculados: <strong id="rf-stakeholders">—</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="rec-sidebar">
+        <div class="obj-sidebar-hdr">
+          <div class="obj-sidebar-title">Objetivos</div>
+          <i class="ti ti-chevron-down" style="font-size:14px;color:var(--sf-t3);cursor:pointer"></i>
+        </div>
+        <div id="rec-obj-list">
+          <!-- filled by renderRecord() -->
+        </div>
+        <button class="sf-btn sf-bn add-obj-btn" onclick="addMoreObj()"><i class="ti ti-plus" style="font-size:12px"></i>Agregar objetivo</button>
+
+        <!-- Files -->
+        <div style="margin-top:16px">
+          <div class="obj-sidebar-hdr" style="margin-top:8px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <i class="ti ti-file" style="font-size:15px;color:var(--sf-t3)"></i>
+              <span style="font-size:14px;font-weight:700;color:var(--sf-t)">Archivos (0)</span>
+            </div>
+            <i class="ti ti-chevron-down" style="font-size:14px;color:var(--sf-t3);cursor:pointer"></i>
+          </div>
+          <div class="files-drop">
+            <i class="ti ti-upload"></i>
+            Subir archivos<br/>
+            <span style="font-size:11px">o arrastrar aquí</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /sf-shell -->
 
 <script>
-const STEPS=[{l:'Datos del plan'},{l:'Participantes'},{l:'Objetivos'},{l:'Confirmación'}];
+const STEPS=[{l:'Datos del plan'},{l:'Participantes'},{l:'Objetivos'},{l:'Registro'}];
 const accounts=[
   {id:0,name:'Andino Servicios S.A.',eligible:true,note:'Subsidiaria'},
   {id:1,name:'Andino Construcciones',eligible:true,note:'Subsidiaria'},
@@ -166,100 +445,225 @@ const accounts=[
   {id:3,name:'Andino Seguros Ltda.',eligible:false,note:'Sin plan activo'},
 ];
 const opps=[
-  {id:0,name:'Crédito Expansión 2025',acc:'Andino Servicios S.A.',owner:'María Cardona',amount:'$850.000.000',stage:'Propuesta',close:'31/12/2025',prob:'60%'},
-  {id:1,name:'Leasing Maquinaria Industrial',acc:'Andino Construcciones',owner:'Carlos Mejía',amount:'$1.200.000.000',stage:'Negociación',close:'15/11/2025',prob:'75%'},
-  {id:2,name:'Factoring Digital 360',acc:'Andino Tech Colombia',owner:'Laura Vélez',amount:'$320.000.000',stage:'Prospecto',close:'28/02/2026',prob:'30%'},
-  {id:3,name:'Línea de Crédito Rotativa',acc:'Andino Servicios S.A.',owner:'María Cardona',amount:'$500.000.000',stage:'Calificación',close:'30/09/2025',prob:'45%'},
+  {id:0,name:'Crédito Expansión 2025',acc:'Andino Servicios S.A.',owner:'María Cardona',amount:'$850M',stage:'Propuesta',close:'31/12/2025',prob:'60%'},
+  {id:1,name:'Leasing Maquinaria Industrial',acc:'Andino Construcciones',owner:'Carlos Mejía',amount:'$1.200M',stage:'Negociación',close:'15/11/2025',prob:'75%'},
+  {id:2,name:'Factoring Digital 360',acc:'Andino Tech Colombia',owner:'Laura Vélez',amount:'$320M',stage:'Prospecto',close:'28/02/2026',prob:'30%'},
+  {id:3,name:'Línea de Crédito Rotativa',acc:'Andino Servicios S.A.',owner:'María Cardona',amount:'$500M',stage:'Calificación',close:'30/09/2025',prob:'45%'},
+  {id:4,name:'Fondo Inversión Regional',acc:'Andino Construcciones',owner:'Carlos Mejía',amount:'$2.100M',stage:'Negociación',close:'30/06/2026',prob:'65%'},
 ];
 const stageColor={Propuesta:'sf-p-bl',Negociación:'sf-p-ok',Prospecto:'sf-p-gy',Calificación:'sf-p-ye'};
 const typeLabel=()=>st.accountType==='grupo_local'?'Grupo Local':st.accountType==='grupo_regional'?'Grupo Regional':'Individual';
 const typePill=()=>st.accountType==='grupo_local'?'sf-p-bl':st.accountType==='grupo_regional'?'sf-p-or':'sf-p-pp';
+const fmtDate=d=>{if(!d)return'—';const[y,m,dd]=d.split('-');return`${dd}/${m}/${y}`};
 
-let st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,prevPlan:true};
+let st={
+  step:1,accountType:'grupo_local',
+  planName:'Plan Comercial 2025 — Grupo Andino',
+  startDate:'2025-01-01',endDate:'2025-12-31',notes:'',
+  selectedAccounts:[0,1,2],objectives:[],
+  selectedOppIds:[],showIneligible:false,
+  showOppSelector:false,showDecision:false,showObjForm:false,
+  prevPlan:true,
+  objForm:{name:'',desc:'',startDate:'',endDate:'',owner:'',calcDef:'None',valueType:'None'}
+};
 
 function wiz(){
-  const s=Math.min(st.showIneligible?2:st.step,4);
-  document.getElementById('prog').style.width=(s/4*100)+'%';
+  const s=st.step;
+  const pct=s===4?100:s===3?75:s===2?50:25;
+  document.getElementById('prog').style.width=pct+'%';
   document.getElementById('mbadge').textContent='F001 · Paso '+s+' de 4';
   let h='';
   STEPS.forEach((x,i)=>{
     const n=i+1,done=n<s,act=n===s;
-    h+=`<div class="sf-ws"><div class="sf-wd ${done?'done':act?'act':''}">${done?'<i class="ti ti-check" aria-hidden="true" style="font-size:10px"></i>':n}</div><div class="sf-wl ${act?'act':''}">${x.l}</div></div>`;
+    h+=`<div class="sf-ws"><div class="sf-wd ${done?'done':act?'act':''}">${done?'<i class="ti ti-check" style="font-size:10px"></i>':n}</div><div class="sf-wl ${act?'act':''}">${x.l}</div></div>`;
     if(i<3)h+=`<div class="sf-wc ${done?'on':''}"></div>`;
   });
   document.getElementById('wiz').innerHTML=h;
 }
 
 function render(){
+  const mv=document.getElementById('modal-view');
+  const rv=document.getElementById('record-view');
+  if(st.step===4){
+    mv.style.display='none';
+    rv.style.display='block';
+    document.getElementById('crumb').innerHTML=`<a>Clientes</a><span style="color:#ccc">/</span><a>Grupo Empresarial Andino</a><span style="color:#ccc">/</span><span style="color:var(--sf-t2);font-weight:600">${st.planName}</span>`;
+    renderRecord();
+    return;
+  }
+  mv.style.display='block';
+  rv.style.display='none';
+  document.getElementById('crumb').innerHTML=`<a>Clientes</a><span style="color:#ccc">/</span><a>Grupo Empresarial Andino</a><span style="color:#ccc">/</span><span style="color:var(--sf-t2);font-weight:600">Nuevo Plan de Negocio</span>`;
+  // wide modal for obj form
+  document.getElementById('sfm').className='sf-m'+(st.showObjForm||st.showOppSelector?' wide':'');
   wiz();
   const b=document.getElementById('body'),f=document.getElementById('foot');
   if(st.step===1){b.innerHTML=s1();f.innerHTML=f1();}
-  else if(st.step===2&&!st.showIneligible&&!st.showOppSelector){b.innerHTML=s2();f.innerHTML=f2();}
+  else if(st.step===2&&!st.showIneligible){b.innerHTML=s2();f.innerHTML=f2();}
   else if(st.showIneligible){b.innerHTML=sInel();f.innerHTML=fInel();}
-  else if(st.step===3&&!st.showOppSelector){b.innerHTML=s3();f.innerHTML=f3();}
+  else if(st.step===3&&st.showDecision){b.innerHTML=sDec();f.innerHTML=fDec();}
+  else if(st.step===3&&st.showObjForm&&!st.showOppSelector){b.innerHTML=sObjForm();f.innerHTML=fObjForm();b.className='';}
   else if(st.showOppSelector){b.innerHTML=sOppSel();f.innerHTML=fOppSel();}
-  else if(st.step===4){b.innerHTML=s4();f.innerHTML=f4();}
+  else if(st.step===3&&!st.showDecision&&!st.showObjForm){b.innerHTML=s3List();f.innerHTML=f3List();}
 }
 
+/* ── STEP 1 ── */
 function s1(){
-  return`<div class="sf-rh"><div class="sf-ric">GA</div><div><div class="sf-rn">Grupo Empresarial Andino</div><div class="sf-rm"><span>ID: 0011X00002bGa7Q</span><span style="color:#ccc">|</span><span class="sf-pill ${typePill()}">${typeLabel()}</span><span style="color:#ccc">|</span><span>NIT 900.123.456-1</span></div></div></div>
-  ${st.prevPlan?`<div class="sf-al sf-al-i"><i class="ti ti-history" aria-hidden="true"></i><span>Plan anterior detectado. Datos precargados desde <strong>Plan Comercial 2024</strong>.</span></div>`:''}
-  <div class="sf-sec"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:13px"></i>Información básica</div>
+  return`<div class="sf-body">
+  <div class="sf-rh"><div class="sf-ric">GA</div><div><div class="sf-rn">Grupo Empresarial Andino</div><div class="sf-rm"><span>ID: 0011X00002bGa7Q</span><span style="color:#ccc">|</span><span class="sf-pill ${typePill()}">${typeLabel()}</span><span style="color:#ccc">|</span><span>NIT 900.123.456-1</span></div></div></div>
+  ${st.prevPlan?`<div class="sf-al sf-al-i"><i class="ti ti-history"></i><span>Plan anterior detectado. Datos precargados desde <strong>Plan Comercial 2024</strong>.</span></div>`:''}
+  <div class="sf-sec"><i class="ti ti-info-circle" style="font-size:13px"></i>Información básica</div>
   <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Nombre del plan <span class="sf-req">*</span></div><input class="sf-inp" id="fn" value="${st.planName}" oninput="st.planName=this.value"/></div></div>
   <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Fecha inicio <span class="sf-req">*</span></div><input class="sf-inp" type="date" value="${st.startDate}" oninput="st.startDate=this.value"/></div><div class="sf-fe"><div class="sf-lbl">Fecha fin <span class="sf-req">*</span></div><input class="sf-inp" type="date" value="${st.endDate}" oninput="st.endDate=this.value"/></div></div>
-  <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Estado</div><input class="sf-inp sf-ro" readonly value="Borrador"/><span class="sf-auto"><i class="ti ti-bolt" aria-hidden="true" style="font-size:10px"></i>Auto: Status__c</span></div><div class="sf-fe"><div class="sf-lbl">Tipo de plan</div><input class="sf-inp sf-ro" readonly value="${typeLabel()}"/><span class="sf-auto"><i class="ti ti-bolt" aria-hidden="true" style="font-size:10px"></i>Auto: bc_TipoPlano__c</span></div></div>
-  <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Observaciones</div><textarea class="sf-ta" placeholder="Opcional..." oninput="st.notes=this.value">${st.notes}</textarea></div></div>`;
+  <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Estado</div><input class="sf-inp sf-ro" readonly value="Borrador"/><span class="sf-auto"><i class="ti ti-bolt" style="font-size:10px"></i>Auto: Status__c</span></div><div class="sf-fe"><div class="sf-lbl">Tipo de plan</div><input class="sf-inp sf-ro" readonly value="${typeLabel()}"/><span class="sf-auto"><i class="ti ti-bolt" style="font-size:10px"></i>Auto: bc_TipoPlano__c</span></div></div>
+  <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Observaciones</div><textarea class="sf-ta" placeholder="Opcional..." oninput="st.notes=this.value">${st.notes}</textarea></div></div>
+  </div>`;
 }
-function f1(){return`<button class="sf-btn sf-bd2" onclick="resetAll()">Cancelar</button><button class="sf-btn sf-bb" onclick="go2()">Siguiente <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></button>`;}
+function f1(){return`<button class="sf-btn sf-bd2" onclick="resetAll()">Cancelar</button><button class="sf-btn sf-bb" onclick="go2()">Siguiente <i class="ti ti-arrow-right" style="font-size:12px"></i></button>`;}
 
+/* ── STEP 2 ── */
 function s2(){
   let rows='';
   accounts.forEach(a=>{
     const chk=st.selectedAccounts.includes(a.id);
-    rows+=`<tr><td><input type="checkbox" class="sf-ck" ${chk?'checked':''} onchange="toggleAcc(${a.id},this.checked)"/></td><td style="font-weight:600;color:var(--sf-blue)">${a.name}</td><td><span class="sf-pill sf-p-pp">Individual</span></td><td><span class="sf-pill ${a.eligible?'sf-p-ok':'sf-p-er'}"><i class="ti ti-${a.eligible?'check':'x'}" aria-hidden="true" style="font-size:10px"></i>${a.eligible?'Elegible':'No elegible'}</span></td><td style="color:var(--sf-t3);font-size:11px">${a.note}</td></tr>`;
+    rows+=`<tr><td><input type="checkbox" class="sf-ck" ${chk?'checked':''} onchange="toggleAcc(${a.id},this.checked)"/></td><td style="font-weight:600;color:var(--sf-blue)">${a.name}</td><td><span class="sf-pill sf-p-pp">Individual</span></td><td><span class="sf-pill ${a.eligible?'sf-p-ok':'sf-p-er'}"><i class="ti ti-${a.eligible?'check':'x'}" style="font-size:10px"></i>${a.eligible?'Elegible':'No elegible'}</span></td><td style="color:var(--sf-t3);font-size:11px">${a.note}</td></tr>`;
   });
-  return`<div class="sf-al sf-al-i"><i class="ti ti-users" aria-hidden="true"></i><span>Cuentas miembro del grupo <strong>Grupo Empresarial Andino</strong> cargadas automáticamente.</span></div>
-  <div class="sf-sec"><i class="ti ti-building" aria-hidden="true" style="font-size:13px"></i>Cuentas participantes</div>
+  return`<div class="sf-body"><div class="sf-al sf-al-i"><i class="ti ti-users"></i><span>Cuentas miembro del grupo <strong>Grupo Empresarial Andino</strong> cargadas automáticamente.</span></div>
+  <div class="sf-sec"><i class="ti ti-building" style="font-size:13px"></i>Cuentas participantes</div>
   <table class="sf-tbl"><thead><tr><th style="width:32px"></th><th>Cuenta</th><th>Tipo</th><th>Estado</th><th>Nota</th></tr></thead><tbody>${rows}</tbody></table>
-  <div style="margin-top:8px;font-size:11px;color:var(--sf-t3)">${st.selectedAccounts.length} cuenta(s) seleccionada(s)</div>`;
+  <div style="margin-top:8px;font-size:11px;color:var(--sf-t3)">${st.selectedAccounts.length} cuenta(s) seleccionada(s)</div></div>`;
 }
-function f2(){return`<button class="sf-btn sf-bd2" onclick="st.step=1;render()"><i class="ti ti-arrow-left" aria-hidden="true" style="font-size:12px"></i>Anterior</button><button class="sf-btn sf-bb" onclick="goValidate()">Validar y continuar <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></button>`;}
+function f2(){return`<button class="sf-btn sf-bd2" onclick="st.step=1;render()"><i class="ti ti-arrow-left" style="font-size:12px"></i>Anterior</button><button class="sf-btn sf-bb" onclick="goValidate()">Validar y continuar <i class="ti ti-arrow-right" style="font-size:12px"></i></button>`;}
 
+/* ── INELEGIBLE ── */
 function sInel(){
   const bad=accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id));
   let rows=bad.map(a=>`<tr><td style="font-weight:600">${a.name}</td><td style="color:var(--sf-err);font-size:11px">C002 — Sin plan activo vigente</td><td><button class="sf-btn sf-bd2" style="font-size:11px;height:26px;padding:0 8px" onclick="removeAcc(${a.id})">Quitar</button></td></tr>`).join('');
-  return`<div class="sf-al sf-al-e"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div><strong>Validación C001/C002 — Apex Trigger</strong><br/>${bad.length} cuenta(s) no cumplen las reglas de acatamiento.</div></div>
+  return`<div class="sf-body"><div class="sf-al sf-al-e"><i class="ti ti-alert-triangle"></i><div><strong>Validación C001/C002 — Apex Trigger</strong><br/>${bad.length} cuenta(s) no cumplen las reglas de acatamiento.</div></div>
   <div class="sf-sec">Cuentas no elegibles</div>
-  <table class="sf-tbl"><thead><tr><th>Cuenta</th><th>Motivo</th><th>Acción</th></tr></thead><tbody>${rows}</tbody></table>`;
+  <table class="sf-tbl"><thead><tr><th>Cuenta</th><th>Motivo</th><th>Acción</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-function fInel(){return`<button class="sf-btn sf-bx" onclick="resetAll()"><i class="ti ti-x" aria-hidden="true" style="font-size:12px"></i>Cancelar flujo</button><button class="sf-btn sf-bb" onclick="afterInel()">Continuar sin ellas <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></button>`;}
+function fInel(){return`<button class="sf-btn sf-bx" onclick="resetAll()"><i class="ti ti-x" style="font-size:12px"></i>Cancelar flujo</button><button class="sf-btn sf-bb" onclick="afterInel()">Continuar sin ellas <i class="ti ti-arrow-right" style="font-size:12px"></i></button>`;}
 
-function s3(){
-  let cards=st.objectives.map((o,i)=>{
-    const opp=opps.find(p=>p.id===o.oppId);
-    return`<div class="sf-obj-card"><div class="sf-obj-h"><div class="sf-obj-ht"><i class="ti ti-target" aria-hidden="true" style="font-size:12px"></i>Objetivo ${i+1} — ${o.goal}</div><button class="sf-btn sf-bd2" style="font-size:11px;height:24px;padding:0 8px" onclick="rmObj(${i})"><i class="ti ti-trash" aria-hidden="true" style="font-size:12px"></i></button></div><div class="sf-obj-body"><div class="sf-gr" style="margin-bottom:8px"><div><div style="font-size:10px;color:var(--sf-t3)">Meta</div><div style="font-size:12px;font-weight:600">${o.target}</div></div><div><div style="font-size:10px;color:var(--sf-t3)">bc_AccountPlanId__c</div><div style="font-size:11px;color:var(--sf-blue)">AP-2025-0041</div></div></div>${opp?`<div class="opp-linked"><div class="opp-linked-ic"><i class="ti ti-coin" aria-hidden="true" style="font-size:11px"></i></div><div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--sf-blue)">${opp.name}</div><div style="font-size:10px;color:var(--sf-t3)">${opp.acc} · ${opp.amount} · <span class="sf-pill ${stageColor[opp.stage]||'sf-p-gy'}">${opp.stage}</span></div></div></div>`:'<div style="font-size:11px;color:var(--sf-t3);font-style:italic">Sin oportunidad vinculada</div>'}</div></div>`;
-  }).join('');
-  const oppOpts=opps.map(o=>`<option value="${o.id}">${o.name} — ${o.acc}</option>`).join('');
-  return`<div class="sf-al sf-al-ok"><i class="ti ti-check" aria-hidden="true"></i><span>Validaciones aprobadas. <strong>${st.selectedAccounts.length} cuentas</strong> agregadas como Account Stakeholders.</span></div>
-  <div class="sf-sec"><i class="ti ti-target" aria-hidden="true" style="font-size:13px"></i>Objetivos del plan <span style="margin-left:5px;font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--sf-t3)">${st.objectives.length} objetivo(s)</span></div>
-  ${cards||'<div style="color:var(--sf-t3);font-size:12px;margin-bottom:10px;font-style:italic">Aún no hay objetivos.</div>'}
-  <div class="sf-dashed">
-    <div style="font-size:12px;font-weight:700;color:var(--sf-t2);margin-bottom:10px;display:flex;align-items:center;gap:5px"><i class="ti ti-plus" aria-hidden="true" style="font-size:13px"></i>Nuevo objetivo</div>
-    <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Tipo de objetivo <span class="sf-req">*</span></div><select class="sf-sel" id="ng"><option value="">Seleccionar...</option><option>Colocación de crédito</option><option>Captación de recursos</option><option>Vinculación de productos</option><option>Retención de cartera</option></select></div><div class="sf-fe"><div class="sf-lbl">Meta (COP) <span class="sf-req">*</span></div><input class="sf-inp" id="nt" placeholder="Ej: $500.000.000"/></div></div>
-    <div class="sf-fe" style="margin-bottom:10px"><div class="sf-lbl">Oportunidad vinculada <span style="font-weight:400;color:var(--sf-t3)">(excluye Closed Won/Lost)</span></div>
-    <button class="sf-btn sf-bn" style="width:100%;justify-content:center" onclick="openOpp()"><i class="ti ti-search" aria-hidden="true" style="font-size:12px"></i>${st.selectedOppIds.length>0?st.selectedOppIds.length+' oportunidad(es) seleccionada(s)':'Buscar y seleccionar oportunidades...'}</button>
-    ${st.selectedOppIds.length>0?`<div style="margin-top:6px;display:flex;flex-direction:column;gap:4px">${st.selectedOppIds.map(id=>{const o=opps.find(p=>p.id===id);return o?`<div class="opp-linked"><div class="opp-linked-ic"><i class="ti ti-coin" aria-hidden="true" style="font-size:11px"></i></div><div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--sf-blue)">${o.name}</div><div style="font-size:10px;color:var(--sf-t3)">${o.acc} · ${o.amount}</div></div><span class="sf-pill ${stageColor[o.stage]||'sf-p-gy'}">${o.stage}</span></div>`:''}).join('')}</div>`:''}</div>
-    <button class="sf-btn sf-bb" style="width:100%;justify-content:center" onclick="addObj()"><i class="ti ti-plus" aria-hidden="true" style="font-size:12px"></i>Agregar objetivo</button>
+/* ── DECISION SCREEN ── */
+function sDec(){
+  const ac=st.selectedAccounts.length;
+  return`<div class="sf-body">
+  <div class="sf-al sf-al-ok"><i class="ti ti-check"></i><span>Validaciones aprobadas. <strong>${ac} cuenta(s)</strong> agregadas como Account Stakeholders.</span></div>
+  <div class="sf-dec">
+    <div class="sf-dec-ic" style="background:var(--sf-blue-light);border:2px solid var(--sf-inf-b)"><i class="ti ti-target" style="color:var(--sf-blue)"></i></div>
+    <h3>¿Deseas agregar objetivos al plan?</h3>
+    <p>Los objetivos permiten hacer seguimiento a metas comerciales como colocación de crédito, captación de recursos y vinculación de productos.</p>
+    <div class="sf-dec-btns">
+      <div class="sf-dec-opt" onclick="goToObjForm()">
+        <i class="ti ti-target"></i>
+        <strong>Crear objetivos</strong>
+        <span>Definir metas y vincular oportunidades</span>
+      </div>
+      <div class="sf-dec-opt" onclick="finishNow()">
+        <i class="ti ti-device-floppy" style="color:var(--sf-ok)"></i>
+        <strong>Finalizar</strong>
+        <span>Guardar el plan sin objetivos</span>
+      </div>
+    </div>
+  </div>
   </div>`;
 }
-function f3(){const can=st.objectives.length>0;return`<button class="sf-btn sf-bd2" onclick="st.step=2;render()"><i class="ti ti-arrow-left" aria-hidden="true" style="font-size:12px"></i>Anterior</button><button class="sf-btn sf-bb" onclick="finish()" ${can?'':'disabled'}><i class="ti ti-device-floppy" aria-hidden="true" style="font-size:12px"></i>Guardar plan</button>`;}
+function fDec(){return`<button class="sf-btn sf-bd2" onclick="st.step=2;st.showDecision=false;render()"><i class="ti ti-arrow-left" style="font-size:12px"></i>Anterior</button><span></span>`;}
 
+/* ── OBJECTIVES LIST (after adding at least one) ── */
+function s3List(){
+  let cards=st.objectives.map((o,i)=>{
+    const linkedOpps=o.oppIds||[];
+    const oppHtml=linkedOpps.length
+      ? linkedOpps.map(id=>{const p=opps.find(x=>x.id===id);return p?`<div class="opp-linked"><div class="opp-linked-ic"><i class="ti ti-coin" style="font-size:11px"></i></div><div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--sf-blue)">${p.name}</div><div style="font-size:10px;color:var(--sf-t3)">${p.acc} · ${p.amount} · <span class="sf-pill ${stageColor[p.stage]||'sf-p-gy'}">${p.stage}</span></div></div></div>`:''}).join('')
+      : '<div style="font-size:11px;color:var(--sf-t3);font-style:italic">Sin oportunidades vinculadas</div>';
+    return`<div class="sf-obj-card"><div class="sf-obj-h"><div class="sf-obj-ht"><i class="ti ti-target" style="font-size:12px"></i>Objetivo ${i+1} — ${o.name}</div><button class="sf-btn sf-bd2" style="font-size:11px;height:24px;padding:0 8px" onclick="rmObj(${i})"><i class="ti ti-trash" style="font-size:12px"></i></button></div><div class="sf-obj-body"><div class="sf-gr" style="margin-bottom:6px"><div><div style="font-size:10px;color:var(--sf-t3)">Período</div><div style="font-size:11px">${fmtDate(o.startDate)} – ${fmtDate(o.endDate)}</div></div><div><div style="font-size:10px;color:var(--sf-t3)">Tipo de valor</div><div style="font-size:11px">${o.valueType}</div></div></div>${oppHtml}</div></div>`;
+  }).join('');
+  return`<div class="sf-body">
+  <div class="sf-al sf-al-ok"><i class="ti ti-check"></i><span><strong>${st.objectives.length} objetivo(s)</strong> agregado(s) al plan.</span></div>
+  <div class="sf-sec"><i class="ti ti-target" style="font-size:13px"></i>Objetivos del plan</div>
+  ${cards}
+  <button class="sf-btn sf-bn" style="width:100%;justify-content:center;margin-top:4px" onclick="goToObjForm()"><i class="ti ti-plus" style="font-size:12px"></i>Agregar otro objetivo</button>
+  </div>`;
+}
+function f3List(){return`<button class="sf-btn sf-bd2" onclick="st.showDecision=true;render()"><i class="ti ti-arrow-left" style="font-size:12px"></i>Anterior</button><button class="sf-btn sf-bb" onclick="finishNow()"><i class="ti ti-device-floppy" style="font-size:12px"></i>Guardar plan</button>`;}
+
+/* ── OBJECTIVE FORM (2-col, matches screenshot) ── */
+function sObjForm(){
+  const f=st.objForm;
+  const oppRows=opps.map(o=>{
+    const sel=st.selectedOppIds.includes(o.id);
+    return`<tr class="${sel?'sel':''}" onclick="toggleOpp(${o.id})">
+      <td><input type="checkbox" class="sf-ck" ${sel?'checked':''} onclick="event.stopPropagation();toggleOpp(${o.id})"/></td>
+      <td><a onclick="event.stopPropagation()">${o.name}</a></td>
+      <td style="color:var(--sf-t3)">${o.acc.substring(0,14)}…</td>
+      <td style="color:var(--sf-t3)">${o.close}</td>
+      <td style="font-weight:600">${o.amount}</td>
+      <td style="color:var(--sf-t3)">${o.owner.split(' ')[0]}</td>
+    </tr>`;
+  }).join('');
+  return`<div class="obj-form-grid">
+  <!-- LEFT: form fields -->
+  <div class="obj-form-left">
+    <div class="sf-fe" style="margin-bottom:10px"><div class="sf-lbl">Nombre <span class="sf-req">*</span></div><input class="sf-inp" id="of-name" value="${f.name}" oninput="st.objForm.name=this.value" placeholder="Nombre del objetivo"/></div>
+    <div class="sf-fe" style="margin-bottom:10px"><div class="sf-lbl">Descripción</div><textarea class="sf-ta" style="min-height:48px" id="of-desc" oninput="st.objForm.desc=this.value" placeholder="Descripción">${f.desc}</textarea></div>
+    <div class="sf-gr" style="margin-bottom:10px">
+      <div class="sf-fe"><div class="sf-lbl">Fecha inicio <span class="sf-req">*</span></div><input class="sf-inp" type="date" id="of-sd" value="${f.startDate}" oninput="st.objForm.startDate=this.value"/></div>
+      <div class="sf-fe"><div class="sf-lbl">Fecha fin <span class="sf-req">*</span></div><input class="sf-inp" type="date" id="of-ed" value="${f.endDate}" oninput="st.objForm.endDate=this.value"/></div>
+    </div>
+    <div class="sf-fe" style="margin-bottom:12px"><div class="sf-lbl">Responsable del objetivo <span class="sf-req">*</span></div>
+      <div style="position:relative"><input class="sf-inp" id="of-own" value="${f.owner}" oninput="st.objForm.owner=this.value" placeholder="Buscar personas..."/><i class="ti ti-search" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--sf-n4);font-size:14px"></i></div>
+    </div>
+    <div class="measures-sec">
+      <div class="measures-title">Medidas</div>
+      <div class="measures-sub">Especifica una meta para este objetivo. Para calcular automáticamente, selecciona una definición de cálculo.</div>
+      <div class="sf-fe" style="margin-bottom:10px"><div class="sf-lbl">Definición de cálculo</div>
+        <div style="position:relative"><select class="sf-sel" onchange="st.objForm.calcDef=this.value"><option value="None">None</option><option>Oportunidades cerradas</option><option>Ingresos acumulados</option><option>Productos activos</option></select></div>
+      </div>
+      <div class="sf-lbl">Tipo de valor</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="vtype" value="None" ${f.valueType==='None'?'checked':''} onchange="st.objForm.valueType=this.value"/> None</label>
+        <label class="radio-opt"><input type="radio" name="vtype" value="Currency" ${f.valueType==='Currency'?'checked':''} onchange="st.objForm.valueType=this.value"/> Currency</label>
+        <label class="radio-opt"><input type="radio" name="vtype" value="Percent" ${f.valueType==='Percent'?'checked':''} onchange="st.objForm.valueType=this.value"/> Percent</label>
+        <label class="radio-opt"><input type="radio" name="vtype" value="Number" ${f.valueType==='Number'?'checked':''} onchange="st.objForm.valueType=this.value"/> Number</label>
+      </div>
+    </div>
+  </div>
+  <!-- RIGHT: records/opportunities -->
+  <div class="obj-form-right">
+    <div class="obj-records-hdr">
+      <div class="obj-records-title">Registros</div>
+      <button class="obj-toggle" title="Activar tracking"></button>
+    </div>
+    <p style="font-size:11px;color:var(--sf-t3);margin-bottom:10px;line-height:1.4">Selecciona los registros que deseas vincular a este objetivo.</p>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+      <div class="obj-chip"><i class="ti ti-coin"></i>Oportunidades <span class="x">×</span></div>
+      <input class="obj-srch" placeholder="Buscar..." style="min-width:120px;flex:1"/>
+    </div>
+    <div style="font-size:11px;color:var(--sf-t3);margin-bottom:6px">${opps.length}+ registros · ${st.selectedOppIds.length} seleccionado(s)</div>
+    <div style="border:1px solid var(--sf-bdr);border-radius:var(--sf-r);overflow:hidden;overflow-x:auto">
+      <table class="obj-tbl">
+        <thead><tr><th style="width:24px"></th><th>Oportunidad</th><th>Cuenta</th><th>Cierre</th><th>Monto</th><th>Responsable</th></tr></thead>
+        <tbody>${oppRows}</tbody>
+      </table>
+    </div>
+    <div style="font-size:11px;color:var(--sf-t3);margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">${st.selectedOppIds.map(id=>{const o=opps.find(p=>p.id===id);return o?`<span class="sf-pill sf-p-bl">${o.name.substring(0,18)}…</span>`:''}).join('')}</div>
+  </div>
+  </div>`;
+}
+function fObjForm(){
+  return`<button class="sf-btn sf-bd2" onclick="cancelObjForm()"><i class="ti ti-x" style="font-size:12px"></i>Cancelar</button>
+  <button class="sf-btn sf-bb" onclick="saveObj()"><i class="ti ti-device-floppy" style="font-size:12px"></i>Guardar objetivo</button>`;
+}
+
+/* ── OPP SELECTOR (legacy, kept for compatibility) ── */
 function sOppSel(){
   let rows=opps.map(o=>{
     const sel=st.selectedOppIds.includes(o.id);
     return`<div class="opp-sel-row ${sel?'selected':''}" onclick="toggleOpp(${o.id})">
       <input type="checkbox" class="sf-ck" ${sel?'checked':''} onchange="toggleOpp(${o.id})" onclick="event.stopPropagation()" style="width:15px;height:15px"/>
-      <div class="opp-ic"><i class="ti ti-coin" aria-hidden="true" style="font-size:13px"></i></div>
+      <div class="opp-ic"><i class="ti ti-coin" style="font-size:13px"></i></div>
       <div style="flex:1;min-width:0">
         <div style="font-size:12px;font-weight:600;color:var(--sf-blue)">${o.name}</div>
         <div style="font-size:10px;color:var(--sf-t3)">${o.acc} · ${o.owner} · Cierre: ${o.close}</div>
@@ -268,27 +672,81 @@ function sOppSel(){
       <div style="font-size:12px;font-weight:700;color:var(--sf-t);white-space:nowrap;margin-left:8px">${o.amount}</div>
     </div>`;
   }).join('');
-  return`<div class="sf-al sf-al-i"><i class="ti ti-info-circle" aria-hidden="true"></i><span>Oportunidades das contas participantes. Excluem-se <strong>Closed Won</strong> e <strong>Closed Lost</strong>.</span></div>
-  <div class="sf-sec"><i class="ti ti-coin" aria-hidden="true" style="font-size:13px"></i>Oportunidades disponíveis <span style="margin-left:5px;font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--sf-t3)">${st.selectedOppIds.length} selecionada(s)</span></div>
-  <div style="border:1px solid var(--sf-bdr);border-radius:var(--sf-r);overflow:hidden">${rows}</div>`;
+  return`<div class="sf-body"><div class="sf-al sf-al-i"><i class="ti ti-info-circle"></i><span>Oportunidades de cuentas participantes. Se excluyen <strong>Closed Won</strong> y <strong>Closed Lost</strong>.</span></div>
+  <div class="sf-sec"><i class="ti ti-coin" style="font-size:13px"></i>Oportunidades disponibles <span style="margin-left:5px;font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--sf-t3)">${st.selectedOppIds.length} seleccionada(s)</span></div>
+  <div style="border:1px solid var(--sf-bdr);border-radius:var(--sf-r);overflow:hidden">${rows}</div></div>`;
 }
-function fOppSel(){return`<button class="sf-btn sf-bd2" onclick="st.showOppSelector=false;render()">Cancelar</button><button class="sf-btn sf-bb" onclick="confirmOpp()"><i class="ti ti-check" aria-hidden="true" style="font-size:12px"></i>Confirmar (${st.selectedOppIds.length})</button>`;}
+function fOppSel(){return`<button class="sf-btn sf-bd2" onclick="st.showOppSelector=false;render()">Cancelar</button><button class="sf-btn sf-bb" onclick="confirmOpp()"><i class="ti ti-check" style="font-size:12px"></i>Confirmar (${st.selectedOppIds.length})</button>`;}
 
-function s4(){const ac=st.selectedAccounts.length,oc=st.objectives.length;return`<div class="sf-ok-sc"><div class="sf-ok-ic"><i class="ti ti-check" aria-hidden="true"></i></div><div class="sf-ok-ti">Plan de negocio creado exitosamente</div><div class="sf-ok-su">Los registros fueron guardados en Salesforce.<br/>La pestaña <strong>Plan de Negocios</strong> fue habilitada en ${ac} cuenta(s).</div><div class="sf-metrics"><div class="sf-mt"><div class="sf-mv">1</div><div class="sf-ml">Account Plan</div></div><div class="sf-mt"><div class="sf-mv">${ac}</div><div class="sf-ml">Stakeholders</div></div><div class="sf-mt"><div class="sf-mv">${oc}</div><div class="sf-ml">Objetivo(s)</div></div></div><div class="sf-al sf-al-i" style="text-align:left"><i class="ti ti-info-circle" aria-hidden="true"></i><span>El Account Plan <strong>${st.planName}</strong> aparece en la lista relacionada de cada cuenta via <code style="font-size:10px;background:rgba(1,118,211,.1);padding:1px 4px;border-radius:3px">bc_AccountPlanRelationship__c</code>.</span></div><div style="display:flex;gap:10px;justify-content:center;margin-top:4px;flex-wrap:wrap"><button class="sf-btn sf-bb" onclick="resetAll()"><i class="ti ti-plus" aria-hidden="true" style="font-size:12px"></i>Crear otro plan</button><button class="sf-btn sf-bn" onclick="resetAll()">Ver registro <i class="ti ti-external-link" aria-hidden="true" style="font-size:12px"></i></button></div></div>`;}
-function f4(){return`<span></span><span style="font-size:11px;color:var(--sf-t3)"><i class="ti ti-check" aria-hidden="true" style="color:var(--sf-ok);font-size:12px"></i> Guardado</span>`;}
+/* ── RECORD PAGE ── */
+function renderRecord(){
+  document.getElementById('rec-plan-name').textContent=st.planName;
+  document.getElementById('rf-name').textContent=st.planName;
+  document.getElementById('rf-start').textContent=fmtDate(st.startDate);
+  document.getElementById('rf-end').textContent=fmtDate(st.endDate);
+  document.getElementById('rf-tipo').textContent=typeLabel();
+  document.getElementById('rf-notes').textContent=st.notes||'—';
+  document.getElementById('rec-start').textContent=fmtDate(st.startDate);
+  document.getElementById('rec-end').textContent=fmtDate(st.endDate);
+  document.getElementById('rf-stakeholders').textContent=st.selectedAccounts.map(id=>accounts.find(a=>a.id===id)?.name).filter(Boolean).join(', ')||'—';
+  // render objectives in sidebar
+  let objHtml='';
+  if(!st.objectives.length){
+    objHtml='<div style="font-size:12px;color:var(--sf-t3);font-style:italic;margin-bottom:10px">No hay objetivos aún.</div>';
+  } else {
+    objHtml=st.objectives.map((o,i)=>{
+      const linkedOpps=o.oppIds||[];
+      return`<div class="obj-sidebar-card">
+        <div class="obj-sidebar-card-hdr">
+          <div class="obj-sidebar-card-title"><i class="ti ti-target" style="font-size:12px;color:var(--sf-blue)"></i>${o.name}</div>
+          <i class="ti ti-chevron-down" style="font-size:12px;color:var(--sf-t3)"></i>
+        </div>
+        <div class="obj-sidebar-card-body">
+          <div class="obj-sidebar-meta">
+            <div class="obj-sidebar-meta-item"><strong>${fmtDate(o.startDate)}</strong>Inicio</div>
+            <div class="obj-sidebar-meta-item"><strong>${fmtDate(o.endDate)}</strong>Fin</div>
+            <div class="obj-sidebar-meta-item"><strong>${o.owner||'—'}</strong>Responsable</div>
+          </div>
+          <div class="obj-curr-tgt"><span class="obj-curr">Valor actual: $0</span><span class="obj-tgt">${linkedOpps.length?'Meta: '+linkedOpps.map(id=>{const p=opps.find(x=>x.id===id);return p?p.amount:''}).join('+'):'Sin meta definida'}</span></div>
+          <div class="obj-progress"><div class="obj-progress-bar" style="width:0%"></div></div>
+          ${linkedOpps.length?`<div style="margin-top:6px;font-size:10px;color:var(--sf-t3)">${linkedOpps.length} oportunidad(es) vinculada(s)</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('rec-obj-list').innerHTML=objHtml;
+}
 
+/* ── ACTIONS ── */
 function toggleAcc(id,chk){if(chk&&!st.selectedAccounts.includes(id))st.selectedAccounts.push(id);if(!chk)st.selectedAccounts=st.selectedAccounts.filter(x=>x!==id);render();}
 function removeAcc(id){st.selectedAccounts=st.selectedAccounts.filter(x=>x!==id);if(!accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length)st.showIneligible=false;render();}
 function toggleOpp(id){if(st.selectedOppIds.includes(id))st.selectedOppIds=st.selectedOppIds.filter(x=>x!==id);else st.selectedOppIds.push(id);render();}
 function confirmOpp(){st.showOppSelector=false;render();}
-function openOpp(){st.showOppSelector=true;render();}
 function go2(){if(!st.planName.trim()){alert('El nombre del plan es obligatorio.');return;}if(!st.startDate||!st.endDate){alert('Las fechas son obligatorias.');return;}st.step=2;render();}
-function goValidate(){if(!st.selectedAccounts.length){alert('Seleccione al menos una cuenta.');return;}if(accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length){st.showIneligible=true;render();return;}st.step=3;render();}
-function afterInel(){if(accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length){alert('Quite todas las cuentas no elegibles.');return;}st.showIneligible=false;st.step=3;render();}
-function addObj(){const g=document.getElementById('ng')?.value,t=document.getElementById('nt')?.value;if(!g){alert('Seleccione un tipo de objetivo.');return;}if(!t){alert('Ingrese la meta.');return;}const firstOpp=st.selectedOppIds.length?st.selectedOppIds[0]:null;st.objectives.push({goal:g,target:t,oppId:firstOpp,allOppIds:[...st.selectedOppIds]});st.selectedOppIds=[];render();}
+function goValidate(){if(!st.selectedAccounts.length){alert('Seleccione al menos una cuenta.');return;}if(accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length){st.showIneligible=true;render();return;}st.step=3;st.showDecision=true;render();}
+function afterInel(){if(accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length){alert('Quite todas las cuentas no elegibles.');return;}st.showIneligible=false;st.step=3;st.showDecision=true;render();}
+function goToObjForm(){st.showDecision=false;st.showObjForm=true;st.objForm={name:'',desc:'',startDate:st.startDate,endDate:st.endDate,owner:'',calcDef:'None',valueType:'None'};st.selectedOppIds=[];render();}
+function cancelObjForm(){st.showObjForm=false;if(st.objectives.length)st.showDecision=false;else st.showDecision=true;render();}
+function saveObj(){
+  const f=st.objForm;
+  if(!f.name.trim()){alert('El nombre del objetivo es obligatorio.');return;}
+  if(!f.startDate||!f.endDate){alert('Las fechas son obligatorias.');return;}
+  st.objectives.push({name:f.name,desc:f.desc,startDate:f.startDate,endDate:f.endDate,owner:f.owner,calcDef:f.calcDef,valueType:f.valueType,oppIds:[...st.selectedOppIds]});
+  st.selectedOppIds=[];st.showObjForm=false;st.showDecision=false;render();
+}
 function rmObj(i){st.objectives.splice(i,1);render();}
-function finish(){if(!st.objectives.length){alert('Agregue al menos un objetivo.');return;}st.step=4;render();}
-function resetAll(){st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,prevPlan:true};render();}
+function finishNow(){st.step=4;render();}
+function addMoreObj(){
+  document.getElementById('modal-view').style.display='block';
+  document.getElementById('record-view').style.display='none';
+  st.step=3;st.showDecision=false;st.showObjForm=true;
+  st.objForm={name:'',desc:'',startDate:st.startDate,endDate:st.endDate,owner:'',calcDef:'None',valueType:'None'};
+  st.selectedOppIds=[];render();
+}
+function resetAll(){
+  st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,showDecision:false,showObjForm:false,prevPlan:true,objForm:{name:'',desc:'',startDate:'',endDate:'',owner:'',calcDef:'None',valueType:'None'}};
+  render();
+}
 render();
 </script>
 </body>
