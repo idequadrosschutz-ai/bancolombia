@@ -1,0 +1,140 @@
+/* Bancolombia brand colors */
+:host {
+    --bc-blue: #0033A0;
+    --bc-yellow: #FFD100;
+    --bc-red: #E3001B;
+    --bc-text: #032D60;
+    --bc-gray: #706E6B;
+    --bc-border: #E5E5E5;
+    --bc-bg: #FFFFFF;
+    --bc-highlight-bg: #F0F4FF;
+}
+
+.container {
+    background: var(--bc-bg);
+    border-radius: 8px;
+    border: 1px solid var(--bc-border);
+    padding: 16px 20px;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+.header {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--bc-yellow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bc-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kpis-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 0 24px;
+    align-items: start;
+}
+
+/* Donut */
+.donut-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.donut-wrap {
+    flex-shrink: 0;
+}
+
+.donut {
+    width: 80px;
+    height: 80px;
+}
+
+.donut-label {
+    font-size: 20px;
+    font-weight: 700;
+    fill: var(--bc-blue);
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.opp-link {
+    font-size: 11px;
+    color: var(--bc-blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.opp-link:hover {
+    text-decoration: underline;
+}
+
+/* KPI sections */
+.kpi-section {
+    padding-left: 16px;
+    border-left: 1px solid var(--bc-border);
+}
+
+.kpi-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bc-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 10px;
+}
+
+.border-top {
+    padding-top: 0;
+    border-top: 2px solid var(--bc-blue);
+    padding-bottom: 6px;
+}
+
+.kpi-row {
+    display: flex;
+    gap: 16px;
+}
+
+.kpi-stat {
+    flex: 1;
+    background: var(--bc-highlight-bg);
+    border-radius: 6px;
+    padding: 8px 10px;
+    border-left: 3px solid var(--bc-border);
+}
+
+.kpi-stat:last-child {
+    border-left-color: var(--bc-yellow);
+}
+
+.kpi-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--bc-blue);
+    line-height: 1.2;
+}
+
+.kpi-value.highlight {
+    color: var(--bc-blue);
+}
+
+.kpi-name {
+    font-size: 11px;
+    color: var(--bc-gray);
+    margin-top: 2px;
+}
