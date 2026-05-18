@@ -54,8 +54,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasDebilidades}>
-                            <!-- eslint-disable-next-line @lwc/lwc/no-inner-html -->
-                            <div class="rich-content" lwc:ref="debilidades"></div>
+                            <lightning-formatted-rich-text value={_debilidades} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasDebilidades}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -75,7 +74,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasOportunidades}>
-                            <div class="rich-content" lwc:ref="oportunidades"></div>
+                            <lightning-formatted-rich-text value={_oportunidades} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasOportunidades}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -95,7 +94,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasFortalezas}>
-                            <div class="rich-content" lwc:ref="fortalezas"></div>
+                            <lightning-formatted-rich-text value={_fortalezas} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasFortalezas}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -115,7 +114,7 @@
                     </div>
                     <div class="quadrant-body">
                         <template if:true={hasAmenazas}>
-                            <div class="rich-content" lwc:ref="amenazas"></div>
+                            <lightning-formatted-rich-text value={_amenazas} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasAmenazas}>
                             <p class="empty-msg">Sin información registrada</p>
@@ -138,7 +137,7 @@
                             Fortalezas competitivas
                         </div>
                         <template if:true={hasCompStrengths}>
-                            <div class="rich-content" lwc:ref="compStrengths"></div>
+                            <lightning-formatted-rich-text value={_compStrengths} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasCompStrengths}>
                             <p class="empty-msg">—</p>
@@ -150,7 +149,7 @@
                             Debilidades competitivas
                         </div>
                         <template if:true={hasCompWeaknesses}>
-                            <div class="rich-content" lwc:ref="compWeaknesses"></div>
+                            <lightning-formatted-rich-text value={_compWeaknesses} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasCompWeaknesses}>
                             <p class="empty-msg">—</p>
@@ -162,7 +161,7 @@
                             Competidores
                         </div>
                         <template if:true={hasCompetitors}>
-                            <div class="rich-content" lwc:ref="competitors"></div>
+                            <lightning-formatted-rich-text value={_competitors} class="rich-content"></lightning-formatted-rich-text>
                         </template>
                         <template if:false={hasCompetitors}>
                             <p class="empty-msg">—</p>

@@ -214,24 +214,14 @@
     font-size: 11px;
 }
 
-/* rich text content */
+/* rich text content — lightning-formatted-rich-text */
 .rich-content {
+    --lwc-colorTextDefault: var(--bc-white);
+    --slds-c-rich-text-text-color: var(--bc-white);
     color: var(--bc-white);
     font-size: 12px;
     line-height: 1.6;
-}
-
-.rich-content ul, .rich-content ol {
-    padding-left: 16px;
-    margin: 4px 0;
-}
-
-.rich-content li {
-    margin-bottom: 3px;
-}
-
-.rich-content p {
-    margin: 0 0 4px;
+    display: block;
 }
 
 /* ── Competitive section ── */
