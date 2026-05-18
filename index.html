@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F001 — Creación Account Plan · Bancolombia</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sf-blue:#0176d3;--sf-blue-dark:#014486;--sf-blue-light:#e8f4fd;
+  --sf-brand:#032d60;--sf-n3:#c9c7c5;--sf-n4:#9e9e9e;--sf-n5:#706e6b;
+  --sf-t:#080707;--sf-t2:#444;--sf-t3:#706e6b;
+  --sf-ok:#2e844a;--sf-ok-bg:#eff7ef;--sf-ok-b:#91c590;
+  --sf-err:#ba0517;--sf-err-bg:#fff1ef;--sf-err-b:#f5b5b5;
+  --sf-inf-bg:#e8f4fd;--sf-inf-b:#9fd6ff;
+  --sf-bdr:#e5e5e5;--sf-r:4px;--sf-rl:6px;
+}
+body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--sf-t);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:0}
+.sf-shell{width:100%;max-width:780px;margin:0 auto;border-left:1px solid var(--sf-bdr);border-right:1px solid var(--sf-bdr);min-height:100vh;background:#f3f3f3}
+.sf-nav{background:var(--sf-brand);height:50px;display:flex;align-items:center;padding:0 16px;gap:12px}
+.sf-nav-logo{color:#fff;font-weight:700;font-size:13px;padding-right:12px;border-right:1px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:8px}
+.sf-nav-app{color:rgba(255,255,255,.65);font-size:12px}
+.sf-nav-av{width:26px;height:26px;border-radius:50%;background:#0176d3;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:auto}
+.sf-tabs{background:#fff;border-bottom:1px solid var(--sf-bdr);display:flex;padding:0 16px;gap:2px;overflow-x:auto}
+.sf-tab{padding:9px 12px;font-size:12px;font-weight:600;color:var(--sf-t3);border-bottom:2px solid transparent;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.sf-tab.on{color:var(--sf-blue);border-bottom-color:var(--sf-blue)}
+.sf-crumb{padding:7px 16px;font-size:11px;color:var(--sf-t3);display:flex;align-items:center;gap:4px;background:#f3f3f3;flex-wrap:wrap}
+.sf-crumb a{color:var(--sf-blue);cursor:pointer}
+.sf-bd{background:rgba(0,0,0,.38);min-height:calc(100vh - 120px);display:flex;align-items:flex-start;justify-content:center;padding:20px 10px}
+.sf-m{background:#fff;border-radius:var(--sf-rl);width:100%;max-width:660px;border:1px solid #c9c7c5;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.sf-mh{background:var(--sf-brand);border-radius:var(--sf-rl) var(--sf-rl) 0 0;padding:13px 18px;display:flex;align-items:center;justify-content:space-between}
+.sf-mh h2{color:#fff;font-size:15px;font-weight:600}
+.sf-mh .b{background:rgba(255,255,255,.18);color:#fff;font-size:10px;padding:2px 7px;border-radius:12px;margin-left:8px;font-weight:400}
+.sf-mc{color:rgba(255,255,255,.75);background:none;border:none;font-size:19px;cursor:pointer;width:30px;height:30px;border-radius:3px;display:flex;align-items:center;justify-content:center}
+.sf-mc:hover{background:rgba(255,255,255,.15)}
+.sf-pb{height:3px;background:#d0e8f8}
+.sf-pf{height:3px;background:var(--sf-blue);transition:width .3s}
+.sf-wiz{display:flex;align-items:center;padding:11px 18px 9px;border-bottom:1px solid var(--sf-bdr);background:#fafafa}
+.sf-ws{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
+.sf-wc{flex:1;height:1px;background:var(--sf-n3);max-width:44px}
+.sf-wc.on{background:var(--sf-blue)}
+.sf-wd{width:22px;height:22px;border-radius:50%;border:2px solid var(--sf-n3);background:#fff;color:var(--sf-n4);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sf-wd.done{background:var(--sf-blue);border-color:var(--sf-blue);color:#fff}
+.sf-wd.act{border-color:var(--sf-blue);color:var(--sf-blue)}
+.sf-wl{font-size:10px;color:var(--sf-t3);white-space:nowrap}
+.sf-wl.act{color:var(--sf-blue);font-weight:600}
+.sf-body{padding:16px 18px;max-height:520px;overflow-y:auto}
+.sf-ft{padding:11px 18px;border-top:1px solid var(--sf-bdr);background:#fafafa;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 var(--sf-rl) var(--sf-rl)}
+.sf-btn{height:32px;border-radius:var(--sf-r);font-size:12px;font-weight:600;cursor:pointer;padding:0 14px;display:inline-flex;align-items:center;gap:5px;border:1px solid;white-space:nowrap;font-family:inherit}
+.sf-btn:active{transform:scale(.98)}
+.sf-bb{background:var(--sf-blue);color:#fff;border-color:var(--sf-blue)}
+.sf-bb:hover{background:var(--sf-blue-dark)}
+.sf-bn{background:#fff;color:var(--sf-blue);border-color:var(--sf-blue)}
+.sf-bn:hover{background:var(--sf-blue-light)}
+.sf-bd2{background:#fff;color:var(--sf-t2);border-color:var(--sf-n3)}
+.sf-bd2:hover{background:#f4f4f4}
+.sf-bx{background:#c23934;color:#fff;border-color:#c23934}
+.sf-btn:disabled{opacity:.45;cursor:not-allowed}
+.sf-sec{font-size:11px;font-weight:700;color:var(--sf-t3);text-transform:uppercase;letter-spacing:.6px;padding:0 0 5px;border-bottom:1px solid var(--sf-bdr);margin-bottom:12px;display:flex;align-items:center;gap:5px}
+.sf-al{border-radius:var(--sf-r);padding:9px 12px;font-size:12px;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px;border-left:3px solid}
+.sf-al-ok{background:var(--sf-ok-bg);color:var(--sf-ok);border-left-color:var(--sf-ok)}
+.sf-al-i{background:var(--sf-inf-bg);color:#014486;border-left-color:var(--sf-blue)}
+.sf-al-e{background:var(--sf-err-bg);color:var(--sf-err);border-left-color:var(--sf-err)}
+.sf-al-w{background:#fffaed;color:#a07800;border-left-color:#d6b656}
+.sf-al i{font-size:15px;flex-shrink:0;margin-top:1px}
+.sf-pill{display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:12px;font-size:10px;font-weight:700;border:1px solid}
+.sf-p-ok{background:var(--sf-ok-bg);color:var(--sf-ok);border-color:var(--sf-ok-b)}
+.sf-p-bl{background:var(--sf-inf-bg);color:var(--sf-blue);border-color:var(--sf-inf-b)}
+.sf-p-pp{background:#f3eeff;color:#5a1ba9;border-color:#c3a5f5}
+.sf-p-or{background:#fff3e0;color:#7d4b00;border-color:#ffcc80}
+.sf-p-gy{background:#f4f4f4;color:var(--sf-t3);border-color:var(--sf-n3)}
+.sf-p-ye{background:#fffaed;color:#a07800;border-color:#f5e5a0}
+.sf-p-er{background:var(--sf-err-bg);color:var(--sf-err);border-color:var(--sf-err-b)}
+.sf-lbl{font-size:11px;font-weight:700;color:var(--sf-t2);display:flex;align-items:center;gap:2px;margin-bottom:3px}
+.sf-req{color:var(--sf-err);font-size:13px;line-height:1}
+.sf-inp,.sf-sel{border:1px solid var(--sf-n3);border-radius:var(--sf-r);padding:0 9px;font-size:12px;color:var(--sf-t);background:#fff;outline:none;width:100%;height:32px;font-family:inherit}
+.sf-ta{border:1px solid var(--sf-n3);border-radius:var(--sf-r);padding:7px 9px;font-size:12px;color:var(--sf-t);background:#fff;outline:none;width:100%;min-height:60px;resize:vertical;font-family:inherit}
+.sf-inp:focus,.sf-sel:focus,.sf-ta:focus{border-color:var(--sf-blue);box-shadow:0 0 0 3px rgba(1,118,211,.14)}
+.sf-ro{background:#f4f4f4;color:var(--sf-t3);border-color:var(--sf-bdr)}
+.sf-auto{display:inline-flex;align-items:center;gap:3px;background:#e8f4fd;color:#014486;border:1px solid var(--sf-inf-b);border-radius:12px;padding:1px 7px;font-size:10px;font-weight:600;margin-top:2px}
+.sf-gr{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-bottom:12px}
+.sf-gr.f{grid-template-columns:1fr}
+.sf-fe{display:flex;flex-direction:column}
+.sf-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.sf-tbl th{background:#f4f6f9;padding:6px 9px;text-align:left;font-weight:700;font-size:10px;color:var(--sf-t3);border-bottom:1px solid var(--sf-bdr);text-transform:uppercase;letter-spacing:.4px}
+.sf-tbl td{padding:7px 9px;border-bottom:1px solid var(--sf-bdr);vertical-align:middle}
+.sf-tbl tbody tr:last-child td{border-bottom:none}
+.sf-tbl tbody tr:hover td{background:#f8f9fb}
+.sf-ck{width:14px;height:14px;accent-color:var(--sf-blue);cursor:pointer}
+.sf-rh{display:flex;align-items:center;gap:10px;background:#f3f3f3;border:1px solid var(--sf-bdr);border-radius:var(--sf-r);padding:9px 12px;margin-bottom:14px}
+.sf-ric{width:34px;height:34px;border-radius:5px;background:var(--sf-blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.sf-rn{font-size:13px;font-weight:700;color:var(--sf-t)}
+.sf-rm{font-size:11px;color:var(--sf-t3);margin-top:1px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.sf-obj-card{border:1px solid var(--sf-bdr);border-radius:var(--sf-r);margin-bottom:8px;overflow:hidden}
+.sf-obj-h{background:#f4f6f9;border-bottom:1px solid var(--sf-bdr);padding:7px 12px;display:flex;align-items:center;justify-content:space-between}
+.sf-obj-ht{font-size:12px;font-weight:700;color:var(--sf-blue);display:flex;align-items:center;gap:5px}
+.sf-obj-body{padding:10px 12px}
+.sf-dashed{border:1px dashed var(--sf-n3);border-radius:var(--sf-r);padding:12px;background:#fafafa}
+.sf-dec{text-align:center;padding:18px 8px}
+.sf-dec-ic{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:27px;border:2px solid}
+.sf-dec h3{font-size:16px;font-weight:600;color:var(--sf-t);margin-bottom:5px}
+.sf-dec p{font-size:12px;color:var(--sf-t3);margin-bottom:16px;line-height:1.5}
+.sf-dec-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.sf-ok-sc{text-align:center;padding:18px 10px}
+.sf-ok-ic{width:60px;height:60px;border-radius:50%;background:var(--sf-ok-bg);border:2px solid var(--sf-ok-b);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--sf-ok)}
+.sf-ok-ti{font-size:17px;font-weight:700;color:var(--sf-t);margin-bottom:5px}
+.sf-ok-su{font-size:12px;color:var(--sf-t3);margin-bottom:14px;line-height:1.5}
+.sf-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.sf-mt{background:#f4f6f9;border-radius:var(--sf-r);padding:10px 6px;text-align:center}
+.sf-mv{font-size:22px;font-weight:700;color:var(--sf-blue)}
+.sf-ml{font-size:10px;color:var(--sf-t3);margin-top:1px;text-transform:uppercase;letter-spacing:.4px}
+.opp-sel-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--sf-bdr);cursor:pointer}
+.opp-sel-row:last-child{border-bottom:none}
+.opp-sel-row:hover{background:#f0f7ff}
+.opp-sel-row.selected{background:#e8f4fd}
+.opp-ic{width:28px;height:28px;border-radius:4px;background:#0176d3;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.opp-linked{background:#e8f4fd;border:1px solid var(--sf-inf-b);border-radius:var(--sf-r);padding:6px 10px;display:flex;align-items:center;gap:7px;margin-top:6px}
+.opp-linked-ic{width:22px;height:22px;border-radius:3px;background:#0176d3;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="sf-shell">
+  <div class="sf-nav">
+    <div class="sf-nav-logo">
+      <svg width="20" height="15" viewBox="0 0 24 18" fill="none" aria-hidden="true"><path d="M10 0C7.8 0 5.9 1.1 4.8 2.8 4.2 2.5 3.6 2.3 3 2.3 1.3 2.3 0 3.6 0 5.3c0 .4.1.8.2 1.1C.1 6.8 0 7.2 0 7.7 0 9.5 1.5 11 3.3 11H10V0z" fill="white" opacity=".9"/><path d="M14 0c2.2 0 4.1 1.1 5.2 2.8.6-.3 1.2-.5 1.8-.5C22.7 2.3 24 3.6 24 5.3c0 .4-.1.8-.2 1.1.1.4.2.8.2 1.3C24 9.5 22.5 11 20.7 11H14V0z" fill="white" opacity=".9"/><path d="M7 11v7h10v-7H7z" fill="#00A1E0"/></svg>
+      Salesforce
+    </div>
+    <span class="sf-nav-app">CRM · Bancolombia</span>
+    <div class="sf-nav-av">JR</div>
+  </div>
+  <div class="sf-tabs">
+    <div class="sf-tab"><i class="ti ti-home" aria-hidden="true" style="font-size:12px"></i>Início</div>
+    <div class="sf-tab"><i class="ti ti-users" aria-hidden="true" style="font-size:12px"></i>Contas</div>
+    <div class="sf-tab on"><i class="ti ti-building" aria-hidden="true" style="font-size:12px"></i>Grupo Andino</div>
+  </div>
+  <div class="sf-crumb">
+    <a>Contas</a><span style="color:#ccc">/</span>
+    <a>Grupo Empresarial Andino</a><span style="color:#ccc">/</span>
+    <span style="color:var(--sf-t2);font-weight:600">Nuevo Plan de Negocio</span>
+  </div>
+  <div class="sf-bd">
+    <div class="sf-m">
+      <div class="sf-mh">
+        <div style="display:flex;align-items:center;gap:9px">
+          <i class="ti ti-file-text" aria-hidden="true" style="font-size:17px;color:rgba(255,255,255,.85)"></i>
+          <h2>Nuevo Plan de Negocio</h2>
+          <span class="b" id="mbadge">F001 · Paso 1 de 4</span>
+        </div>
+        <button class="sf-mc" onclick="resetAll()" aria-label="Cerrar">×</button>
+      </div>
+      <div class="sf-pb"><div class="sf-pf" id="prog" style="width:25%"></div></div>
+      <div class="sf-wiz" id="wiz"></div>
+      <div class="sf-body" id="body"></div>
+      <div class="sf-ft" id="foot"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const STEPS=[{l:'Datos del plan'},{l:'Participantes'},{l:'Objetivos'},{l:'Confirmación'}];
+const accounts=[
+  {id:0,name:'Andino Servicios S.A.',eligible:true,note:'Subsidiaria'},
+  {id:1,name:'Andino Construcciones',eligible:true,note:'Subsidiaria'},
+  {id:2,name:'Andino Tech Colombia',eligible:true,note:'Subsidiaria'},
+  {id:3,name:'Andino Seguros Ltda.',eligible:false,note:'Sin plan activo'},
+];
+const opps=[
+  {id:0,name:'Crédito Expansión 2025',acc:'Andino Servicios S.A.',owner:'María Cardona',amount:'$850.000.000',stage:'Propuesta',close:'31/12/2025',prob:'60%'},
+  {id:1,name:'Leasing Maquinaria Industrial',acc:'Andino Construcciones',owner:'Carlos Mejía',amount:'$1.200.000.000',stage:'Negociación',close:'15/11/2025',prob:'75%'},
+  {id:2,name:'Factoring Digital 360',acc:'Andino Tech Colombia',owner:'Laura Vélez',amount:'$320.000.000',stage:'Prospecto',close:'28/02/2026',prob:'30%'},
+  {id:3,name:'Línea de Crédito Rotativa',acc:'Andino Servicios S.A.',owner:'María Cardona',amount:'$500.000.000',stage:'Calificación',close:'30/09/2025',prob:'45%'},
+];
+const stageColor={Propuesta:'sf-p-bl',Negociación:'sf-p-ok',Prospecto:'sf-p-gy',Calificación:'sf-p-ye'};
+const typeLabel=()=>st.accountType==='grupo_local'?'Grupo Local':st.accountType==='grupo_regional'?'Grupo Regional':'Individual';
+const typePill=()=>st.accountType==='grupo_local'?'sf-p-bl':st.accountType==='grupo_regional'?'sf-p-or':'sf-p-pp';
+
+let st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,prevPlan:true};
+
+function wiz(){
+  const s=Math.min(st.showIneligible?2:st.step,4);
+  document.getElementById('prog').style.width=(s/4*100)+'%';
+  document.getElementById('mbadge').textContent='F001 · Paso '+s+' de 4';
+  let h='';
+  STEPS.forEach((x,i)=>{
+    const n=i+1,done=n<s,act=n===s;
+    h+=`<div class="sf-ws"><div class="sf-wd ${done?'done':act?'act':''}">${done?'<i class="ti ti-check" aria-hidden="true" style="font-size:10px"></i>':n}</div><div class="sf-wl ${act?'act':''}">${x.l}</div></div>`;
+    if(i<3)h+=`<div class="sf-wc ${done?'on':''}"></div>`;
+  });
+  document.getElementById('wiz').innerHTML=h;
+}
+
+function render(){
+  wiz();
+  const b=document.getElementById('body'),f=document.getElementById('foot');
+  if(st.step===1){b.innerHTML=s1();f.innerHTML=f1();}
+  else if(st.step===2&&!st.showIneligible&&!st.showOppSelector){b.innerHTML=s2();f.innerHTML=f2();}
+  else if(st.showIneligible){b.innerHTML=sInel();f.innerHTML=fInel();}
+  else if(st.step===3&&!st.showOppSelector){b.innerHTML=s3();f.innerHTML=f3();}
+  else if(st.showOppSelector){b.innerHTML=sOppSel();f.innerHTML=fOppSel();}
+  else if(st.step===4){b.innerHTML=s4();f.innerHTML=f4();}
+}
+
+function s1(){
+  return`<div class="sf-rh"><div class="sf-ric">GA</div><div><div class="sf-rn">Grupo Empresarial Andino</div><div class="sf-rm"><span>ID: 0011X00002bGa7Q</span><span style="color:#ccc">|</span><span class="sf-pill ${typePill()}">${typeLabel()}</span><span style="color:#ccc">|</span><span>NIT 900.123.456-1</span></div></div></div>
+  ${st.prevPlan?`<div class="sf-al sf-al-i"><i class="ti ti-history" aria-hidden="true"></i><span>Plan anterior detectado. Datos precargados desde <strong>Plan Comercial 2024</strong>.</span></div>`:''}
+  <div class="sf-sec"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:13px"></i>Información básica</div>
+  <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Nombre del plan <span class="sf-req">*</span></div><input class="sf-inp" id="fn" value="${st.planName}" oninput="st.planName=this.value"/></div></div>
+  <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Fecha inicio <span class="sf-req">*</span></div><input class="sf-inp" type="date" value="${st.startDate}" oninput="st.startDate=this.value"/></div><div class="sf-fe"><div class="sf-lbl">Fecha fin <span class="sf-req">*</span></div><input class="sf-inp" type="date" value="${st.endDate}" oninput="st.endDate=this.value"/></div></div>
+  <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Estado</div><input class="sf-inp sf-ro" readonly value="Borrador"/><span class="sf-auto"><i class="ti ti-bolt" aria-hidden="true" style="font-size:10px"></i>Auto: Status__c</span></div><div class="sf-fe"><div class="sf-lbl">Tipo de plan</div><input class="sf-inp sf-ro" readonly value="${typeLabel()}"/><span class="sf-auto"><i class="ti ti-bolt" aria-hidden="true" style="font-size:10px"></i>Auto: bc_TipoPlano__c</span></div></div>
+  <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Observaciones</div><textarea class="sf-ta" placeholder="Opcional..." oninput="st.notes=this.value">${st.notes}</textarea></div></div>`;
+}
+function f1(){return`<button class="sf-btn sf-bd2" onclick="resetAll()">Cancelar</button><button class="sf-btn sf-bb" onclick="go2()">Siguiente <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></button>`;}
+
+function s2(){
+  let rows='';
+  accounts.forEach(a=>{
+    const chk=st.selectedAccounts.includes(a.id);
+    rows+=`<tr><td><input type="checkbox" class="sf-ck" ${chk?'checked':''} onchange="toggleAcc(${a.id},this.checked)"/></td><td style="font-weight:600;color:var(--sf-blue)">${a.name}</td><td><span class="sf-pill sf-p-pp">Individual</span></td><td><span class="sf-pill ${a.eligible?'sf-p-ok':'sf-p-er'}"><i class="ti ti-${a.eligible?'check':'x'}" aria-hidden="true" style="font-size:10px"></i>${a.eligible?'Elegible':'No elegible'}</span></td><td style="color:var(--sf-t3);font-size:11px">${a.note}</td></tr>`;
+  });
+  return`<div class="sf-al sf-al-i"><i class="ti ti-users" aria-hidden="true"></i><span>Cuentas miembro del grupo <strong>Grupo Empresarial Andino</strong> cargadas automáticamente.</span></div>
+  <div class="sf-sec"><i class="ti ti-building" aria-hidden="true" style="font-size:13px"></i>Cuentas participantes</div>
+  <table class="sf-tbl"><thead><tr><th style="width:32px"></th><th>Cuenta</th><th>Tipo</th><th>Estado</th><th>Nota</th></tr></thead><tbody>${rows}</tbody></table>
+  <div style="margin-top:8px;font-size:11px;color:var(--sf-t3)">${st.selectedAccounts.length} cuenta(s) seleccionada(s)</div>`;
+}
+function f2(){return`<button class="sf-btn sf-bd2" onclick="st.step=1;render()"><i class="ti ti-arrow-left" aria-hidden="true" style="font-size:12px"></i>Anterior</button><button class="sf-btn sf-bb" onclick="goValidate()">Validar y continuar <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></button>`;}
+
+function sInel(){
+  const bad=accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id));
+  let rows=bad.map(a=>`<tr><td style="font-weight:600">${a.name}</td><td style="color:var(--sf-err);font-size:11px">C002 — Sin plan activo vigente</td><td><button class="sf-btn sf-bd2" style="font-size:11px;height:26px;padding:0 8px" onclick="removeAcc(${a.id})">Quitar</button></td></tr>`).join('');
+  return`<div class="sf-al sf-al-e"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div><strong>Validación C001/C002 — Apex Trigger</strong><br/>${bad.length} cuenta(s) no cumplen las reglas de acatamiento.</div></div>
+  <div class="sf-sec">Cuentas no elegibles</div>
+  <table class="sf-tbl"><thead><tr><th>Cuenta</th><th>Motivo</th><th>Acción</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function fInel(){return`<button class="sf-btn sf-bx" onclick="resetAll()"><i class="ti ti-x" aria-hidden="true" style="font-size:12px"></i>Cancelar flujo</button><button class="sf-btn sf-bb" onclick="afterInel()">Continuar sin ellas <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></button>`;}
+
+function s3(){
+  let cards=st.objectives.map((o,i)=>{
+    const opp=opps.find(p=>p.id===o.oppId);
+    return`<div class="sf-obj-card"><div class="sf-obj-h"><div class="sf-obj-ht"><i class="ti ti-target" aria-hidden="true" style="font-size:12px"></i>Objetivo ${i+1} — ${o.goal}</div><button class="sf-btn sf-bd2" style="font-size:11px;height:24px;padding:0 8px" onclick="rmObj(${i})"><i class="ti ti-trash" aria-hidden="true" style="font-size:12px"></i></button></div><div class="sf-obj-body"><div class="sf-gr" style="margin-bottom:8px"><div><div style="font-size:10px;color:var(--sf-t3)">Meta</div><div style="font-size:12px;font-weight:600">${o.target}</div></div><div><div style="font-size:10px;color:var(--sf-t3)">bc_AccountPlanId__c</div><div style="font-size:11px;color:var(--sf-blue)">AP-2025-0041</div></div></div>${opp?`<div class="opp-linked"><div class="opp-linked-ic"><i class="ti ti-coin" aria-hidden="true" style="font-size:11px"></i></div><div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--sf-blue)">${opp.name}</div><div style="font-size:10px;color:var(--sf-t3)">${opp.acc} · ${opp.amount} · <span class="sf-pill ${stageColor[opp.stage]||'sf-p-gy'}">${opp.stage}</span></div></div></div>`:'<div style="font-size:11px;color:var(--sf-t3);font-style:italic">Sin oportunidad vinculada</div>'}</div></div>`;
+  }).join('');
+  const oppOpts=opps.map(o=>`<option value="${o.id}">${o.name} — ${o.acc}</option>`).join('');
+  return`<div class="sf-al sf-al-ok"><i class="ti ti-check" aria-hidden="true"></i><span>Validaciones aprobadas. <strong>${st.selectedAccounts.length} cuentas</strong> agregadas como Account Stakeholders.</span></div>
+  <div class="sf-sec"><i class="ti ti-target" aria-hidden="true" style="font-size:13px"></i>Objetivos del plan <span style="margin-left:5px;font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--sf-t3)">${st.objectives.length} objetivo(s)</span></div>
+  ${cards||'<div style="color:var(--sf-t3);font-size:12px;margin-bottom:10px;font-style:italic">Aún no hay objetivos.</div>'}
+  <div class="sf-dashed">
+    <div style="font-size:12px;font-weight:700;color:var(--sf-t2);margin-bottom:10px;display:flex;align-items:center;gap:5px"><i class="ti ti-plus" aria-hidden="true" style="font-size:13px"></i>Nuevo objetivo</div>
+    <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Tipo de objetivo <span class="sf-req">*</span></div><select class="sf-sel" id="ng"><option value="">Seleccionar...</option><option>Colocación de crédito</option><option>Captación de recursos</option><option>Vinculación de productos</option><option>Retención de cartera</option></select></div><div class="sf-fe"><div class="sf-lbl">Meta (COP) <span class="sf-req">*</span></div><input class="sf-inp" id="nt" placeholder="Ej: $500.000.000"/></div></div>
+    <div class="sf-fe" style="margin-bottom:10px"><div class="sf-lbl">Oportunidad vinculada <span style="font-weight:400;color:var(--sf-t3)">(excluye Closed Won/Lost)</span></div>
+    <button class="sf-btn sf-bn" style="width:100%;justify-content:center" onclick="openOpp()"><i class="ti ti-search" aria-hidden="true" style="font-size:12px"></i>${st.selectedOppIds.length>0?st.selectedOppIds.length+' oportunidad(es) seleccionada(s)':'Buscar y seleccionar oportunidades...'}</button>
+    ${st.selectedOppIds.length>0?`<div style="margin-top:6px;display:flex;flex-direction:column;gap:4px">${st.selectedOppIds.map(id=>{const o=opps.find(p=>p.id===id);return o?`<div class="opp-linked"><div class="opp-linked-ic"><i class="ti ti-coin" aria-hidden="true" style="font-size:11px"></i></div><div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--sf-blue)">${o.name}</div><div style="font-size:10px;color:var(--sf-t3)">${o.acc} · ${o.amount}</div></div><span class="sf-pill ${stageColor[o.stage]||'sf-p-gy'}">${o.stage}</span></div>`:''}).join('')}</div>`:''}</div>
+    <button class="sf-btn sf-bb" style="width:100%;justify-content:center" onclick="addObj()"><i class="ti ti-plus" aria-hidden="true" style="font-size:12px"></i>Agregar objetivo</button>
+  </div>`;
+}
+function f3(){const can=st.objectives.length>0;return`<button class="sf-btn sf-bd2" onclick="st.step=2;render()"><i class="ti ti-arrow-left" aria-hidden="true" style="font-size:12px"></i>Anterior</button><button class="sf-btn sf-bb" onclick="finish()" ${can?'':'disabled'}><i class="ti ti-device-floppy" aria-hidden="true" style="font-size:12px"></i>Guardar plan</button>`;}
+
+function sOppSel(){
+  let rows=opps.map(o=>{
+    const sel=st.selectedOppIds.includes(o.id);
+    return`<div class="opp-sel-row ${sel?'selected':''}" onclick="toggleOpp(${o.id})">
+      <input type="checkbox" class="sf-ck" ${sel?'checked':''} onchange="toggleOpp(${o.id})" onclick="event.stopPropagation()" style="width:15px;height:15px"/>
+      <div class="opp-ic"><i class="ti ti-coin" aria-hidden="true" style="font-size:13px"></i></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--sf-blue)">${o.name}</div>
+        <div style="font-size:10px;color:var(--sf-t3)">${o.acc} · ${o.owner} · Cierre: ${o.close}</div>
+        <div style="margin-top:2px;display:flex;align-items:center;gap:5px"><span class="sf-pill ${stageColor[o.stage]||'sf-p-gy'}">${o.stage}</span><span style="font-size:10px;color:var(--sf-t3)">Prob. ${o.prob}</span></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--sf-t);white-space:nowrap;margin-left:8px">${o.amount}</div>
+    </div>`;
+  }).join('');
+  return`<div class="sf-al sf-al-i"><i class="ti ti-info-circle" aria-hidden="true"></i><span>Oportunidades das contas participantes. Excluem-se <strong>Closed Won</strong> e <strong>Closed Lost</strong>.</span></div>
+  <div class="sf-sec"><i class="ti ti-coin" aria-hidden="true" style="font-size:13px"></i>Oportunidades disponíveis <span style="margin-left:5px;font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--sf-t3)">${st.selectedOppIds.length} selecionada(s)</span></div>
+  <div style="border:1px solid var(--sf-bdr);border-radius:var(--sf-r);overflow:hidden">${rows}</div>`;
+}
+function fOppSel(){return`<button class="sf-btn sf-bd2" onclick="st.showOppSelector=false;render()">Cancelar</button><button class="sf-btn sf-bb" onclick="confirmOpp()"><i class="ti ti-check" aria-hidden="true" style="font-size:12px"></i>Confirmar (${st.selectedOppIds.length})</button>`;}
+
+function s4(){const ac=st.selectedAccounts.length,oc=st.objectives.length;return`<div class="sf-ok-sc"><div class="sf-ok-ic"><i class="ti ti-check" aria-hidden="true"></i></div><div class="sf-ok-ti">Plan de negocio creado exitosamente</div><div class="sf-ok-su">Los registros fueron guardados en Salesforce.<br/>La pestaña <strong>Plan de Negocios</strong> fue habilitada en ${ac} cuenta(s).</div><div class="sf-metrics"><div class="sf-mt"><div class="sf-mv">1</div><div class="sf-ml">Account Plan</div></div><div class="sf-mt"><div class="sf-mv">${ac}</div><div class="sf-ml">Stakeholders</div></div><div class="sf-mt"><div class="sf-mv">${oc}</div><div class="sf-ml">Objetivo(s)</div></div></div><div class="sf-al sf-al-i" style="text-align:left"><i class="ti ti-info-circle" aria-hidden="true"></i><span>El Account Plan <strong>${st.planName}</strong> aparece en la lista relacionada de cada cuenta via <code style="font-size:10px;background:rgba(1,118,211,.1);padding:1px 4px;border-radius:3px">bc_AccountPlanRelationship__c</code>.</span></div><div style="display:flex;gap:10px;justify-content:center;margin-top:4px;flex-wrap:wrap"><button class="sf-btn sf-bb" onclick="resetAll()"><i class="ti ti-plus" aria-hidden="true" style="font-size:12px"></i>Crear otro plan</button><button class="sf-btn sf-bn" onclick="resetAll()">Ver registro <i class="ti ti-external-link" aria-hidden="true" style="font-size:12px"></i></button></div></div>`;}
+function f4(){return`<span></span><span style="font-size:11px;color:var(--sf-t3)"><i class="ti ti-check" aria-hidden="true" style="color:var(--sf-ok);font-size:12px"></i> Guardado</span>`;}
+
+function toggleAcc(id,chk){if(chk&&!st.selectedAccounts.includes(id))st.selectedAccounts.push(id);if(!chk)st.selectedAccounts=st.selectedAccounts.filter(x=>x!==id);render();}
+function removeAcc(id){st.selectedAccounts=st.selectedAccounts.filter(x=>x!==id);if(!accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length)st.showIneligible=false;render();}
+function toggleOpp(id){if(st.selectedOppIds.includes(id))st.selectedOppIds=st.selectedOppIds.filter(x=>x!==id);else st.selectedOppIds.push(id);render();}
+function confirmOpp(){st.showOppSelector=false;render();}
+function openOpp(){st.showOppSelector=true;render();}
+function go2(){if(!st.planName.trim()){alert('El nombre del plan es obligatorio.');return;}if(!st.startDate||!st.endDate){alert('Las fechas son obligatorias.');return;}st.step=2;render();}
+function goValidate(){if(!st.selectedAccounts.length){alert('Seleccione al menos una cuenta.');return;}if(accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length){st.showIneligible=true;render();return;}st.step=3;render();}
+function afterInel(){if(accounts.filter(a=>!a.eligible&&st.selectedAccounts.includes(a.id)).length){alert('Quite todas las cuentas no elegibles.');return;}st.showIneligible=false;st.step=3;render();}
+function addObj(){const g=document.getElementById('ng')?.value,t=document.getElementById('nt')?.value;if(!g){alert('Seleccione un tipo de objetivo.');return;}if(!t){alert('Ingrese la meta.');return;}const firstOpp=st.selectedOppIds.length?st.selectedOppIds[0]:null;st.objectives.push({goal:g,target:t,oppId:firstOpp,allOppIds:[...st.selectedOppIds]});st.selectedOppIds=[];render();}
+function rmObj(i){st.objectives.splice(i,1);render();}
+function finish(){if(!st.objectives.length){alert('Agregue al menos un objetivo.');return;}st.step=4;render();}
+function resetAll(){st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,prevPlan:true};render();}
+render();
+</script>
+</body>
+</html>
