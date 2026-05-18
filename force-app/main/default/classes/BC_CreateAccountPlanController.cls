@@ -1,3 +1,8 @@
+/**
+ * BC_CreateAccountPlanController
+ * AuraEnabled controller for bc_createAccountPlan LWC — Screen Flow F001.
+ * Uses FSC standard objects: AccountPlan, AccountPlanObjective, bc_AccountPlanRelationship__c.
+ */
 public with sharing class BC_CreateAccountPlanController {
 
     @AuraEnabled
@@ -13,34 +18,35 @@ public with sharing class BC_CreateAccountPlanController {
     ) {
         // Validate custom permission for Grupo Regional
         if (tipoPlan == 'Grupo_Regional' &&
-            !FeatureManagement.checkPermission('Pode_Estruturar_Estrategia_Regional')) {
+            !FeatureManagement.checkPermission('Puede_Estructurar_Estrategia_Regional')) {
             throw new AuraHandledException(
                 'Você não tem permissão para criar planos de Grupo Regional.'
             );
         }
 
-        // Create Account Plan
-        bc_AccountPlan__c plan = new bc_AccountPlan__c(
-            Name            = planName,
-            bc_Account__c   = accountId,
-            StartDate__c    = startDate,
-            EndDate__c      = endDate,
-            Notes__c        = notes,
-            bc_TipoPlano__c = tipoPlan,
-            Status__c       = 'Borrador'
+        // Create Account Plan (FSC standard object)
+        AccountPlan plan = new AccountPlan(
+            Name          = planName,
+            AccountId     = accountId,
+            StartDate     = startDate,
+            EndDate       = endDate,
+            Status        = 'Draft',
+            bc_TipoPlano__c = tipoPlan
         );
         insert plan;
 
-        // Create Stakeholders
+        // Create bc_AccountPlanRelationship__c records for participating accounts
         if (selectedAccountIds != null && !selectedAccountIds.isEmpty()) {
-            List<bc_AccountPlanStakeholder__c> stakeholders = new List<bc_AccountPlanStakeholder__c>();
+            List<bc_AccountPlanRelationship__c> relationships = new List<bc_AccountPlanRelationship__c>();
             for (Id accId : selectedAccountIds) {
-                stakeholders.add(new bc_AccountPlanStakeholder__c(
+                relationships.add(new bc_AccountPlanRelationship__c(
                     bc_AccountPlanId__c = plan.Id,
-                    bc_AccountId__c     = accId
+                    bc_AccountId__c     = accId,
+                    bc_Role__c          = 'Participante',
+                    bc_IsActive__c      = true
                 ));
             }
-            insert stakeholders;
+            insert relationships;
 
             // Enable Account Plan tab on participant accounts
             List<Account> toUpdate = new List<Account>();
@@ -50,22 +56,44 @@ public with sharing class BC_CreateAccountPlanController {
             update toUpdate;
         }
 
-        // Create Objectives
+        // Create AccountPlanObjective records (FSC standard object)
         if (String.isNotBlank(objectives)) {
             List<Object> objList = (List<Object>) JSON.deserializeUntyped(objectives);
-            List<bc_AccountPlanObjective__c> objRecords = new List<bc_AccountPlanObjective__c>();
+            List<AccountPlanObjective> objRecords = new List<AccountPlanObjective>();
             for (Object o : objList) {
                 Map<String, Object> obj = (Map<String, Object>) o;
-                objRecords.add(new bc_AccountPlanObjective__c(
-                    bc_AccountPlanId__c    = plan.Id,
-                    GoalDefinitionId__c    = (String) obj.get('goal'),
-                    TargetValue__c         = Decimal.valueOf((String) obj.get('target')),
-                    OpportunityId__c       = obj.containsKey('oppId') ? (Id) obj.get('oppId') : null
-                ));
+                AccountPlanObjective apo = new AccountPlanObjective(
+                    AccountPlanId = plan.Id,
+                    Name          = (String) obj.get('name')
+                );
+                objRecords.add(apo);
             }
-            if (!objRecords.isEmpty()) insert objRecords;
+            if (!objRecords.isEmpty()) {
+                insert objRecords;
+            }
         }
 
         return plan.Id;
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<AccountPlan> getAccountPlans(Id accountId) {
+        return [
+            SELECT Id, Name, StartDate, EndDate, Status, bc_TipoPlano__c
+            FROM AccountPlan
+            WHERE AccountId = :accountId
+            ORDER BY StartDate DESC
+            LIMIT 50
+        ];
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<bc_AccountPlanRelationship__c> getAccountPlanRelationships(Id accountPlanId) {
+        return [
+            SELECT Id, bc_AccountId__c, bc_AccountId__r.Name, bc_Role__c, bc_IsActive__c
+            FROM bc_AccountPlanRelationship__c
+            WHERE bc_AccountPlanId__c = :accountPlanId
+              AND bc_IsActive__c = true
+        ];
     }
 }

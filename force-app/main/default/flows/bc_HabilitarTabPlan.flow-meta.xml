@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>FL-004 — Record-Triggered Flow: quando um bc_AccountPlanRelationship__c é inserido, habilita bc_HasAccountPlan__c = true na conta vinculada.</description>
+    <interviewLabel>bc_HabilitarTabPlan {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>bc_HabilitarTabPlan</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Update_Account_HasPlan</targetReference>
+        </connector>
+        <object>bc_AccountPlanRelationship__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+
+    <!-- Update the Account to set bc_HasAccountPlan__c = true -->
+    <recordUpdates>
+        <name>Update_Account_HasPlan</name>
+        <label>Update Account HasAccountPlan</label>
+        <locationX>200</locationX>
+        <locationY>50</locationY>
+        <filterLogic>AND</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.bc_AccountId__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>bc_HasAccountPlan__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+</Flow>

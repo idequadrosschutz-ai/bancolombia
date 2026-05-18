@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>FL-003 — Alerta diário para AccountPlanObjectives com EndDate passado e Status != Completed.</description>
+    <interviewLabel>bc_AlertaItemsVencidos {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>bc_AlertaItemsVencidos</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Objetivos_Vencidos</targetReference>
+        </connector>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-01-01</startDate>
+            <startTime>08:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+
+    <formulas>
+        <name>f_Today</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+
+    <formulas>
+        <name>f_ObjetivoBody</name>
+        <dataType>String</dataType>
+        <expression>"El objetivo " &amp; {!var_CurrentObjetivo.Name} &amp; " está vencido"</expression>
+    </formulas>
+
+    <variables>
+        <name>col_Objetivos</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>AccountPlanObjective</objectType>
+    </variables>
+
+    <variables>
+        <name>var_CurrentObjetivo</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>AccountPlanObjective</objectType>
+    </variables>
+
+    <variables>
+        <name>col_RecipientIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+
+    <recordLookups>
+        <name>Get_Objetivos_Vencidos</name>
+        <label>Get Objetivos Vencidos</label>
+        <locationX>200</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Loop_Objetivos</targetReference>
+        </connector>
+        <filterLogic>AND</filterLogic>
+        <filters>
+            <field>EndDate</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>f_Today</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>AccountPlanObjective</object>
+        <outputReference>col_Objetivos</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>EndDate</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <storeOutputAutomatically>false</storeOutputAutomatically>
+    </recordLookups>
+
+    <loops>
+        <name>Loop_Objetivos</name>
+        <label>Loop Objetivos</label>
+        <locationX>350</locationX>
+        <locationY>50</locationY>
+        <collectionReference>col_Objetivos</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_RecipientId</targetReference>
+        </nextValueConnector>
+        <assignNextValueToReference>var_CurrentObjetivo</assignNextValueToReference>
+    </loops>
+
+    <assignments>
+        <name>Assign_RecipientId</name>
+        <label>Assign Recipient ID</label>
+        <locationX>450</locationX>
+        <locationY>50</locationY>
+        <assignmentItems>
+            <assignToReference>col_RecipientIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>var_CurrentObjetivo.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Notif_Objetivo</targetReference>
+        </connector>
+    </assignments>
+
+    <actionCalls>
+        <name>Send_Notif_Objetivo</name>
+        <label>Send Objetivo Vencido Notification</label>
+        <locationX>600</locationX>
+        <locationY>50</locationY>
+        <actionName>customNotificationAction</actionName>
+        <actionType>customNotificationAction</actionType>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Loop_Objetivos</targetReference>
+        </connector>
+        <inputParameters>
+            <name>customNotifTypeId</name>
+            <value>
+                <stringValue>bc_AlertaObjetivoVencido</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientIds</name>
+            <value>
+                <elementReference>col_RecipientIds</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>title</name>
+            <value>
+                <stringValue>Objetivo vencido</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>f_ObjetivoBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <elementReference>var_CurrentObjetivo.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+</Flow>
