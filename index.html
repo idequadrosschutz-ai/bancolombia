@@ -219,6 +219,34 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
 .rel-card-name{font-size:11px;font-weight:700;color:var(--sf-t);text-align:center}
 .rel-card-tag{background:var(--sf-blue-light);color:var(--sf-blue);font-size:10px;font-weight:600;border-radius:10px;padding:1px 7px;text-align:center;margin-top:4px;display:block}
 .add-obj-btn{width:100%;justify-content:center;margin-top:8px}
+/* Rich text editor mock */
+.rte-wrap{border:1px solid var(--sf-n3);border-radius:var(--sf-r);overflow:hidden;background:#fff}
+.rte-toolbar{background:#f4f6f9;border-bottom:1px solid var(--sf-bdr);padding:4px 6px;display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.rte-sel{border:1px solid var(--sf-n3);border-radius:3px;font-size:11px;height:22px;padding:0 4px;background:#fff;color:var(--sf-t2);font-family:inherit;cursor:pointer}
+.rte-btn{width:22px;height:22px;border:1px solid var(--sf-n3);border-radius:3px;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:var(--sf-blue);cursor:pointer;font-weight:700;font-family:serif}
+.rte-btn:hover{background:var(--sf-blue-light)}
+.rte-sep{width:1px;height:16px;background:var(--sf-n3);margin:0 2px}
+.rte-area{min-height:70px;padding:7px 9px;font-size:12px;outline:none;color:var(--sf-t);line-height:1.5}
+.rte-area:focus{box-shadow:inset 0 0 0 2px rgba(1,118,211,.18)}
+/* SWOT section */
+.swot-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.swot-form-box{border-radius:var(--sf-r);overflow:hidden}
+.swot-form-box .rte-toolbar{background:inherit}
+.swot-s-form{border:2px solid #91c590;background:#eaf5ea}
+.swot-s-form .rte-toolbar{background:#d4edda}
+.swot-w-form{border:2px solid #f5e5a0;background:#fffbea}
+.swot-w-form .rte-toolbar{background:#fdf4d0}
+.swot-o-form{border:2px solid #9fd6ff;background:#e8f4fd}
+.swot-o-form .rte-toolbar{background:#d0eafc}
+.swot-t-form{border:2px solid #f5b5b5;background:#fff1ef}
+.swot-t-form .rte-toolbar{background:#fcd8d4}
+.swot-form-label{font-size:11px;font-weight:700;padding:5px 8px 0;display:block}
+.swot-s-form .swot-form-label{color:#2e7a2e}
+.swot-w-form .swot-form-label{color:#7a6000}
+.swot-o-form .swot-form-label{color:#014486}
+.swot-t-form .swot-form-label{color:#ba0517}
+/* Section header like SF new record form */
+.form-section-hdr{font-size:14px;font-weight:700;color:var(--sf-t);padding:10px 0 8px;border-bottom:1px solid var(--sf-bdr);margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -359,14 +387,14 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
         <div class="rec-section">
           <div class="rec-section-hdr">
             <i class="ti ti-chevron-down" style="font-size:13px;color:var(--sf-t3)"></i>
-            <h4>Análisis SWOT</h4>
+            <h4>SWOT Analysis</h4>
           </div>
           <div class="rec-section-body">
             <div class="swot-grid">
-              <div class="swot-box swot-s"><div class="swot-label">Fortalezas</div>Posición dominante en banca corporativa en la región andina</div>
-              <div class="swot-box swot-w"><div class="swot-label">Debilidades</div>Dependencia de financiamiento externo para grandes proyectos</div>
-              <div class="swot-box swot-o"><div class="swot-label">Oportunidades</div>Expansión a nuevos mercados y digitalización de servicios financieros</div>
-              <div class="swot-box swot-t"><div class="swot-label">Amenazas</div>Volatilidad cambiaria y presión regulatoria regional</div>
+              <div class="swot-box swot-s"><div class="swot-label">Fortalezas</div><div id="rv-swotS" style="font-size:12px"></div></div>
+              <div class="swot-box swot-w"><div class="swot-label">Debilidades</div><div id="rv-swotW" style="font-size:12px"></div></div>
+              <div class="swot-box swot-o"><div class="swot-label">Oportunidades</div><div id="rv-swotO" style="font-size:12px"></div></div>
+              <div class="swot-box swot-t"><div class="swot-label">Amenazas</div><div id="rv-swotT" style="font-size:12px"></div></div>
             </div>
           </div>
         </div>
@@ -375,13 +403,13 @@ body{font-family:Arial,sans-serif;background:#f3f3f3;font-size:13px;color:var(--
         <div class="rec-section">
           <div class="rec-section-hdr">
             <i class="ti ti-chevron-down" style="font-size:13px;color:var(--sf-t3)"></i>
-            <h4>Panorama Competitivo</h4>
+            <h4>Competitive Landscape</h4>
           </div>
           <div class="rec-section-body">
             <div class="rec-fields">
-              <div class="rec-field"><div class="rec-field-label">Fortalezas competitivas</div><div class="rec-field-val">Marca reconocida, red amplia, productos diversificados</div></div>
-              <div class="rec-field"><div class="rec-field-label">Debilidades competitivas</div><div class="rec-field-val">Tiempo de respuesta en crédito empresarial</div></div>
-              <div class="rec-field" style="grid-column:1/-1"><div class="rec-field-label">Competidores</div><div class="rec-field-val">Davivienda · BBVA Colombia · Banco de Bogotá</div></div>
+              <div class="rec-field"><div class="rec-field-label">Fortalezas competitivas</div><div class="rec-field-val" id="rv-compS">—</div></div>
+              <div class="rec-field"><div class="rec-field-label">Debilidades competitivas</div><div class="rec-field-val" id="rv-compW">—</div></div>
+              <div class="rec-field" style="grid-column:1/-1"><div class="rec-field-label">Competidores</div><div class="rec-field-val" id="rv-compC">—</div></div>
             </div>
           </div>
         </div>
@@ -460,6 +488,9 @@ let st={
   step:1,accountType:'grupo_local',
   planName:'Plan Comercial 2025 — Grupo Andino',
   startDate:'2025-01-01',endDate:'2025-12-31',notes:'',
+  accountVision:'',callingStrategy:'',planStatus:'Not Started',riskRating:'',flexcard:'',relSummary:'',
+  swot:{S:'',W:'',O:'',T:''},
+  comp:{S:'',W:'',C:''},
   selectedAccounts:[0,1,2],objectives:[],
   selectedOppIds:[],showIneligible:false,
   showOppSelector:false,showDecision:false,showObjForm:false,
@@ -507,16 +538,150 @@ function render(){
   else if(st.step===3&&!st.showDecision&&!st.showObjForm){b.innerHTML=s3List();f.innerHTML=f3List();}
 }
 
+/* ── RICH TEXT EDITOR MOCK ── */
+function rte(id,placeholder,val){
+  return`<div class="rte-wrap">
+    <div class="rte-toolbar">
+      <select class="rte-sel" style="width:96px"><option>Salesforce Sans</option></select>
+      <select class="rte-sel" style="width:42px"><option>13</option><option>11</option><option>14</option><option>16</option></select>
+      <select class="rte-sel" style="width:36px;padding:0 2px"><option style="background:#222;color:#fff">■</option></select>
+      <div class="rte-sep"></div>
+      <button class="rte-btn" onclick="rteCmd('bold')" title="Bold"><b>B</b></button>
+      <button class="rte-btn" onclick="rteCmd('italic')" title="Italic" style="font-style:italic"><i>I</i></button>
+      <button class="rte-btn" onclick="rteCmd('underline')" title="Underline" style="text-decoration:underline">U</button>
+      <button class="rte-btn" title="Strikethrough" style="text-decoration:line-through">S</button>
+      <div class="rte-sep"></div>
+      <button class="rte-btn" title="Unordered list"><i class="ti ti-list" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Ordered list"><i class="ti ti-list-numbers" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Indent"><i class="ti ti-indent-increase" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Outdent"><i class="ti ti-indent-decrease" style="font-size:11px"></i></button>
+      <div class="rte-sep"></div>
+      <button class="rte-btn" title="Align left"><i class="ti ti-align-left" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Align center"><i class="ti ti-align-center" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Align right"><i class="ti ti-align-right" style="font-size:11px"></i></button>
+      <div class="rte-sep"></div>
+      <button class="rte-btn" title="Link"><i class="ti ti-link" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Image"><i class="ti ti-photo" style="font-size:11px"></i></button>
+      <button class="rte-btn" title="Clear format"><i class="ti ti-clear-formatting" style="font-size:11px"></i></button>
+    </div>
+    <div class="rte-area" id="${id}" contenteditable="true" data-placeholder="${placeholder}" oninput="syncRte('${id}')">${val||''}</div>
+  </div>`;
+}
+function syncRte(id){const el=document.getElementById(id);if(!el)return;const map={'rte-accountVision':'accountVision','rte-notes':'notes','rte-callingStrategy':'callingStrategy','rte-relSummary':'relSummary','rte-swotS':'S','rte-swotW':'W','rte-swotO':'O','rte-swotT':'T','rte-compS':'S','rte-compW':'W','rte-compC':'C'};const v=el.innerHTML;if(['rte-swotS','rte-swotW','rte-swotO','rte-swotT'].includes(id))st.swot[map[id]]=v;else if(['rte-compS','rte-compW','rte-compC'].includes(id))st.comp[map[id]]=v;else if(map[id])st[map[id]]=v;}
+function rteCmd(cmd){document.execCommand(cmd,false,null);}
+
 /* ── STEP 1 ── */
 function s1(){
   return`<div class="sf-body">
+  <div style="font-size:11px;color:var(--sf-t3);text-align:right;margin-bottom:8px"><span class="sf-req">*</span> = Información obligatoria</div>
   <div class="sf-rh"><div class="sf-ric">GA</div><div><div class="sf-rn">Grupo Empresarial Andino</div><div class="sf-rm"><span>ID: 0011X00002bGa7Q</span><span style="color:#ccc">|</span><span class="sf-pill ${typePill()}">${typeLabel()}</span><span style="color:#ccc">|</span><span>NIT 900.123.456-1</span></div></div></div>
   ${st.prevPlan?`<div class="sf-al sf-al-i"><i class="ti ti-history"></i><span>Plan anterior detectado. Datos precargados desde <strong>Plan Comercial 2024</strong>.</span></div>`:''}
-  <div class="sf-sec"><i class="ti ti-info-circle" style="font-size:13px"></i>Información básica</div>
-  <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Nombre del plan <span class="sf-req">*</span></div><input class="sf-inp" id="fn" value="${st.planName}" oninput="st.planName=this.value"/></div></div>
-  <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Fecha inicio <span class="sf-req">*</span></div><input class="sf-inp" type="date" value="${st.startDate}" oninput="st.startDate=this.value"/></div><div class="sf-fe"><div class="sf-lbl">Fecha fin <span class="sf-req">*</span></div><input class="sf-inp" type="date" value="${st.endDate}" oninput="st.endDate=this.value"/></div></div>
-  <div class="sf-gr"><div class="sf-fe"><div class="sf-lbl">Estado</div><input class="sf-inp sf-ro" readonly value="Borrador"/><span class="sf-auto"><i class="ti ti-bolt" style="font-size:10px"></i>Auto: Status__c</span></div><div class="sf-fe"><div class="sf-lbl">Tipo de plan</div><input class="sf-inp sf-ro" readonly value="${typeLabel()}"/><span class="sf-auto"><i class="ti ti-bolt" style="font-size:10px"></i>Auto: bc_TipoPlano__c</span></div></div>
-  <div class="sf-gr f"><div class="sf-fe"><div class="sf-lbl">Observaciones</div><textarea class="sf-ta" placeholder="Opcional..." oninput="st.notes=this.value">${st.notes}</textarea></div></div>
+
+  <!-- Account Plan Information -->
+  <div class="form-section-hdr">Account Plan Information</div>
+  <div class="sf-gr">
+    <div class="sf-fe"><div class="sf-lbl">Nombre del plan <span class="sf-req">*</span></div><input class="sf-inp ${st.planName?'':'sf-inp-err'}" id="fn" value="${st.planName}" oninput="st.planName=this.value" placeholder="Nombre del plan"/></div>
+    <div class="sf-fe"><div class="sf-lbl">Cuenta <span class="sf-req">*</span></div><div style="position:relative"><input class="sf-inp sf-ro" readonly value="Grupo Empresarial Andino"/><i class="ti ti-x" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--sf-n4);font-size:13px;cursor:pointer"></i></div></div>
+  </div>
+  <div class="sf-gr">
+    <div class="sf-fe"><div class="sf-lbl">Fecha inicio</div><input class="sf-inp" type="date" value="${st.startDate}" oninput="st.startDate=this.value"/></div>
+    <div class="sf-fe"><div class="sf-lbl">Fecha fin</div><input class="sf-inp" type="date" value="${st.endDate}" oninput="st.endDate=this.value"/></div>
+  </div>
+  <div class="sf-gr">
+    <div class="sf-fe">
+      <div class="sf-lbl">Visión de cuenta</div>
+      ${rte('rte-accountVision','Visión de la cuenta...',st.accountVision)}
+    </div>
+    <div class="sf-fe">
+      <div class="sf-lbl">Observaciones</div>
+      ${rte('rte-notes','Observaciones...',st.notes)}
+    </div>
+  </div>
+  <div class="sf-gr">
+    <div class="sf-fe">
+      <div class="sf-lbl">Estado</div>
+      <select class="sf-sel" onchange="st.planStatus=this.value">
+        <option ${st.planStatus==='Not Started'?'selected':''}>Not Started</option>
+        <option ${st.planStatus==='En progreso'?'selected':''}>En progreso</option>
+        <option ${st.planStatus==='Completado'?'selected':''}>Completado</option>
+      </select>
+    </div>
+    <div class="sf-fe">
+      <div class="sf-lbl">Estrategia de contacto</div>
+      ${rte('rte-callingStrategy','Estrategia...',st.callingStrategy)}
+    </div>
+  </div>
+  <div class="sf-gr">
+    <div class="sf-fe">
+      <div class="sf-lbl">Clasificación de riesgo interno</div>
+      <select class="sf-sel" onchange="st.riskRating=this.value">
+        <option value="">--Ninguno--</option>
+        <option ${st.riskRating==='Bajo'?'selected':''}>Bajo</option>
+        <option ${st.riskRating==='Medio'?'selected':''}>Medio</option>
+        <option ${st.riskRating==='Alto'?'selected':''}>Alto</option>
+      </select>
+    </div>
+    <div class="sf-fe">
+      <div class="sf-lbl">Tipo de plan</div>
+      <input class="sf-inp sf-ro" readonly value="${typeLabel()}"/>
+      <span class="sf-auto"><i class="ti ti-bolt" style="font-size:10px"></i>Auto: bc_TipoPlano__c</span>
+    </div>
+  </div>
+  <div class="sf-gr f">
+    <div class="sf-fe">
+      <div class="sf-lbl">Flexcard</div>
+      <input class="sf-inp" placeholder="" oninput="st.flexcard=this.value" value="${st.flexcard||''}"/>
+    </div>
+  </div>
+
+  <!-- SWOT Analysis -->
+  <div class="form-section-hdr" style="margin-top:16px">SWOT Analysis</div>
+  <div class="swot-form-grid">
+    <div class="swot-form-box swot-s-form">
+      <span class="swot-form-label">Fortalezas</span>
+      ${rte('rte-swotS','Fortalezas...',st.swot.S).replace('rte-wrap','rte-wrap').replace('border:1px solid var(--sf-n3);','border:none;')}
+    </div>
+    <div class="swot-form-box swot-w-form">
+      <span class="swot-form-label">Debilidades</span>
+      ${rte('rte-swotW','Debilidades...',st.swot.W).replace('border:1px solid var(--sf-n3);','border:none;')}
+    </div>
+    <div class="swot-form-box swot-o-form">
+      <span class="swot-form-label">Oportunidades</span>
+      ${rte('rte-swotO','Oportunidades...',st.swot.O).replace('border:1px solid var(--sf-n3);','border:none;')}
+    </div>
+    <div class="swot-form-box swot-t-form">
+      <span class="swot-form-label">Amenazas</span>
+      ${rte('rte-swotT','Amenazas...',st.swot.T).replace('border:1px solid var(--sf-n3);','border:none;')}
+    </div>
+  </div>
+
+  <!-- Competitive Landscape -->
+  <div class="form-section-hdr" style="margin-top:16px">Competitive Landscape</div>
+  <div class="sf-gr">
+    <div class="sf-fe">
+      <div class="sf-lbl">Fortalezas competitivas</div>
+      ${rte('rte-compS','Fortalezas...',st.comp.S)}
+    </div>
+    <div class="sf-fe">
+      <div class="sf-lbl">Debilidades competitivas</div>
+      ${rte('rte-compW','Debilidades...',st.comp.W)}
+    </div>
+  </div>
+  <div class="sf-gr f">
+    <div class="sf-fe">
+      <div class="sf-lbl">Competidores</div>
+      ${rte('rte-compC','Competidores...',st.comp.C)}
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="form-section-hdr" style="margin-top:16px">Summary</div>
+  <div class="sf-gr f">
+    <div class="sf-fe">
+      <div class="sf-lbl">Resumen de la relación</div>
+      ${rte('rte-relSummary','Resumen...',st.relSummary)}
+    </div>
+  </div>
   </div>`;
 }
 function f1(){return`<button class="sf-btn sf-bd2" onclick="resetAll()">Cancelar</button><button class="sf-btn sf-bb" onclick="go2()">Siguiente <i class="ti ti-arrow-right" style="font-size:12px"></i></button>`;}
@@ -685,7 +850,16 @@ function renderRecord(){
   document.getElementById('rf-start').textContent=fmtDate(st.startDate);
   document.getElementById('rf-end').textContent=fmtDate(st.endDate);
   document.getElementById('rf-tipo').textContent=typeLabel();
-  document.getElementById('rf-notes').textContent=st.notes||'—';
+  document.getElementById('rf-notes').innerHTML=st.notes||'—';
+  // SWOT
+  document.getElementById('rv-swotS').innerHTML=st.swot.S||'<span style="color:var(--sf-t3);font-style:italic">—</span>';
+  document.getElementById('rv-swotW').innerHTML=st.swot.W||'<span style="color:var(--sf-t3);font-style:italic">—</span>';
+  document.getElementById('rv-swotO').innerHTML=st.swot.O||'<span style="color:var(--sf-t3);font-style:italic">—</span>';
+  document.getElementById('rv-swotT').innerHTML=st.swot.T||'<span style="color:var(--sf-t3);font-style:italic">—</span>';
+  // Competitive
+  document.getElementById('rv-compS').innerHTML=st.comp.S||'—';
+  document.getElementById('rv-compW').innerHTML=st.comp.W||'—';
+  document.getElementById('rv-compC').innerHTML=st.comp.C||'—';
   document.getElementById('rec-start').textContent=fmtDate(st.startDate);
   document.getElementById('rec-end').textContent=fmtDate(st.endDate);
   document.getElementById('rf-stakeholders').textContent=st.selectedAccounts.map(id=>accounts.find(a=>a.id===id)?.name).filter(Boolean).join(', ')||'—';
@@ -744,7 +918,7 @@ function addMoreObj(){
   st.selectedOppIds=[];render();
 }
 function resetAll(){
-  st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,showDecision:false,showObjForm:false,prevPlan:true,objForm:{name:'',desc:'',startDate:'',endDate:'',owner:'',calcDef:'None',valueType:'None'}};
+  st={step:1,accountType:'grupo_local',planName:'Plan Comercial 2025 — Grupo Andino',startDate:'2025-01-01',endDate:'2025-12-31',notes:'',accountVision:'',callingStrategy:'',planStatus:'Not Started',riskRating:'',flexcard:'',relSummary:'',swot:{S:'',W:'',O:'',T:''},comp:{S:'',W:'',C:''},selectedAccounts:[0,1,2],objectives:[],selectedOppIds:[],showIneligible:false,showOppSelector:false,showDecision:false,showObjForm:false,prevPlan:true,objForm:{name:'',desc:'',startDate:'',endDate:'',owner:'',calcDef:'None',valueType:'None'}};
   render();
 }
 render();
